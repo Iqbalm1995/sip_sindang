@@ -1,0 +1,44 @@
+* {
+  font-family: "Poppins";
+}
+body {
+  background-image: url(../../../../img/background_login.png);
+}
+.container {
+  margin: 50px 0;
+}
+.card {
+  text-align: center;
+  box-shadow: 0 10px 10px #aaa;
+}
+.imglogin {
+  width: auto;
+  margin: auto;
+}
+.form {
+  vertical-align: middle;
+}
+.form-control {
+  width: 75%;
+  background-color: #e9ffea;
+  color: #01a793;
+  border: 1px solid #01a793;
+  box-sizing: border-box;
+}
+.btn {
+  width: 75%;
+  background-color: #01a793;
+  margin: 10px 0;
+  color: #ffffff;
+  font-size: 13px;
+}
+h2 {
+  color: #1f4444;
+  font-weight: 900;
+}
+a {
+  color: black;
+}
+h6 {
+  color: #105c53;
+}
