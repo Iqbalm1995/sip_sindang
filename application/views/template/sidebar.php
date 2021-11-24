@@ -1,6 +1,6 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
-        <div class="sidebar-brand sidebar-gone-show"><a href="<?= base_url(); ?>">Baymaks</a></div>
+        <div class="sidebar-brand sidebar-gone-show"><a href="<?= base_url(); ?>">SIP SINDANG</a></div>
 
         <!-- active menu dynamic -->
         <ul class="sidebar-menu">

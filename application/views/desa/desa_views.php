@@ -16,11 +16,11 @@
             <h4>Example Card</h4>
             </div> -->
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="">
                     <table id="datatable_desa" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="width:5%;"><div class="text-center">#</div></th>
+                                <th style="width:5%;" class="text-center">No</th>
                                 <th>Nama</th>
                                 <th style="width:20%;">Status</th>
                                 <th style="width:18%;">Opsi</th>
@@ -56,7 +56,11 @@
 
         //datatables
         table = $('#datatable_desa').DataTable({ 
-
+            "responsive": {
+                details: {
+                    type: 'inline'
+                }
+            },
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
