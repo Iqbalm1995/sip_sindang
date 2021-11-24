@@ -18,6 +18,7 @@ class Blank extends CI_Controller {
 	{
         // head data
         $head['title_page'] = 'Blank Page';
+        $head['menu_active'] = 'blank';
 
         // body data
         $data['pages_caption'] = 'Blank Page';

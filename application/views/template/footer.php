@@ -28,16 +28,11 @@
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/sweetalert/sweetalert.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/sticky-kit.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>modules/datatables/datatables.min.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>modules/jquery-ui/jquery-ui.min.js"></script>
 
   <!-- Page Specific JS File -->
   <script src="<?=base_url('/assets/theme/stisla/');?>js/page/modules-sweetalert.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/select2/dist/js/select2.full.min.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>js/page/modules-datatables.js"></script>
 
   <!-- Template JS File -->
   <script src="<?=base_url('/assets/theme/stisla/');?>js/scripts.js"></script>
