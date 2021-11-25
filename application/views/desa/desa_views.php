@@ -11,6 +11,12 @@
     <div class="section-body">
         <!-- <h2 class="section-title">This is Example Page</h2>
         <p class="section-lead">This page is just an example for you to create your own page.</p> -->
+        <div class="text-left pb-4">
+            <a class="btn btn-primary tombolfull" href="<?= base_url('desa/add'); ?>">
+                <i class="fas fa-plus"></i> Tambah Desa</a>
+            <button class="btn btn-light tombolfull" onclick="reload_table()">
+                <i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
         <div class="card">
             <!-- <div class="card-header">
             <h4>Example Card</h4>
@@ -123,6 +129,53 @@
     function reload_table()
     {
         table.ajax.reload(null,false); //reload datatable ajax 
+    }
+
+    function delete_desa(id)
+    {
+
+        $.ajax({
+            url : "<?= base_url('desa/get_data_desa_json')?>/" + id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(readData)
+            {
+                swal({
+                    title: 'Menhapus data',
+                    text: 'Apakah anda yakin akan menghapus data Desa "'+ readData.nama +'" ?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url : "<?= base_url('desa/delete')?>/" + id,
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function(data)
+                            {
+                                swal('Data Desa "'+ readData.nama +'" berhasil dihapus!', {
+                                    icon: 'success',
+                                });
+                                reload_table()
+                            },
+                            error: function (jqXHR, textStatus, errorThrown)
+                            {
+                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data desa!', 'error');
+                            }
+                        });
+
+                    } else {
+                        swal('Data tidak jadi dihapus!');
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data desa!', 'error');
+            }
+        });
     }
 
 </script>

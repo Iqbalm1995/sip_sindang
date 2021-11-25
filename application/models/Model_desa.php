@@ -15,6 +15,15 @@ class Model_desa extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_desa()
+	{
+		$this->db->from($this->t_desa);
+		$this->db->where('status', 1);
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	private function _get_datatables_query()
 	{
 		//add custom filter here
@@ -84,6 +93,7 @@ class Model_desa extends CI_Model {
 	public function count_all()
 	{
 		$this->db->from($this->t_desa);
+		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
 	}
 
@@ -91,6 +101,7 @@ class Model_desa extends CI_Model {
 	{
 		$this->db->from($this->t_desa);
 		$this->db->where('id',$id);
+		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -98,14 +109,18 @@ class Model_desa extends CI_Model {
 
 	public function save($data)
 	{
-		$this->db->insert($this->t_desa, $data);
-		return $this->db->insert_id();
+		$this->db->trans_start();
+		$save = $this->db->insert($this->t_desa, $data);
+		$this->db->trans_complete();
+		return $save;
 	}
 
 	public function update($where, $data)
 	{
-		$this->db->update($this->t_desa, $data, $where);
-		return $this->db->affected_rows();
+		$this->db->trans_start();
+		$save = $this->db->update($this->t_desa, $data, $where);
+		$this->db->trans_complete();
+		return $save;
 	}
 
 	public function delete_by_id($id)

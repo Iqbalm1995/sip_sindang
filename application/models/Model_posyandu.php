@@ -16,6 +16,27 @@ class Model_posyandu extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_posyandu()
+	{
+        $this->db->select('pos.id as id, 
+                            pos.desa_id as desa_id, 
+                            pos.nama as nama, 
+                            des.nama as desa, 
+                            pos.status as status, 
+                            pos.created_by as created_by, 
+                            pos.created_on as created_on,
+                            pos.updated_by as updated_by,
+                            pos.updated_on as updated_on,
+                            pos.deleted as deleted
+                         ');
+		$this->db->from($this->t_posyandu.' pos');
+        $this->db->join($this->t_desa.' des', 'des.id = pos.desa_id');
+		$this->db->where('pos.status', 1);
+		$this->db->where('pos.deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	private function _get_datatables_query()
 	{
 		//add custom filter here
@@ -101,6 +122,7 @@ class Model_posyandu extends CI_Model {
 	public function count_all()
 	{
 		$this->db->from($this->t_posyandu);
+		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
 	}
 
@@ -108,6 +130,7 @@ class Model_posyandu extends CI_Model {
 	{
 		$this->db->from($this->t_posyandu);
 		$this->db->where('id',$id);
+		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -115,14 +138,18 @@ class Model_posyandu extends CI_Model {
 
 	public function save($data)
 	{
-		$this->db->insert($this->t_posyandu, $data);
-		return $this->db->insert_id();
+		$this->db->trans_start();
+		$save = $this->db->insert($this->t_posyandu, $data);
+		$this->db->trans_complete();
+		return $save;
 	}
 
 	public function update($where, $data)
 	{
-		$this->db->update($this->t_posyandu, $data, $where);
-		return $this->db->affected_rows();
+		$this->db->trans_start();
+		$save = $this->db->update($this->t_posyandu, $data, $where);
+		$this->db->trans_complete();
+		return $save;
 	}
 
 	public function delete_by_id($id)
