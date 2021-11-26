@@ -13,8 +13,6 @@
     <div class="text-left pb-4">
         <a class="btn btn-primary tombolfull" href="<?= base_url('desa'); ?>">
             <i class="fas fa-arrow-left"></i> Kembali</a>
-        <button class="btn btn-light tombolfull" type="reset">
-            <i class="fas fa-sync"></i> Reset</button>
     </div>
     <div class="card">
         <form id="form" action="#" method="post" enctype="multipart/form-data">
@@ -22,11 +20,12 @@
             <input type="hidden" name="save_method" value="<?= $aksi; ?>">
             <div class="card-body">
                 <div class="form-group">
-                      <label>Nama Desa</label>
-                      <input type="text" name="nama_desa" class="form-control col-md-6" placeholder="Isi nama desa..." value="<?= $nama_desa; ?>" required>
+                      <label>Nama Desa <span class="text-danger">*</span></label>
+                      <input type="text" name="nama_desa" id="nama_desa" class="form-control col-md-6" placeholder="Isi nama desa..." value="<?= $nama_desa; ?>" required>
+                      <div class="invalid-feedback" id="nama_desa_inv"></div>
                 </div>
                 <div class="form-group">
-                    <div class="control-label">Status</div>
+                    <div class="control-label">Status <span class="text-danger">*</span></div>
                     <label class="custom-switch mt-2">
                     <input type="checkbox" name="status_desa" <?= ( $status_desa == 1 ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                     <span class="custom-switch-indicator"></span>
@@ -35,6 +34,8 @@
                 </div>
             </div>
             <div class="card-footer bg-whitesmoke text-right">
+                <button class="btn btn-light btn-lg tombolfull" type="reset">
+                    <i class="fas fa-sync"></i> Reset</button>
                 <button class="btn btn-primary btn-lg tombolfull" type="button" id="btnSave" onclick="save()">
                     <i class="far fa-save"></i> Simpan</button>
             </div>
@@ -49,6 +50,13 @@
             
     function save()
     {
+
+        var validation = _validation();
+        if (validation == false) {
+            swal('Perhatian', 'Isi form dengan lengkap!', 'warning');
+            return
+        }
+
         $('#btnSave').text('Menyimpan...');
         $('#btnSave').attr('disabled',true);
 
@@ -85,4 +93,25 @@
         });
         
     }
+
+    function _validation() {
+        var status = true;
+
+        if ($("#nama_desa").val() == "") {
+            status = false;
+            $("#nama_desa").addClass('is-invalid');
+            $("#nama_desa_inv").text('Nama desa masih kosong');
+        }
+
+        return status
+    }
+
+    $("#nama_desa").keyup(function(){
+        if ($("#nama_desa").val() != "") {
+            $("#nama_desa").removeClass('is-invalid');
+            $("#nama_desa_inv").text('');
+        }
+    });
+
+
 </script>

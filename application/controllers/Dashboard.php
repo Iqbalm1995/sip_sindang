@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Blank extends CI_Controller {
+class Dashboard extends CI_Controller {
 
     public function __construct()
     {
         parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
 
+		$this->load->model('Model_global','Model_global');
         /* Restrict user */
         if($this->session->userdata('login_status') != "login_active"){
 			redirect(base_url().'login');
@@ -17,14 +18,14 @@ class Blank extends CI_Controller {
 	public function index()
 	{
         // head data
-        $head['title_page'] = 'Blank Page';
-        $head['menu_active'] = 'blank';
+        $head['title_page'] = 'Dashboard';
+        $head['menu_active'] = 'dashboard';
 
         // body data
-        $data['pages_caption'] = 'Blank Page';
+        $data['pages_caption'] = 'Dashboard';
         
 		$this->load->view('template/header', $head);
-        $this->load->view('blank/blank_views', $data);
+        $this->load->view('dashboard/dashboard_views', $data);
         $this->load->view('template/footer');
 	}
 }

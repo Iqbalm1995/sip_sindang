@@ -14,9 +14,13 @@ class Posyandu extends CI_Controller {
 		$this->load->model('Model_global','Model_global');
 
         /* Restrict user */
-        // if($this->session->userdata('status') != "login_active"){
-		// 	redirect(base_url().'admin');
-		// }
+        if($this->session->userdata('login_status') != "login_active"){
+			redirect(base_url().'login');
+		}
+
+		if (!in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) {
+			redirect(base_url().'dashboard');
+		}
     }
 
 	public function index()

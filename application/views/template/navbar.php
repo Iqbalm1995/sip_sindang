@@ -14,7 +14,7 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <div class="d-sm-none d-lg-inline-block">Selamat Datang, <strong> Indra Yudha</strong> &nbsp;</div>
+              <div class="d-sm-none d-lg-inline-block">Selamat Datang, <strong> <?= $this->session->userdata('nama') ?></strong> &nbsp;</div>
               <img alt="image" src="<?=base_url('/assets/theme/stisla/');?>img/avatar/avatar-1.png" class="rounded-circle mr-1">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -22,7 +22,7 @@
                 <i class="fas fa-cog"></i> Ganti Password
               </a> -->
               <!-- <div class="dropdown-divider"></div> -->
-              <a href="<?= base_url('login/logout');?>" class="dropdown-item has-icon text-danger">
+              <a href="<?= base_url('login/do_logout');?>" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
