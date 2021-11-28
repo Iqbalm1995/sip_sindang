@@ -1,9 +1,11 @@
     <nav class="navbar navbar-expand-lg main-navbar">
-        <a href="<?=base_url();?>" class="navbar-brand sidebar-gone-hide">SIP SINDANG</a>
+        <ul class="navbar-nav mr-3">
+          <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+        </ul>
+        <a href="<?=base_url();?>" class="navbar-brand sidebar-gone-hide"><?= $this->session->userdata('pos_name'); ?></a>
         <!-- <a href="<?=base_url();?>">
             <img alt="image" src="<?=base_url('/assets/img/');?>/logo-horizontal.png" class="sidebar-gone-hide mr-1">
         </a> -->
-        <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
         <div class="nav-collapse">
         </div>
         <form class="form-inline ml-auto">

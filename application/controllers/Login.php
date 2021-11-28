@@ -14,16 +14,20 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-        // head data
-        $data['title_page'] = 'Login';
-        $data['menu_active'] = 'Login';
-
-        // body data
-        $data['pages_caption'] = 'Login';
-        
-		// $this->load->view('template/header', $head);
-        $this->load->view('login/login_views', $data);
-        // $this->load->view('template/footer');
+        if($this->session->userdata('login_status') == "login_active"){
+			redirect(base_url().'dashboard');
+		}else{
+            // head data
+            $data['title_page'] = 'Login';
+            $data['menu_active'] = 'Login';
+    
+            // body data
+            $data['pages_caption'] = 'Login';
+            
+            // $this->load->view('template/header', $head);
+            $this->load->view('login/login_views', $data);
+            // $this->load->view('template/footer');
+        }
 	}
 
     public function do_login()
@@ -42,6 +46,8 @@ class Login extends CI_Controller {
                         'role_name' => $get_user->role_name, 
                         'pos_id' => $get_user->pos_id, 
                         'pos_name' => $get_user->pos_name, 
+                        'desa_id' => $get_user->desa_id,
+                        'desa' => $get_user->desa,
                         'username' => $get_user->username, 
                         'email' => $get_user->email, 
                         'nama' => $get_user->nama, 

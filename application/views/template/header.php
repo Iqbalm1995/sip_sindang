@@ -44,7 +44,7 @@
   <script src="<?=base_url('/assets/theme/stisla/');?>js/page/modules-datatables.js"></script>
 </head>
 
-<body class="layout-2">
+<body class="layout-1">
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>

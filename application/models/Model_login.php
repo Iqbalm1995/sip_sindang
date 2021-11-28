@@ -6,6 +6,7 @@ class Model_login extends CI_Model {
 	private $t_users		= 'usr_users';
     private $t_roles		= 'usr_roles';
 	private $t_posyandu		= 'pos_posyandu';
+    private $t_desa		    = 'mst_desa';
 
     public function __construct()
 	{
@@ -20,6 +21,8 @@ class Model_login extends CI_Model {
                             rol.name AS role_name,
                             usr.pos_id AS pos_id, 
                             pos.nama AS pos_name, 
+                            pos.desa_id as desa_id, 
+                            des.nama as desa, 
                             usr.username AS username, 
                             usr.email AS email, 
                             usr.nama AS nama, 
@@ -34,6 +37,7 @@ class Model_login extends CI_Model {
 		$this->db->from($this->t_users.' usr');
         $this->db->join($this->t_roles.' rol', 'rol.id = usr.role_id');
         $this->db->join($this->t_posyandu.' pos', 'pos.id = usr.pos_id', 'left');
+        $this->db->join($this->t_desa.' des', 'des.id = pos.desa_id', 'left');
 		$this->db->where('usr.status', 1);   
 		$this->db->where('rol.status', 1);    
 		$this->db->where('usr.deleted', 0);    

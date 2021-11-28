@@ -1,7 +1,13 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
-        <div class="sidebar-brand sidebar-gone-show"><a href="<?= base_url(); ?>">SIP SINDANG</a></div>
-
+        <!-- <div class="sidebar-brand sidebar-gone-show"><a href="<?= base_url(); ?>">SIP SINDANG</a></div> -->
+        
+        <div class="sidebar-brand">
+            <a href="<?= base_url(); ?>">SIP SINDANG</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="<?= base_url(); ?>">SIP</a>
+        </div>
         <!-- active menu dynamic -->
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -15,9 +21,9 @@
             </li> -->
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_SUBLV1)) { ?>
                 <li class="menu-header">Data Posyandu</li>
-                <li><a class="nav-link" href="#"><i class="fas fa-female"></i> <span>Bumil</span></a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-baby"></i> <span>Bayi</span></a></li>
-                <li><a class="nav-link" href="#"><i class="fas fa-child"></i> <span>Balita</span></a></li>
+                <li <?=( $menu_active == 'bumil' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a></li>
+                <li <?=( $menu_active == 'bayi' ? 'class="active"' : '' );?>><a class="nav-link" href="#"><i class="fas fa-baby"></i> <span>Bayi</span></a></li>
+                <li <?=( $menu_active == 'balita' ? 'class="active"' : '' );?>><a class="nav-link" href="#"><i class="fas fa-child"></i> <span>Balita</span></a></li>
             <?php } ?>
             
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>

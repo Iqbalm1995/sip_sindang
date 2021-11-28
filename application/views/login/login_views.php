@@ -36,7 +36,7 @@
             <div class="offset-md-2 col-md-8 offset-md-2">
                 <div class="login-brand">
                 <!-- <img src="<?=base_url('/assets/theme/stisla/');?>img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle"> -->
-                <h4>SISTEM INFORMASI POSYANDU SINDANG</h4>
+                <h4>SISTEM INFORMASI POSYANDU SINDANG <?= print_r($this->session->userdata('remember_me')) ?></h4>
             </div>
         </div>
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">

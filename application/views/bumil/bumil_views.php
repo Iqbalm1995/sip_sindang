@@ -1,18 +1,17 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Pengguna</h1>
+    <h1>Data Ibu Hamil</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active">Pengguna</div>
+        <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
+        <div class="breadcrumb-item">Ibu Hamil</div>
     </div>
     </div>
 
     <div class="section-body">
-        <!-- <h2 class="section-title">This is Example Page</h2>
-        <p class="section-lead">This page is just an example for you to create your own page.</p> -->
         <div class="text-left pb-4">
-            <a class="btn btn-primary tombolfull" href="<?= base_url('users/add'); ?>">
-                <i class="fas fa-plus"></i> Tambah Pengguna</a>
+            <a class="btn btn-primary tombolfull" href="<?= base_url('bumil/add'); ?>">
+                <i class="fas fa-plus"></i> Tambah Data Bumil</a>
             <button class="btn btn-light tombolfull" onclick="reload_table()">
                 <i class="fas fa-sync-alt"></i> Refresh</button>
             <a class="btn btn-info tombolfull" role="button" data-toggle="collapse" href="#filterdata" aria-expanded="false" aria-controls="filterdata">
@@ -24,16 +23,9 @@
                 <div class="collapse" id="filterdata">
                     <form id="form-filter" class="form-horizontal">
                         <div class="form-group">
-                            <label for="fil_role" class="col-sm-2 control-label">Role</label>
+                            <label for="fil_nik" class="col-sm-2 control-label">NIK</label>
                             <div class="col-sm-6">
-                                <select name="fil_role" id="fil_role" class="form-control" style="width: 100%;" >
-                                    <option value="">-Pilih Role-</option>
-                                    <?php if (!empty($data_role)) {
-                                            foreach ($data_role as $rol) {
-                                                echo '<option value="'.$rol->id.'">'.$rol->name.'</option>';
-                                            }
-                                    } ?>
-                                </select>
+                                <input type="text" name="fil_nik" id="fil_nik" class="form-control" placeholder="Cari berdasarkan NIK...">
                             </div>
                         </div>
                         <?php if (empty($this->session->userdata('pos_id'))) { ?>
@@ -54,12 +46,12 @@
                             <input type="hidden" name="fil_pos" id="fil_pos" value="<?= $this->session->userdata('pos_id'); ?>"> 
                         <?php } ?>
                         <div class="form-group">
-                            <label for="fil_status_user" class="col-sm-2 control-label">Status Pengguna</label>
+                            <label for="fil_jk_bayi" class="col-sm-2 control-label">Jenis Kelamin Bayi</label>
                             <div class="col-sm-6">
-                                <select name="fil_status_user" id="fil_status_user" class="form-control">
-                                    <option value="">-Pilih Status-</option>
-                                    <option value="aktif">Aktif</option>
-                                    <option value="nonaktif">Non Aktif</option>
+                                <select name="fil_jk_bayi" id="fil_jk_bayi" class="form-control">
+                                    <option value="">-Pilih Jenis Kelamin-</option>
+                                    <option value="L">Laki - laki</option>
+                                    <option value="P">Perempuan</option>
                                 </select>
                             </div>
                         </div>
@@ -72,17 +64,20 @@
                     </form>
                 </div>
                 <div class="">
-                    <table id="datatable_pengguna" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <table id="datatable_bumil" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="width:5%;" class="text-center">No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th>Posyandu</th>
-                                <th style="width:20%;">Status</th>
-                                <th style="width:18%;">Opsi</th>
+                                <th style="width:2%;" class="text-center">No</th>
+                                <th>NIK</th>
+                                <th>Nama Ibu</th>
+                                <th>Nama Bapak</th>
+                                <th>Nama Bayi</th>
+                                <th>Tgl Lahir Bayi</th>
+                                <th>L/P</th>
+                                <th>Tgl Meninggal Bayi</th>
+                                <th>Tgl Meninggal Ibu</th>
+                                <th>Keterangan</th>
+                                <th style="width:12%;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,24 +86,26 @@
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th>Posyandu</th>
-                                <th>Status</th>
-                                <th>Opsi</th>
+                                <th>NIK</th>
+                                <th>Nama Bapak</th>
+                                <th>Nama Ibu</th>
+                                <th>Nama Bayi</th>
+                                <th>Tgl Lahir Bayi</th>
+                                <th>L/P</th>
+                                <th>Tgl Meninggal Bayi</th>
+                                <th>Tgl Meninggal Ibu</th>
+                                <th>Keterangan</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
-
         </div>
+
     </div>
 </section>
 </div>
-
 <!-- Script CRUD -->
 <script type="text/javascript">
 
@@ -118,7 +115,7 @@
 
     $(document).ready(function() {
         
-        table = $('#datatable_pengguna').DataTable({ 
+        table = $('#datatable_bumil').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
@@ -130,12 +127,12 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('users/datatable_list_pengguna')?>",
+                "url": "<?php echo site_url('bumil/datatable_list_bumil')?>",
                 "type": "POST",
                 "data": function ( data ) {
-                    data.role_id = $('#fil_role').val();
+                    data.nik = $('#fil_nik').val();
                     data.pos_id = $('#fil_pos').val();
-                    data.status_user = $('#fil_status_user').val();
+                    data.jk_bayi = $('#fil_jk_bayi').val();
                 }
             },
 
@@ -186,11 +183,11 @@
         table.ajax.reload(null,false); //reload datatable ajax 
     }
 
-    function delete_pengguna(id)
+    function delete_bumil(id)
     {
 
         $.ajax({
-            url : "<?= base_url('users/get_data_user_json')?>/" + id,
+            url : "<?= base_url('bumil/get_data_bumil_json')?>/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(readData)
@@ -198,7 +195,7 @@
                 console.log(readData)
                 swal({
                     title: 'Menhapus data',
-                    text: 'Apakah anda yakin akan menghapus data pengguna "'+ readData.nama +'" ?',
+                    text: 'Apakah anda yakin akan menghapus data ibu hamil "'+ readData.nik +' - '+ readData.nama_ibu +'" ?',
                     icon: 'warning',
                     buttons: true,
                     dangerMode: true,
@@ -206,19 +203,19 @@
                     if (willDelete) {
 
                         $.ajax({
-                            url : "<?= base_url('users/delete')?>/" + id,
+                            url : "<?= base_url('bumil/delete')?>/" + id,
                             type: "POST",
                             dataType: "JSON",
                             success: function(data)
                             {
-                                swal('Data pengguna "'+ readData.nama +'" berhasil dihapus!', {
+                                swal('Data ibu hamil "'+ readData.nik +' - '+ readData.nama_ibu +'" berhasil dihapus!', {
                                     icon: 'success',
                                 });
                                 reload_table()
                             },
                             error: function (jqXHR, textStatus, errorThrown)
                             {
-                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data pengguna!', 'error');
+                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data ibu hamil!', 'error');
                             }
                         });
 
@@ -229,9 +226,10 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data pengguna!', 'error');
+                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data ibu hamil!', 'error');
             }
         });
     }
+
 
 </script>

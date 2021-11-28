@@ -184,13 +184,13 @@ class Users extends CI_Controller {
 		$password 				= $this->input->post('password');
 		$nama 					= $this->input->post('nama_user');
 		$status 				= ($this->input->post('status_user') ? 1 : 0 );
-		$created_by 			= 'f8d656b4-4c84-11ec-802e-089798e691ce';
+		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
-		$updated_by 			= 'f8d656b4-4c84-11ec-802e-089798e691ce';
+		$updated_by 			= $this->session->userdata('id');
 		$updated_on 			= date('Y-m-d H:i:s');
 
-        $role_admin = array('eccdbd9e-4c84-11ec-802e-089798e691ce', 'f104827c-4c84-11ec-802e-089798e691ce');
-		if (in_array($role_id, $role_admin)) {
+		
+		if (in_array($role_id, ROLE_ADMIN_CONTROL_NAME_LV1)) {
 			$pos_id = null;
 		}
 
@@ -202,20 +202,22 @@ class Users extends CI_Controller {
 			'password' 						=> password_hash($password, PASSWORD_BCRYPT),
 			'nama' 							=> $nama,
 			'status' 						=> $status,
-			'created_by' 					=> $created_by,
-			'created_on' 					=> $created_on,
-			'updated_by' 					=> $updated_by,
-			'updated_on' 					=> $updated_on
 		);
 
 		$save = FALSE;
 		if ($save_method == 'Tambah') {
-			$id 			= $this->Model_global->create_id();
-			$data['id'] 	= $id;
+			$id 					= $this->Model_global->create_id();
+			$data['id'] 			= $id;
+			$data['created_by'] 	= $created_by;
+			$data['created_on'] 	= $created_on;
+			$data['updated_by'] 	= $updated_by;
+			$data['updated_on'] 	= $updated_on;
 			$save = $this->Model_user->save($data);
 		}elseif ($save_method == 'Ubah') {
-			$id 			= $this->input->post('id');
-			$data['id'] 	= $id;
+			$id 					= $this->input->post('id');
+			$data['id'] 			= $id;
+			$data['updated_by'] 	= $updated_by;
+			$data['updated_on'] 	= $updated_on;
 			$save = $this->Model_user->update(array('id' => $id), $data);
 		}
 
@@ -230,7 +232,7 @@ class Users extends CI_Controller {
 
 	public function delete($id)
 	{
-		$updated_by 			= 'f8d656b4-4c84-11ec-802e-089798e691ce';
+		$updated_by 			= $this->session->userdata('id');
 		$updated_on 			= date('Y-m-d H:i:s');
 
 		$data = array(
