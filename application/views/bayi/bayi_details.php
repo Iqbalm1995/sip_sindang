@@ -89,38 +89,62 @@
                 <div class="row">
                     <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
                         <h2 class="section-title pb-2">Data Penimbangan Bayi</h2>
-                        <div class="table-responsive-md">
-                            <table border="0" class="table table-sm table-borderless table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"><strong>Bulan</strong></th>
-                                        <th scope="col"><strong>Tinggi (cm)</strong></th>
-                                        <th scope="col"><strong>Berat (kg)</strong></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        if (count($data_penimbangan) > 0) {
-                                            foreach ($data_penimbangan as $key => $value) { $arrayNum=0; ?>
-                                            <tr>
-                                                <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
-                                                <td><?= $value->tinggi_sekarang; ?> cm</td>
-                                                <td><?= $value->berat_sekarang; ?> kg</td>
-                                            </tr>
-                                        <?php } ?>
-                                    <?php }else{ ?>
-                                        <?php foreach (ARRAY_BULAN as $key => $value) {  $arrayNum=0; ?>
-                                            <tr>
-                                                <th scope="row"><?= $value; ?></th>
-                                                <td>0 cm</td>
-                                                <td>0 kg</td>
-                                            </tr>
-                                        <?php } ?>
-                                    <?php } ?>
+                        <?php if (!empty($arsip_penimbangan)) { ?>
 
-                                </tbody>
-                            </table>
+                        <div id="accordion">
+                            <?php
+                            foreach ($arsip_penimbangan as $key => $value) { ?>
+                                <div class="accordion">
+                                    <div class="accordion-header" role="button" data-toggle="collapse" data-target="#panel-body-<?= $key;?>" <?= ( $key == 0 ? 'aria-expanded="true"' : '' );?>>
+                                    <h4>Data Tahun <?= $value->tahun;?></h4>
+                                    </div>
+                                    <div class="accordion-body collapse <?= ( $key == 0 ? 'show' : '' );?> " id="panel-body-<?= $key;?>" data-parent="#accordion">
+                                    
+                                        <?php $data_timbangan = $this->Model_bayi->get_timbangan_bayi($value->bayi_id, $value->tahun); ?>
+                                        <div class="table-responsive-md">
+                                            <table border="0" class="table table-sm table-borderless table-striped" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"><strong>Bulan</strong></th>
+                                                        <th scope="col"><strong>Tinggi (cm)</strong></th>
+                                                        <th scope="col"><strong>Berat (kg)</strong></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                        if (count($data_timbangan) > 0) {
+                                                            foreach ($data_timbangan as $key => $value) { $arrayNum=0; ?>
+                                                            <tr>
+                                                                <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
+                                                                <td><?= $value->tinggi_sekarang; ?> cm</td>
+                                                                <td><?= $value->berat_sekarang; ?> kg</td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php }else{ ?>
+                                                        <?php foreach (ARRAY_BULAN as $key => $value) {  $arrayNum=0; ?>
+                                                            <tr>
+                                                                <th scope="row"><?= $value; ?></th>
+                                                                <td>0 cm</td>
+                                                                <td>0 kg</td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php } ?>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            <?php } ?>
                         </div>
+                        
+                        <?php }else{ ?>
+                            <div class="alert alert-warning">
+                                Data penimbangan bayi belum ada.
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
 

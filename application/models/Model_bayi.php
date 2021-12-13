@@ -34,11 +34,8 @@ class Model_bayi extends CI_Model {
 		return $query->result();
 	}
 
-    public function get_arsip_timbangan_bayi($bayi_id, $tahun = null)
+    public function get_arsip_timbangan_bayi($bayi_id)
 	{
-		if ($tahun == null) {
-			$tahun = date('Y');
-		}
 		$this->db->select('b1.tahun AS tahun, by1.id AS bayi_id');
 		$this->db->from($this->t_penimbangan_bayi.' b1');
 		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
