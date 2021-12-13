@@ -11,6 +11,7 @@ class Desa extends CI_Controller {
         // model use
 		$this->load->model('Model_desa','Model_desa');
 		$this->load->model('Model_global','Model_global');
+		$this->load->model('Model_posyandu','Model_posyandu');
 		
         /* Restrict user */
         if($this->session->userdata('login_status') != "login_active"){
@@ -27,6 +28,8 @@ class Desa extends CI_Controller {
         // head data
         $head['title_page'] = 'Data Master Desa';
         $head['menu_active'] = 'desa';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption'] = 'Data Master Desa';
@@ -95,6 +98,8 @@ class Desa extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Tambah Data Desa';
         $head['menu_active'] 	= 'desa';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -121,6 +126,8 @@ class Desa extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Ubah Data Desa';
         $head['menu_active'] 	= 'desa';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(

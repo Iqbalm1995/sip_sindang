@@ -21,17 +21,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Nama</label>
+                            <label>Nama <span class="text-danger">*</span></label>
                             <input type="text" name="nama_user" id="nama_user" class="form-control " placeholder="Isi nama..." value="<?= $nama_user; ?>" required>
                             <div class="invalid-feedback" id="nama_user_inv"></div>
                         </div>
                         <div class="form-group">
-                            <label>Username</label>
+                            <label>Username <span class="text-danger">*</span></label>
                             <input type="text" name="username" id="username" class="form-control " placeholder="Isi username..." value="<?= $username; ?>" required>
                             <div class="invalid-feedback" id="username_inv"></div>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
+                            <label>Email <span class="text-danger">*</span></label>
                             <input type="email" autocomplete="false" name="email" id="email" class="form-control " placeholder="Isi email..." value="<?= $email; ?>" required>
                             <div class="invalid-feedback" id="email_inv"></div>
                         </div>
@@ -45,12 +45,12 @@
                         </div>
                         <div id="pass-input" style="display: none;">
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Password <span class="text-danger">*</span></label>
                                 <input type="password" name="password" id="password" class="form-control " placeholder="Isi password baru..." value="<?= $password; ?>" required>
                                 <div class="invalid-feedback" id="password_inv"></div>
                             </div>
                             <div class="form-group">
-                                <label>Konfirmasi Password</label>
+                                <label>Konfirmasi Password <span class="text-danger">*</span></label>
                                 <input type="password" name="password_confirm" id="password_confirm" class="form-control " placeholder="Isi ulang password..." value="<?= $password; ?>" required>
                                 <div class="invalid-feedback" id="password_confirm_inv"></div>
                             </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Posisi Role Akun Pengguna</label>
+                            <label>Posisi Role Akun Pengguna <span class="text-danger">*</span></label>
                             <div class="form-group">
                                     <div class=" pl-0 pr-0">
                                         <select name="role_id" id="role_id" class="form-control select2">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="form-group" id='input_pos' style="display: none;">
-                            <label>Posisi Posyandu Akun Pengguna</label>
+                            <label>Posisi Posyandu Akun Pengguna <span class="text-danger">*</span></label>
                             <div class="form-group">
                                     <div class=" pl-0 pr-0">
                                         <select name="pos_id" id="pos_id" class="form-control select2">
@@ -291,7 +291,7 @@
             if ($("#pos_id").val() == "") {
                 status = false;
                 $("#pos_id").addClass('is-invalid');
-                $("#pos_id_inv").text('Role masih belum dipilih');
+                $("#pos_id_inv").text('Posyandu masih belum dipilih');
             }
         }
 

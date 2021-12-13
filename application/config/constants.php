@@ -89,3 +89,21 @@ define('ROLE_ADMIN_CONTROL_ID', array('eccdbd9e-4c84-11ec-802e-089798e691ce','f1
 define('ROLE_ADMIN_CONTROL_NAME_LV1', array('Dev','Superadmin'));
 define('ROLE_ADMIN_CONTROL_NAME_LV2', array('Dev','Superadmin'.'Admin'));
 define('ROLE_ADMIN_CONTROL_NAME_SUBLV1', array('Dev','Superadmin','Manajemen','Monitoring'));
+
+$bulan_satuan = array(
+    '01' => 'Januari', 
+    '02' => 'Februari', 
+    '03' => 'Maret', 
+    '04' => 'April', 
+    '05' => 'Mei', 
+    '06' => 'Juni', 
+    '07' => 'Juli', 
+    '08' => 'Agustus', 
+    '09' => 'September', 
+    '10' => 'Oktober', 
+    '11' => 'November', 
+    '12' => 'Desember', 
+);
+
+define('ARRAY_BULAN', $bulan_satuan);
+

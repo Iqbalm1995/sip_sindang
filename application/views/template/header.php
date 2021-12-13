@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
 
+  <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/bootstrap-datepicker/bootstrap-datepicker.css">
+
   <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/bootstrap-daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/jquery-selectric/selectric.css">
   <link rel="stylesheet" href="<?=base_url('/assets/theme/stisla/');?>modules/ionicons/css/ionicons.min.css">
@@ -42,6 +44,9 @@
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/jquery-ui/jquery-ui.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>js/page/modules-datatables.js"></script>
+
+  <script src="<?=base_url('/assets/theme/stisla/');?>modules/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 
 <body class="layout-1">

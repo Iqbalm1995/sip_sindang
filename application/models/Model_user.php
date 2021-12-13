@@ -77,21 +77,27 @@ class Model_user extends CI_Model {
 	private function _get_datatables_query()
 	{
 		//add custom filter here
-		if($this->input->post('status_user'))
-		{
+		if($this->input->post('status_user')) {
 			if ($this->input->post('status_user') == 'aktif') {
 				$this->db->where('usr.status', 1);
 			}else if ($this->input->post('status_user') == 'nonaktif') {
 				$this->db->where('usr.status', 0);
 			}
 		}
-		if($this->input->post('role_id'))
-		{
-			$this->db->where('usr.role_id', $this->input->post('role_id'));
+		if($this->input->post('roleFilter')) {
+			$this->db->where('usr.role_id', $this->input->post('roleFilter'));
 		}
-		if($this->input->post('pos_id'))
-		{
-			$this->db->where('usr.pos_id', $this->input->post('pos_id'));
+		
+		if($this->input->post('searchFilter')) { 
+			$this->db->group_start()
+                ->or_like('usr.username', $this->input->post('searchFilter'))
+                ->or_like('usr.email', $this->input->post('searchFilter'))
+                ->or_like('usr.nama', $this->input->post('searchFilter'))
+            ->group_end();
+		}
+
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('usr.pos_id', $this->session->userdata('pos_id'));
 		}
 
 		$this->db->where('usr.deleted', 0);

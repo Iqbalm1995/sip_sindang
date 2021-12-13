@@ -1,24 +1,19 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Master Posyandu</h1>
+    <h1>Data Bayi</h1>
     <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Data Master</a></div>
-        <div class="breadcrumb-item">Posyandu</div>
+        <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
+        <div class="breadcrumb-item">Bayi</div>
     </div>
     </div>
 
     <div class="section-body">
-        <!-- <h2 class="section-title">This is Example Page</h2>
-        <p class="section-lead">This page is just an example for you to create your own page.</p> -->
         <div class="text-left pb-4">
-            <a class="btn btn-primary tombolfull" href="<?= base_url('posyandu/add'); ?>">
-                <i class="fas fa-plus"></i> Tambah Posyandu</a>
+            <a class="btn btn-primary tombolfull" href="<?= base_url('bayi/add'); ?>">
+                <i class="fas fa-plus"></i> Tambah Data Bayi</a>
         </div>
         <div class="card">
-            <!-- <div class="card-header">
-            <h4>Example Card</h4>
-            </div> -->
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 pr-0 inputFilterLeft">
@@ -32,14 +27,20 @@
                     </div>
                 </div>
                 <div class="pt-3">
-                    <table id="datatable_posyandu" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <table id="datatable_bayi" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="width:5%;" class="text-center">No</th>
-                                <th>Nama</th>
-                                <th>Desa</th>
-                                <th style="width:20%;">Status</th>
-                                <th style="width:18%;">Opsi</th>
+                                <th style="width:2%;" class="text-center">No</th>
+                                <th>No. KMS</th>
+                                <th>Nama Bayi</th>
+                                <th>Nama Ibu</th>
+                                <th>Nama Bapak</th>
+                                <th>Tgl Lahir Bayi</th>
+                                <th>L/P</th>
+                                <th>Tgl Meninggal Bayi</th>
+                                <th>BBL</th>
+                                <th>Keterangan</th>
+                                <th style="width:12%;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,33 +49,44 @@
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Nama</th>
-                                <th>Desa</th>
-                                <th>Status</th>
-                                <th>Opsi</th>
+                                <th>No. KMS</th>
+                                <th>Nama Bayi</th>
+                                <th>Nama Ibu</th>
+                                <th>Nama Bapak</th>
+                                <th>Tgl Lahir Bayi</th>
+                                <th>L/P</th>
+                                <th>Tgl Meninggal Bayi</th>
+                                <th>BBL</th>
+                                <th>Keterangan</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
+
             </div>
         </div>
+
     </div>
 </section>
 </div>
-
 <!-- Script CRUD -->
 <script type="text/javascript">
 
     var save_method; //for save method string
     var table;
     var base_url = '<?php echo base_url();?>';
+    
+	var d = new Date();
+	var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+	var strYear = d.getFullYear();
 
     var filterSearch = $("#filterSearch").val();
 
     $(document).ready(function() {
 
         filterSearch = $("#filterSearch").val();
-        table = datatable_pos(filterSearch);
+        table = datatables_bayi(filterSearch);
 
         $('.select2').select2()
 
@@ -84,19 +96,19 @@
         filterSearch = $("#filterSearch").val();
         table.destroy();
         table.ajax.reload();
-        table = datatable_pos(filterSearch);
+        table = datatables_bayi(filterSearch);
     });
 
-    function reload_table()
-    {
-        $("#filterSearch").val('');
-        table.destroy();
-        table.ajax.reload();
-        table = datatable_pos('');
-    }
+    $("#filterYear").datepicker( {
+        endDate: '+0y',
+        format: "yyyy",
+        viewMode: "years", 
+        minViewMode: "years",
+        endDate : new Date(),
+    });
 
-    function datatable_pos(search) {
-        return $('#datatable_posyandu').DataTable({ 
+    function datatables_bayi(search) {
+        return $('#datatable_bayi').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
@@ -110,7 +122,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('posyandu/datatable_list_posyandu')?>",
+                "url": "<?php echo site_url('bayi/datatable_list_bayi')?>",
                 "type": "POST",
                 "data": {
                     "searchFilter": search,
@@ -133,18 +145,29 @@
         });
     }
 
-    function delete_posyandu(id)
+    function reload_table()
+    {
+        $("#filterSearch").val('');
+        table.destroy();
+        table.ajax.reload();
+        table = datatables_bayi('');
+    }
+
+    
+
+    function delete_bayi(id)
     {
 
         $.ajax({
-            url : "<?= base_url('posyandu/get_data_posyandu_json')?>/" + id,
+            url : "<?= base_url('bayi/get_data_bayi_json')?>/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(readData)
             {
+                console.log(readData)
                 swal({
                     title: 'Menghapus data',
-                    text: 'Apakah anda yakin akan menghapus data Posyandu "'+ readData.nama +'" ?',
+                    text: 'Apakah anda yakin akan menghapus data bayi "'+ readData.kms +' - '+ readData.nama_bayi +'" ?',
                     icon: 'warning',
                     buttons: true,
                     dangerMode: true,
@@ -152,19 +175,19 @@
                     if (willDelete) {
 
                         $.ajax({
-                            url : "<?= base_url('posyandu/delete')?>/" + id,
+                            url : "<?= base_url('bayi/delete')?>/" + id,
                             type: "POST",
                             dataType: "JSON",
                             success: function(data)
                             {
-                                swal('Data Posyandu "'+ readData.nama +'" berhasil dihapus!', {
+                                swal('Data bayi "'+ readData.kms +' - '+ readData.nama_bayi +'" berhasil dihapus!', {
                                     icon: 'success',
                                 });
                                 reload_table()
                             },
                             error: function (jqXHR, textStatus, errorThrown)
                             {
-                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data Posyandu!', 'error');
+                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data bayi!', 'error');
                             }
                         });
 
@@ -175,11 +198,8 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data Posyandu!', 'error');
+                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data bayi!', 'error');
             }
         });
     }
-
 </script>
-
-

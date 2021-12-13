@@ -6,7 +6,7 @@
         <div class="breadcrumb-item active">Dashboard</div>
     </div>
     </div>
-
+    <?php echo $this->session->userdata('message1') <> '' ? $this->session->userdata('message1') : ''; ?>
     <div class="section-body">
     <h2 class="section-title">This is Example Page</h2>
     <p class="section-lead">This page is just an example for you to create your own page.</p>

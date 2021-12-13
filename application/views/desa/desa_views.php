@@ -9,20 +9,24 @@
     </div>
 
     <div class="section-body">
-        <!-- <h2 class="section-title">This is Example Page</h2>
-        <p class="section-lead">This page is just an example for you to create your own page.</p> -->
         <div class="text-left pb-4">
             <a class="btn btn-primary tombolfull" href="<?= base_url('desa/add'); ?>">
                 <i class="fas fa-plus"></i> Tambah Desa</a>
-            <button class="btn btn-light tombolfull" onclick="reload_table()">
-                <i class="fas fa-sync-alt"></i> Refresh</button>
         </div>
         <div class="card">
-            <!-- <div class="card-header">
-            <h4>Example Card</h4>
-            </div> -->
             <div class="card-body">
-                <div class="">
+                <div class="row">
+                    <div class="col-md-2 pr-0 inputFilterLeft">
+                        <input type="text" name="filterSearch" id="filterSearch" class="form-control" placeholder="Pencarian...">
+                    </div>
+                    <div class="col-md-1 pr-0 pl-1 inputFilterCenter">
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-search"></i> Cari </button>
+                    </div>
+                    <div class="col-md-1 pl-1 inputFilterRight">
+                        <button class="btn btn-light tombolfull" style="width:100%; height:42px;" onclick="reload_table()"><i class="fas fa-sync-alt"></i> Reset </button>
+                    </div>
+                </div>
+                <div class="pt-3">
                     <table id="datatable_desa" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -58,29 +62,44 @@
     var table;
     var base_url = '<?php echo base_url();?>';
 
+    var filterSearch = $("#filterSearch").val();
+
     $(document).ready(function() {
 
-        //datatables
-        table = $('#datatable_desa').DataTable({ 
+        filterSearch = $("#filterSearch").val();
+        table = datatable_desa(filterSearch);
+
+        $('.select2').select2()
+
+    });
+
+    $('#filterBtn').click(function(){
+        filterSearch = $("#filterSearch").val();
+        table.destroy();
+        table.ajax.reload();
+        table = datatable_desa(filterSearch);
+    });
+
+    function datatable_desa(search) 
+    {
+        return $('#datatable_desa').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
                 }
             },
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "processing": true,
+            "serverSide": true,
+            "searching": false,
+            "lengthChange": false,
             "order": [], //Initial no order.
 
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('desa/datatable_list_desa')?>",
                 "type": "POST",
-                "data": function ( data ) {
-                    // data.nip = $('#fil_nip').val();
-                    // data.nama = $('#fil_nama').val();
-                    // data.unit = $('#fil_unit').val();
-                    // data.tahun_masuk = $('#fil_thm').val();
-                    // data.status_karyawan = $('#fil_status_karyawan').val();
+                "data": {
+                    "searchFilter": search,
                 }
             },
 
@@ -98,37 +117,14 @@
             ],
 
         });
-
-        //set input/textarea/select event when change value, remove class error and remove text help block 
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-
-        $('#btn-filter').click(function(){ //button filter event click
-            table.ajax.reload();  //just reload table
-        });
-
-        $('#btn-reset').click(function(){ //button reset event click
-            $('#form-filter')[0].reset();
-            table.ajax.reload();  //just reload table
-        });
-
-        $('.select2').select2()
-
-    });
+    }
 
     function reload_table()
     {
-        table.ajax.reload(null,false); //reload datatable ajax 
+        $("#filterSearch").val('');
+        table.destroy();
+        table.ajax.reload();
+        table = datatable_desa('');
     }
 
     function delete_desa(id)
@@ -141,7 +137,7 @@
             success: function(readData)
             {
                 swal({
-                    title: 'Menhapus data',
+                    title: 'Menghapus data',
                     text: 'Apakah anda yakin akan menghapus data Desa "'+ readData.nama +'" ?',
                     icon: 'warning',
                     buttons: true,

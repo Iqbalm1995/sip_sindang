@@ -29,6 +29,8 @@ class Users extends CI_Controller {
         // head data
         $head['title_page']     = 'Data Pengguna';
         $head['menu_active']    = 'pengguna';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption']  = 'Data Pengguna';
@@ -114,6 +116,8 @@ class Users extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Data Pengguna';
         $head['menu_active'] 	= 'pengguna';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -147,6 +151,8 @@ class Users extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Ubah Data Pengguna';
         $head['menu_active'] 	= 'pengguna';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -259,6 +265,73 @@ class Users extends CI_Controller {
 		}
 		
 		echo json_encode($data);
+	}
+
+	public function switch($pos_id = null)
+	{
+		if ($pos_id == null) {
+			$this->session->set_flashdata('message1', '
+				<div class="alert alert-warning alert-dismissible show fadeIn animated">
+					<div class="alert-body">
+					<button class="close" data-dismiss="alert"><span>&times;</span></button>
+					<strong>Peringatan</strong><br>Akses di batas
+					</div>
+				</div>
+				');
+			redirect(base_url().'dashboard');
+			return null;
+		}
+
+		if ($pos_id == 'pusat') {
+			$data_session = array(
+				'pos_id' 	=> '',
+				'pos_name' 	=> '',
+				'desa_id' 	=> '',
+				'desa' 		=> '',
+			);
+			$this->session->set_userdata($data_session);
+			$this->session->set_flashdata('message1', '
+				<div class="alert alert-success alert-dismissible show fadeIn animated">
+	              <div class="alert-body">
+	                <button class="close" data-dismiss="alert"><span>&times;</span></button>
+	                <strong>Aktifkan Posyandu</strong><br> Informasi posyandu berganti ke data posyandu <b>Pusat</b>
+	              </div>
+	            </div>
+				');
+				redirect(base_url().'dashboard');
+			return null;
+		}
+
+		$get_pos  	= $this->Model_posyandu->get_posyandu($pos_id);
+		if (!empty($get_pos)) {
+			$data_session = array(
+				'pos_id' 	=> $get_pos->id,
+				'pos_name' 	=> $get_pos->nama,
+				'desa_id' 	=> $get_pos->desa_id,
+				'desa' 		=> $get_pos->desa,
+			);
+			$this->session->set_userdata($data_session);
+			$this->session->set_flashdata('message1', '
+				<div class="alert alert-success alert-dismissible show fadeIn animated">
+	              <div class="alert-body">
+	                <button class="close" data-dismiss="alert"><span>&times;</span></button>
+	                <strong>Aktifkan Posyandu</strong><br> Informasi posyandu berganti ke data posyandu <b>'.$get_pos->nama.'</b>
+	              </div>
+	            </div>
+				');
+				redirect(base_url().'dashboard');
+		}else{
+			$this->session->set_flashdata('message1', '
+				<div class="alert alert-danger alert-dismissible show fadeIn animated">
+					<div class="alert-body">
+					<button class="close" data-dismiss="alert"><span>&times;</span></button>
+					<strong>Gagal Aktifkan Posyandu</strong><br>Data Posyandu yang dipilih tidak ditemukan!.
+					</div>
+				</div>
+				');
+			redirect(base_url().'dashboard');
+		}
+
 	}
 
 }

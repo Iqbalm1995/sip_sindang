@@ -22,7 +22,13 @@
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_SUBLV1)) { ?>
                 <li class="menu-header">Data Posyandu</li>
                 <li <?=( $menu_active == 'bumil' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a></li>
-                <li <?=( $menu_active == 'bayi' ? 'class="active"' : '' );?>><a class="nav-link" href="#"><i class="fas fa-baby"></i> <span>Bayi</span></a></li>
+                <li class="dropdown <?=( $menu_active == 'bayi' ? 'active' : '' );?>">
+                    <a class="nav-link has-dropdown" href="#"><i class="fas fa-baby"></i> <span>Bayi</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?=( $subMenu_active == 'bayi_data' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bayi'); ?>">Data Bayi</a></li>
+                        <li <?=( $subMenu_active == 'bayi_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bayi/layanan'); ?>">Layanan Bayi</a></li>
+                    </ul>
+                </li>
                 <li <?=( $menu_active == 'balita' ? 'class="active"' : '' );?>><a class="nav-link" href="#"><i class="fas fa-child"></i> <span>Balita</span></a></li>
             <?php } ?>
             

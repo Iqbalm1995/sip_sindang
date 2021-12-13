@@ -3019,4 +3019,15 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 
   @media only screen and (max-width:1200px) {
     .tombolfull{width:100%; margin-top:5px;}
+    .inputFilterLeft{
+      padding-right: 15px !important;
+    }
+    .inputFilterCenter{
+      padding-top: 5px;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    .inputFilterRight{
+      padding-left: 15px !important;
+    }
   }

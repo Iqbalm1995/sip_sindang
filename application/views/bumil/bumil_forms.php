@@ -45,8 +45,8 @@
                         <input type="hidden" name="desa_id" id="desa_id" value="<?= $desa_id; ?>">
                         <input type="hidden" name="desa_name" id="desa_name" value="<?= $desa_name; ?>">
                         <div class="form-group">
-                            <label>NIK <span class="text-danger">*</span></label>
-                            <input type="text" name="nik" id="nik" class="form-control " maxlength="20" placeholder="Isi nik..." value="<?= $nik; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
+                            <label>Nomor KMS <span class="text-danger">*</span></label>
+                            <input type="text" name="nik" id="nik" class="form-control " maxlength="20" placeholder="Isi Nomor KMS..." value="<?= $nik; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
                             <div class="invalid-feedback" id="nik_inv"></div>
                             <div class="valid-feedback" id="nik_valid"></div>
                         </div>
@@ -125,6 +125,7 @@
     </div>
     </div>
 </section>
+</div>
 <script type="text/javascript">
 
     var base_url = '<?= base_url(); ?>';
@@ -179,21 +180,21 @@
                     // some true condition
                 }else{
                     swal({
-                            title: 'Cek data NIK',
-                            text: 'NIK "'+ nik +'" sudah terdaftar di data ibu hamil!',
+                            title: 'Cek data Nomor KMS',
+                            text: 'Nomor KMS "'+ nik +'" sudah terdaftar di data ibu hamil!',
                             icon: 'warning',
                             dangerMode: true,
                         }).then((ok) => {
                             $("#nik").val("");
                             $("#nik").focus();
                             $("#nik").addClass('is-invalid');
-                            $("#nik_inv").text('NIK sudah terdaftar di data ibu hamil');
+                            $("#nik_inv").text('Nomor KMS sudah terdaftar di data ibu hamil');
                     });
                 }
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Terjadi kesalahan pada saat mencari nik!', 'error');
+                swal('Gagal', 'Terjadi kesalahan pada saat mencari Nomor KMS!', 'error');
                 $("#nik").focus();
             }
         });
@@ -265,7 +266,7 @@
         if ($("#nik").val() == "") {
             status = false;
             $("#nik").addClass('is-invalid');
-            $("#nik_inv").text('NIK masih kosong');
+            $("#nik_inv").text('Nomor KMS masih kosong');
         }
 
         if ($("#nama_ibu").val() == "") {
@@ -318,6 +319,12 @@
                 $("#tgl_meninggal_ibu").removeClass('is-invalid');
                 $("#tgl_meninggal_ibu_inv").text('');
             }
+        }
+
+        if ($("#pos_id").val() == "") {
+            status = false;
+            $("#pos_id").addClass('is-invalid');
+            $("#pos_id_inv").text('Posyandu masih belum dipilih');
         }
 
         return status
@@ -383,6 +390,13 @@
         if ($("#tgl_meninggal_ibu").val() != "") {
             $("#tgl_meninggal_ibu").removeClass('is-invalid');
             $("#tgl_meninggal_ibu_inv").text('');
+        }
+    });
+
+    $("#pos_id").change(function(){
+        if ($("#pos_id").val() != "") {
+            $("#pos_id").removeClass('is-invalid');
+            $("#pos_id_inv").text('');
         }
     });
 

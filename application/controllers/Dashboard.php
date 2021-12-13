@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
         date_default_timezone_set('Asia/Jakarta');
 
 		$this->load->model('Model_global','Model_global');
+		$this->load->model('Model_posyandu','Model_posyandu');
         /* Restrict user */
         if($this->session->userdata('login_status') != "login_active"){
 			redirect(base_url().'login');
@@ -20,6 +21,8 @@ class Dashboard extends CI_Controller {
         // head data
         $head['title_page'] = 'Dashboard';
         $head['menu_active'] = 'dashboard';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption'] = 'Dashboard';

@@ -12,63 +12,26 @@
         <div class="text-left pb-4">
             <a class="btn btn-primary tombolfull" href="<?= base_url('bumil/add'); ?>">
                 <i class="fas fa-plus"></i> Tambah Data Bumil</a>
-            <button class="btn btn-light tombolfull" onclick="reload_table()">
-                <i class="fas fa-sync-alt"></i> Refresh</button>
-            <a class="btn btn-info tombolfull" role="button" data-toggle="collapse" href="#filterdata" aria-expanded="false" aria-controls="filterdata">
-                  <i class="fas fa-filter"></i> Filter Data
-            </a>
         </div>
         <div class="card">
             <div class="card-body">
-                <div class="collapse" id="filterdata">
-                    <form id="form-filter" class="form-horizontal">
-                        <div class="form-group">
-                            <label for="fil_nik" class="col-sm-2 control-label">NIK</label>
-                            <div class="col-sm-6">
-                                <input type="text" name="fil_nik" id="fil_nik" class="form-control" placeholder="Cari berdasarkan NIK...">
-                            </div>
-                        </div>
-                        <?php if (empty($this->session->userdata('pos_id'))) { ?>
-                            <div class="form-group">
-                                <label for="fil_pos" class="col-sm-2 control-label">Posyandu</label>
-                                <div class="col-sm-6">
-                                    <select name="fil_pos" id="fil_pos" class="form-control" style="width: 100%;" >
-                                        <option value="">-Pilih Posyandu-</option>
-                                        <?php if (!empty($data_pos)) {
-                                                foreach ($data_pos as $pos) {
-                                                    echo '<option value="'.$pos->id.'">'.$pos->nama.'</option>';
-                                                }
-                                        } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        <?php }else{ ?>
-                            <input type="hidden" name="fil_pos" id="fil_pos" value="<?= $this->session->userdata('pos_id'); ?>"> 
-                        <?php } ?>
-                        <div class="form-group">
-                            <label for="fil_jk_bayi" class="col-sm-2 control-label">Jenis Kelamin Bayi</label>
-                            <div class="col-sm-6">
-                                <select name="fil_jk_bayi" id="fil_jk_bayi" class="form-control">
-                                    <option value="">-Pilih Jenis Kelamin-</option>
-                                    <option value="L">Laki - laki</option>
-                                    <option value="P">Perempuan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-4">
-                                <button type="button" id="btn-filter" class="btn btn-info">Filter</button>
-                                <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="row">
+                    <div class="col-md-2 pr-0 inputFilterLeft">
+                        <input type="text" name="filterSearch" id="filterSearch" class="form-control" placeholder="Pencarian...">
+                    </div>
+                    <div class="col-md-1 pr-0 pl-1 inputFilterCenter">
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-search"></i> Cari </button>
+                    </div>
+                    <div class="col-md-1 pl-1 inputFilterRight">
+                        <button class="btn btn-light tombolfull" style="width:100%; height:42px;" onclick="reload_table()"><i class="fas fa-sync-alt"></i> Reset </button>
+                    </div>
                 </div>
-                <div class="">
+                <div class="pt-3">
                     <table id="datatable_bumil" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="width:2%;" class="text-center">No</th>
-                                <th>NIK</th>
+                                <th>No. KMS</th>
                                 <th>Nama Ibu</th>
                                 <th>Nama Bapak</th>
                                 <th>Nama Bayi</th>
@@ -100,6 +63,7 @@
                         </tfoot>
                     </table>
                 </div>
+                
             </div>
         </div>
 
@@ -113,26 +77,44 @@
     var table;
     var base_url = '<?php echo base_url();?>';
 
+    var filterSearch = $("#filterSearch").val();
+
     $(document).ready(function() {
         
-        table = $('#datatable_bumil').DataTable({ 
+        filterSearch = $("#filterSearch").val();
+        table = datatable_bumil(filterSearch);
+
+        $('.select2').select2()
+
+    });
+
+    $('#filterBtn').click(function(){
+        filterSearch = $("#filterSearch").val();
+        table.destroy();
+        table.ajax.reload();
+        table = datatable_bumil(filterSearch);
+    });
+
+    function datatable_bumil(search) 
+    {
+        return $('#datatable_bumil').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
                 }
             },
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "processing": true,
+            "serverSide": true,
+            "searching": false,
+            "lengthChange": false,
             "order": [], //Initial no order.
 
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('bumil/datatable_list_bumil')?>",
                 "type": "POST",
-                "data": function ( data ) {
-                    data.nik = $('#fil_nik').val();
-                    data.pos_id = $('#fil_pos').val();
-                    data.jk_bayi = $('#fil_jk_bayi').val();
+                "data": {
+                    "searchFilter": search,
                 }
             },
 
@@ -151,36 +133,14 @@
 
         });
 
-        //set input/textarea/select event when change value, remove class error and remove text help block 
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-
-        $('#btn-filter').click(function(){ //button filter event click
-            table.ajax.reload();  //just reload table
-        });
-
-        $('#btn-reset').click(function(){ //button reset event click
-            $('#form-filter')[0].reset();
-            table.ajax.reload();  //just reload table
-        });
-
-        $('.select2').select2()
-
-    });
+    }
 
     function reload_table()
     {
-        table.ajax.reload(null,false); //reload datatable ajax 
+        $("#filterSearch").val('');
+        table.destroy();
+        table.ajax.reload();
+        table = datatable_bumil('');
     }
 
     function delete_bumil(id)
@@ -194,7 +154,7 @@
             {
                 console.log(readData)
                 swal({
-                    title: 'Menhapus data',
+                    title: 'Menghapus data',
                     text: 'Apakah anda yakin akan menghapus data ibu hamil "'+ readData.nik +' - '+ readData.nama_ibu +'" ?',
                     icon: 'warning',
                     buttons: true,

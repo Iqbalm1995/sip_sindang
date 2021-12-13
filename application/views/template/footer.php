@@ -19,7 +19,7 @@
 
   <!-- JS Libraies -->
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/simple-weather/jquery.simpleWeather.min.js"></script>
-  <script src="<?=base_url('/assets/theme/stisla/');?>modules/chart.min.js"></script>
+  <!-- <script src="<?=base_url('/assets/theme/stisla/');?>modules/chart.min.js"></script> -->
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/jqvmap/dist/jquery.vmap.min.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
   <script src="<?=base_url('/assets/theme/stisla/');?>modules/summernote/summernote-bs4.js"></script>

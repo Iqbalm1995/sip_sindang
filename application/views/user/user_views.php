@@ -13,65 +13,31 @@
         <div class="text-left pb-4">
             <a class="btn btn-primary tombolfull" href="<?= base_url('users/add'); ?>">
                 <i class="fas fa-plus"></i> Tambah Pengguna</a>
-            <button class="btn btn-light tombolfull" onclick="reload_table()">
-                <i class="fas fa-sync-alt"></i> Refresh</button>
-            <a class="btn btn-info tombolfull" role="button" data-toggle="collapse" href="#filterdata" aria-expanded="false" aria-controls="filterdata">
-                  <i class="fas fa-filter"></i> Filter Data
-            </a>
         </div>
         <div class="card">
             <div class="card-body">
-                <div class="collapse" id="filterdata">
-                    <form id="form-filter" class="form-horizontal">
-                        <div class="form-group">
-                            <label for="fil_role" class="col-sm-2 control-label">Role</label>
-                            <div class="col-sm-6">
-                                <select name="fil_role" id="fil_role" class="form-control" style="width: 100%;" >
-                                    <option value="">-Pilih Role-</option>
-                                    <?php if (!empty($data_role)) {
-                                            foreach ($data_role as $rol) {
-                                                echo '<option value="'.$rol->id.'">'.$rol->name.'</option>';
-                                            }
-                                    } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <?php if (empty($this->session->userdata('pos_id'))) { ?>
-                            <div class="form-group">
-                                <label for="fil_pos" class="col-sm-2 control-label">Posyandu</label>
-                                <div class="col-sm-6">
-                                    <select name="fil_pos" id="fil_pos" class="form-control" style="width: 100%;" >
-                                        <option value="">-Pilih Posyandu-</option>
-                                        <?php if (!empty($data_pos)) {
-                                                foreach ($data_pos as $pos) {
-                                                    echo '<option value="'.$pos->id.'">'.$pos->nama.'</option>';
-                                                }
-                                        } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        <?php }else{ ?>
-                            <input type="hidden" name="fil_pos" id="fil_pos" value="<?= $this->session->userdata('pos_id'); ?>"> 
-                        <?php } ?>
-                        <div class="form-group">
-                            <label for="fil_status_user" class="col-sm-2 control-label">Status Pengguna</label>
-                            <div class="col-sm-6">
-                                <select name="fil_status_user" id="fil_status_user" class="form-control">
-                                    <option value="">-Pilih Status-</option>
-                                    <option value="aktif">Aktif</option>
-                                    <option value="nonaktif">Non Aktif</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-4">
-                                <button type="button" id="btn-filter" class="btn btn-info">Filter</button>
-                                <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="row">
+                    <div class="col-md-2 pr-0 inputFilterLeft">
+                        <select name="filterRole" id="filterRole" class="form-control" >
+                            <option value="">-Jenis Role-</option>
+                            <?php if (!empty($data_role)) {
+                                    foreach ($data_role as $rol) {
+                                        echo '<option value="'.$rol->id.'">'.$rol->name.'</option>';
+                                    }
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2 pl-1 pr-0 inputFilterCenter">
+                        <input type="text" name="filterSearch" id="filterSearch" class="form-control" placeholder="Pencarian...">
+                    </div>
+                    <div class="col-md-1 pr-0 pl-1 inputFilterCenter">
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-search"></i> Cari </button>
+                    </div>
+                    <div class="col-md-1 pl-1 inputFilterRight">
+                        <button class="btn btn-light tombolfull" style="width:100%; height:42px;" onclick="reload_table()"><i class="fas fa-sync-alt"></i> Reset </button>
+                    </div>
                 </div>
-                <div class="">
+                <div class="pt-3">
                     <table id="datatable_pengguna" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -116,26 +82,40 @@
     var table;
     var base_url = '<?php echo base_url();?>';
 
+    var filterSearch = $("#filterSearch").val();
+    var filterRole = $("#filterRole").val();
+
     $(document).ready(function() {
         
-        table = $('#datatable_pengguna').DataTable({ 
+        filterSearch = $("#filterSearch").val();
+        filterRole = $("#filterRole").val();
+
+        table = datatable_users(filterSearch, filterRole);
+
+        $('.select2').select2()
+
+    });
+
+    function datatable_users(search, role) {
+        return $('#datatable_pengguna').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
                 }
             },
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
+            "processing": true,
+            "serverSide": true,
+            "searching": false,
+            "lengthChange": false,
+            "order": [],
 
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('users/datatable_list_pengguna')?>",
                 "type": "POST",
-                "data": function ( data ) {
-                    data.role_id = $('#fil_role').val();
-                    data.pos_id = $('#fil_pos').val();
-                    data.status_user = $('#fil_status_user').val();
+                "data":  {
+                    "searchFilter": search,
+                    "roleFilter": role,
                 }
             },
 
@@ -153,37 +133,27 @@
             ],
 
         });
+    }
 
-        //set input/textarea/select event when change value, remove class error and remove text help block 
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
+    $('#filterBtn').click(function()
+    {
+        filterSearch = $("#filterSearch").val();
+        filterRole = $("#filterRole").val();
 
-        $('#btn-filter').click(function(){ //button filter event click
-            table.ajax.reload();  //just reload table
-        });
-
-        $('#btn-reset').click(function(){ //button reset event click
-            $('#form-filter')[0].reset();
-            table.ajax.reload();  //just reload table
-        });
-
-        $('.select2').select2()
-
+        table.destroy();
+        table.ajax.reload();
+        
+        table = datatable_users(filterSearch, filterRole);
     });
 
     function reload_table()
     {
-        table.ajax.reload(null,false); //reload datatable ajax 
+        $("#filterSearch").val('');
+        $("#filterRole").val('');
+
+        table.destroy();
+        table.ajax.reload();
+        table = datatable_users('', '');
     }
 
     function delete_pengguna(id)
@@ -197,7 +167,7 @@
             {
                 console.log(readData)
                 swal({
-                    title: 'Menhapus data',
+                    title: 'Menghapus data',
                     text: 'Apakah anda yakin akan menghapus data pengguna "'+ readData.nama +'" ?',
                     icon: 'warning',
                     buttons: true,

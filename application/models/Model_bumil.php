@@ -21,11 +21,19 @@ class Model_bumil extends CI_Model {
 
     private function _get_datatables_query()
 	{
-		//add custom filter here
-		if($this->input->post('nik')) { $this->db->like('nik', $this->input->post('nik')); }
-		if($this->input->post('pos_id')) { $this->db->where('pos_id', $this->input->post('pos_id')); }
-		if($this->input->post('desa_id')) { $this->db->where('desa_id', $this->input->post('desa_id')); }
-		if($this->input->post('jk_bayi')) { $this->db->where('jk_bayi', $this->input->post('jk_bayi')); }
+		//add custom filter here}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
+		
+		if($this->input->post('searchFilter')) { 
+			$this->db->group_start()
+                ->or_like('nik', $this->input->post('searchFilter'))
+                ->or_like('nama_bayi', $this->input->post('searchFilter'))
+                ->or_like('nama_bapak', $this->input->post('searchFilter'))
+                ->or_like('nama_ibu', $this->input->post('searchFilter'))
+            ->group_end();
+		}
 
 		$this->db->where('deleted', 0);
 		$this->db->from($this->t_bumil);

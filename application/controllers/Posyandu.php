@@ -28,6 +28,8 @@ class Posyandu extends CI_Controller {
         // head data
         $head['title_page'] = 'Data Master Posyandu';
         $head['menu_active'] = 'posyandu';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption'] = 'Data Master Posyandu';
@@ -97,6 +99,8 @@ class Posyandu extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Tambah Data Posyandu';
         $head['menu_active'] 	= 'posyandu';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -125,6 +129,8 @@ class Posyandu extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Ubah Data Posyandu';
         $head['menu_active'] 	= 'posyandu';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(

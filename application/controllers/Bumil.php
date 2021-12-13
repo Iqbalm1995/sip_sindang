@@ -29,6 +29,8 @@ class Bumil extends CI_Controller {
         // head data
         $head['title_page']     = 'Data Bumil';
         $head['menu_active']    = 'bumil';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption']  = 'Data Bumil';
@@ -119,6 +121,8 @@ class Bumil extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Tambah Bumil';
         $head['menu_active'] 	= 'bumil';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -158,6 +162,8 @@ class Bumil extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Ubah Data Bumil';
         $head['menu_active'] 	= 'bumil';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
 		$data = array(
@@ -182,6 +188,28 @@ class Bumil extends CI_Controller {
 
 		$this->load->view('template/header', $head);
         $this->load->view('bumil/bumil_forms', $data);
+        $this->load->view('template/footer');
+	}
+
+	public function detail($id)
+	{
+		$r_bml = $this->get_data_bumil($id);
+		if (empty($r_bml)) {
+			redirect(base_url().'bumil');
+		}
+
+        // head data
+        $head['title_page'] 	= 'Detail Data Ibu Hamil '.$r_bml->nama_ibu;
+        $head['menu_active'] 	= 'bumil';
+        $head['subMenu_active'] = null;
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
+
+        // body data
+        $data['aksi'] 			= 'Detail';
+        $data['data_bml'] 		= $r_bml;
+
+		$this->load->view('template/header', $head);
+        $this->load->view('bumil/bumil_details', $data);
         $this->load->view('template/footer');
 	}
 

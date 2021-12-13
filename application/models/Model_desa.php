@@ -26,14 +26,10 @@ class Model_desa extends CI_Model {
 
 	private function _get_datatables_query()
 	{
-		//add custom filter here
-		if($this->input->post('nama'))
-		{
-			$this->db->like('nama', $this->input->post('nama'));
-		}
-		if($this->input->post('status'))
-		{
-			$this->db->where('status', $this->input->post('status'));
+		if($this->input->post('searchFilter')) { 
+			$this->db->group_start()
+                ->or_like('nama', $this->input->post('searchFilter'))
+            ->group_end();
 		}
 
 		$this->db->where('deleted', 0);

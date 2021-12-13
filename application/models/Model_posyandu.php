@@ -16,7 +16,7 @@ class Model_posyandu extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_posyandu()
+	public function get_posyandu($id = null)
 	{
         $this->db->select('pos.id as id, 
                             pos.desa_id as desa_id, 
@@ -31,26 +31,28 @@ class Model_posyandu extends CI_Model {
                          ');
 		$this->db->from($this->t_posyandu.' pos');
         $this->db->join($this->t_desa.' des', 'des.id = pos.desa_id');
+        if ($id !== null) {
+            $this->db->where('pos.id', $id);
+        }
 		$this->db->where('pos.status', 1);
 		$this->db->where('pos.deleted', 0);
 		$query = $this->db->get();
-		return $query->result();
+		if ($id !== null) {
+            $return_final = $query->row();
+        }else{
+            $return_final = $query->result();
+        }
+
+		return $return_final;
 	}
 
 	private function _get_datatables_query()
 	{
-		//add custom filter here
-		if($this->input->post('pos.nama'))
-		{
-			$this->db->like('pos.nama', $this->input->post('nama'));
-		}
-		if($this->input->post('des.nama'))
-		{
-			$this->db->like('des.nama', $this->input->post('desa'));
-		}
-		if($this->input->post('pos.status'))
-		{
-			$this->db->where('pos.status', $this->input->post('status'));
+		if($this->input->post('searchFilter')) { 
+			$this->db->group_start()
+                ->or_like('pos.nama', $this->input->post('searchFilter'))
+                ->or_like('des.nama', $this->input->post('searchFilter'))
+            ->group_end();
 		}
 
 		$this->db->where('pos.deleted', 0);
