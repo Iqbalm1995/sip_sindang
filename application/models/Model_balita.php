@@ -1,15 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_bayi extends CI_Model {
+class Model_balita extends CI_Model {
 
-	private $t_bayi	= 'byi_bayi';
-	private $t_penimbangan_bayi	= 'byi_penimbangan_bayi';
+	private $t_balita	= 'blt_balita';
+	private $t_penimbangan_balita	= 'blt_penimbangan_balita';
     
-    var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama_bayi', 'tgl_lahir_bayi', 'jk_bayi', 
-                                    'bbl', 'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_bayi', 'keterangan', 'nama_pic', 'created_on');
-    var $column_search = array(null, 'pos_name', 'desa_name', 'kms', 'nama_bayi', 'tgl_lahir_bayi', 'jk_bayi', 
-                                     'bbl', 'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_bayi', 'keterangan', 'nama_pic', 'created_on');
+    var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama_anak', 'tgl_lahir_anak', 'jk_anak', 
+                                    'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_anak', 'keterangan', 'nama_pic', 'created_on');
+    var $column_search = array(null, 'pos_name', 'desa_name', 'kms', 'nama_anak', 'tgl_lahir_anak', 'jk_anak', 
+                                    'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_anak', 'keterangan', 'nama_pic', 'created_on');
     var $order = array('created_on' => 'desc');
 	
 	public function __construct()
@@ -18,11 +18,11 @@ class Model_bayi extends CI_Model {
 		$this->load->database();
 	}
 
-    public function get_timbangan_bayi($bayi_id, $tahun = null)
+    public function get_timbangan_balita($balita_id, $tahun = null)
 	{
         $this->db->select('*');
-		$this->db->from($this->t_penimbangan_bayi);
-		$this->db->where('bayi_id', $bayi_id);
+		$this->db->from($this->t_penimbangan_balita);
+		$this->db->where('balita_id', $balita_id);
 		if ($tahun == null) {
 			$tahun = date('Y');
 			$this->db->where('tahun', $tahun);
@@ -34,36 +34,36 @@ class Model_bayi extends CI_Model {
 		return $query->result();
 	}
 
-    public function get_arsip_timbangan_bayi($bayi_id)
+    public function get_arsip_timbangan_balita($balita_id)
 	{
-		$this->db->select('b1.tahun AS tahun, by1.id AS bayi_id');
-		$this->db->from($this->t_penimbangan_bayi.' b1');
-		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
+		$this->db->select('b1.tahun AS tahun, bt1.id AS balita_id');
+		$this->db->from($this->t_penimbangan_balita.' b1');
+		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
 		$this->db->group_start()
 				 ->where('b1.tinggi_sekarang !=', 0)
 				 ->where('b1.berat_sekarang !=', 0)
 		->group_end();
-		$this->db->where('by1.deleted', 0);
-		$this->db->where('by1.id', $bayi_id);
+		$this->db->where('bt1.deleted', 0);
+		$this->db->where('bt1.id', $balita_id);
 		$this->db->group_by('b1.tahun');
 		$this->db->order_by('b1.tahun', 'DESC');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-    public function get_total_data_timbangan_bayi($tahun = null)
+    public function get_total_data_timbangan_balita($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
-		$this->db->select('COUNT(DISTINCT by1.id) AS total_penimbang');
-		$this->db->from($this->t_penimbangan_bayi.' b1');
-		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
+		$this->db->select('COUNT(DISTINCT bt1.id) AS total_penimbang');
+		$this->db->from($this->t_penimbangan_balita.' b1');
+		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
 		$this->db->group_start()
 				 ->where('b1.tinggi_sekarang !=', 0)
 				 ->where('b1.berat_sekarang !=', 0)
 		->group_end();
-		$this->db->where('by1.deleted', 0);
+		$this->db->where('bt1.deleted', 0);
 		$this->db->where('b1.tahun', $tahun);
 		$this->db->group_by('b1.bulan, b1.tahun');
 		$this->db->limit(1);
@@ -71,51 +71,24 @@ class Model_bayi extends CI_Model {
 		return $query->row();
 	}
 
-    public function get_total_data_bayi_meninggal($tahun = null)
+    public function get_total_data_balita()
 	{
-		if ($tahun == null) {
-			$tahun = date('Y');
-		}
-		
-		$this->db->select('COUNT(id) AS total_bayi_meninggal');
-		$this->db->from($this->t_bayi);
-		$this->db->where('YEAR(created_on)', $tahun);
-		$this->db->where('tgl_meninggal_bayi IS NOT NULL');
-		$this->db->where('deleted', 0);
-		$query = $this->db->get();
-		return $query->row();
-	}
-
-    public function get_total_data_bayi_baru_lahir($tahun = null)
-	{
-		if ($tahun == null) {
-			$tahun = date('Y');
-		}
-		$this->db->from($this->t_bayi);
-		$this->db->where('YEAR(created_on)', $tahun);
-		$this->db->where('bbl', 1);
+		$this->db->from($this->t_balita);
 		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
 	}
 
-    public function get_total_data_bayi()
-	{
-		$this->db->from($this->t_bayi);
-		$this->db->where('deleted', 0);
-		return $this->db->count_all_results();
-	}
-
-    public function get_timbangan_bayi_total($tahun = null)
+    public function get_timbangan_balita_total($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM byi_penimbangan_bayi b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
-		$this->db->from($this->t_penimbangan_bayi.' b1');
-		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
+		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM blt_penimbangan_balita b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->from($this->t_penimbangan_balita.' b1');
+		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
 		$this->db->where('b1.tahun', $tahun);
-		$this->db->where('by1.deleted', 0);
+		$this->db->where('bt1.deleted', 0);
 		$this->db->group_by('b1.bulan, b1.tahun');
 		$query = $this->db->get();
 		return $query->result();
@@ -124,23 +97,22 @@ class Model_bayi extends CI_Model {
     private function _get_datatables_query()
 	{
 		//add custom filter here
-		if($this->input->post('is_pass_away')) { $this->db->where('tgl_meninggal_bayi IS NULL'); }
 		if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('pos_id', $this->session->userdata('pos_id'));
 		}
-		if($this->input->post('jkFilter')) { $this->db->like('jk_bayi', $this->input->post('jkFilter')); }
+		if($this->input->post('jkFilter')) { $this->db->like('jk_anak', $this->input->post('jkFilter')); }
 		
 		if($this->input->post('searchFilter')) { 
 			$this->db->group_start()
                 ->or_like('kms', $this->input->post('searchFilter'))
-                ->or_like('nama_bayi', $this->input->post('searchFilter'))
+                ->or_like('nama_anak', $this->input->post('searchFilter'))
                 ->or_like('nama_bapak', $this->input->post('searchFilter'))
                 ->or_like('nama_ibu', $this->input->post('searchFilter'))
             ->group_end();
 		}
 
 		$this->db->where('deleted', 0);
-		$this->db->from($this->t_bayi);
+		$this->db->from($this->t_balita);
 
 		$i = 0;
 	
@@ -194,14 +166,14 @@ class Model_bayi extends CI_Model {
 
 	public function count_all()
 	{
-		$this->db->from($this->t_bayi);
+		$this->db->from($this->t_balita);
 		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
 	}
 
 	public function get_by_id($id)
 	{
-		$this->db->from($this->t_bayi);
+		$this->db->from($this->t_balita);
 		$this->db->where('id',$id);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
@@ -211,7 +183,7 @@ class Model_bayi extends CI_Model {
 
 	public function get_by_kms($kms)
 	{
-		$this->db->from($this->t_bayi);
+		$this->db->from($this->t_balita);
 		$this->db->where('kms',$kms);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
@@ -222,7 +194,7 @@ class Model_bayi extends CI_Model {
 	public function save($data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->insert($this->t_bayi, $data);
+		$save = $this->db->insert($this->t_balita, $data);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -230,7 +202,7 @@ class Model_bayi extends CI_Model {
     public function save_penimbangan($data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->insert_batch($this->t_penimbangan_bayi, $data);
+		$save = $this->db->insert_batch($this->t_penimbangan_balita, $data);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -238,7 +210,7 @@ class Model_bayi extends CI_Model {
 	public function update($where, $data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->update($this->t_bayi, $data, $where);
+		$save = $this->db->update($this->t_balita, $data, $where);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -246,20 +218,22 @@ class Model_bayi extends CI_Model {
 	public function delete_by_id($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete($this->t_bayi);
+		$this->db->delete($this->t_balita);
 	}
 
-    public function clear_penimbangan_data_bayi($bayi_id, $year)
+    public function clear_penimbangan_data_balita($balita_id, $year)
 	{
 		$this->db->trans_start();
-		$this->db->where('bayi_id', $bayi_id);
+		$this->db->where('balita_id', $balita_id);
 		$this->db->where('tahun', $year);
-		$this->db->delete($this->t_penimbangan_bayi);
+		$this->db->delete($this->t_penimbangan_balita);
 		$this->db->trans_complete();
 	}
 
 	function cek($where,$table){		
 		return $this->db->get_where($table,$where);
 	}
+
+
 	
 }

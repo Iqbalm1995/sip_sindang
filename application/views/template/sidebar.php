@@ -29,7 +29,13 @@
                         <li <?=( $subMenu_active == 'bayi_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bayi/layanan'); ?>">Layanan Bayi</a></li>
                     </ul>
                 </li>
-                <li <?=( $menu_active == 'balita' ? 'class="active"' : '' );?>><a class="nav-link" href="#"><i class="fas fa-child"></i> <span>Balita</span></a></li>
+                <li class="dropdown <?=( $menu_active == 'balita' ? 'active' : '' );?>">
+                    <a class="nav-link has-dropdown" href="#"><i class="fas fa-child"></i> <span>Balita</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?=( $subMenu_active == 'balita_data' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('balita'); ?>">Data Balita</a></li>
+                        <li <?=( $subMenu_active == 'balita_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('balita/layanan'); ?>">Layanan Balita</a></li>
+                    </ul>
+                </li>
             <?php } ?>
             
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>

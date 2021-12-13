@@ -328,7 +328,6 @@ class Bayi extends CI_Controller {
 			'year_assign'			=> $year,
             'data_pos' 			    => $this->Model_posyandu->get_posyandu(),
             'acton_form' 			=> base_url('bayi/action_process'),
-		    'data_penimbangan' 		=> $this->Model_bayi->get_timbangan_bayi($id, $year),
 		    'id' 					=> set_value('id', $r_bayi->id),
             'pos_id' 				=> set_value('pos_id', $r_bayi->pos_id),
 		    'pos_name' 				=> set_value('pos_name', $r_bayi->pos_name),
