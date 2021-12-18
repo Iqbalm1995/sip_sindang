@@ -145,7 +145,6 @@ class Balita extends CI_Controller {
                             <div class="dropdown-menu">
                             <a class="dropdown-item" href="'.base_url().'balita/edit/'.$r_balita->id.'" title="Ubah"><i class="fas fa-edit"></i> Ubah</a>
                             <a class="dropdown-item" href="javascript:void(0)" title="Hapus" onclick="delete_balita('."'".$r_balita->id."'".')"><i class="fas fa-trash"></i> Hapus</a>
-                            <a class="dropdown-item" href="'.base_url().'balita/detail/'.$r_balita->id.'" title="Detail"><i class="fas fa-info-circle"></i> Detail</a>
                         </div>
                       </div>';
 		
