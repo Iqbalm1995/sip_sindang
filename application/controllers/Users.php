@@ -17,7 +17,7 @@ class Users extends CI_Controller {
 			redirect(base_url().'login');
 		}
 
-		if (!in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) {
+		if (!in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV1)) {
 			redirect(base_url().'dashboard');
 		}
     }
@@ -205,7 +205,6 @@ class Users extends CI_Controller {
 			'pos_id' 						=> $pos_id,
 			'username' 						=> $username,
 			'email' 						=> $email,
-			'password' 						=> password_hash($password, PASSWORD_BCRYPT),
 			'nama' 							=> $nama,
 			'status' 						=> $status,
 		);
@@ -214,6 +213,7 @@ class Users extends CI_Controller {
 		if ($save_method == 'Tambah') {
 			$id 					= $this->Model_global->create_id();
 			$data['id'] 			= $id;
+			$data['password'] 		= password_hash($password, PASSWORD_BCRYPT);
 			$data['created_by'] 	= $created_by;
 			$data['created_on'] 	= $created_on;
 			$data['updated_by'] 	= $updated_by;
@@ -221,6 +221,10 @@ class Users extends CI_Controller {
 			$save = $this->Model_user->save($data);
 		}elseif ($save_method == 'Ubah') {
 			$id 					= $this->input->post('id');
+			$edit_pass 				= ($this->input->post('edit_pass') ? 1 : 0 );
+			if ($edit_pass == 1) {
+				$data['password'] 	= password_hash($password, PASSWORD_BCRYPT);
+			}
 			$data['id'] 			= $id;
 			$data['updated_by'] 	= $updated_by;
 			$data['updated_on'] 	= $updated_on;
