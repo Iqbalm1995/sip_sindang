@@ -19,7 +19,6 @@
                 <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
             </ul> 
             </li> -->
-            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_SUBLV1)) { ?>
                 <li class="menu-header">Data Posyandu</li>
                 <li <?=( $menu_active == 'bumil' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a></li>
                 <li class="dropdown <?=( $menu_active == 'bayi' ? 'active' : '' );?>">
@@ -36,9 +35,8 @@
                         <li <?=( $subMenu_active == 'balita_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('balita/layanan'); ?>">Layanan Balita</a></li>
                     </ul>
                 </li>
-            <?php } ?>
             
-            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>
+            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV1)) { ?>
                 <li class="menu-header">Data Master</li>
                 <li <?=( $menu_active == 'desa' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('desa'); ?>"><i class="fas fa-map-marked-alt"></i> <span>Desa</span></a></li>
                 <li <?=( $menu_active == 'posyandu' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('posyandu'); ?>"><i class="fas fa-clinic-medical"></i> <span>Posyandu</span></a></li>
