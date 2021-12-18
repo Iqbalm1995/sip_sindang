@@ -50,8 +50,8 @@
                             <tr>
                                 <th></th>
                                 <th>NIK</th>
-                                <th>Nama Bapak</th>
                                 <th>Nama Ibu</th>
+                                <th>Nama Bapak</th>
                                 <th>Nama Bayi</th>
                                 <th>Tgl Lahir Bayi</th>
                                 <th>L/P</th>

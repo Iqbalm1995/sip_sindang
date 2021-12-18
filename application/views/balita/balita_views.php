@@ -48,7 +48,7 @@
                             <tr>
                                 <th></th>
                                 <th>No. KMS</th>
-                                <th>Nama Bayi</th>
+                                <th>Nama Anak</th>
                                 <th>Nama Ibu</th>
                                 <th>Nama Bapak</th>
                                 <th>Tgl Lahir Bayi</th>
