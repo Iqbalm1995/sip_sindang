@@ -8,7 +8,6 @@
     </div>
     <?php echo $this->session->userdata('message1') <> '' ? $this->session->userdata('message1') : ''; ?>
     <div class="section-body">
-        
     <div class="row">
         <div class="col-md-12">
             <div class="card" style="border-radius:10px;">
