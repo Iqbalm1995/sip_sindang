@@ -43,7 +43,10 @@
 
                 <li class="menu-header">Data Pengguna</li>
                 <li <?=( $menu_active == 'pengguna' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('users'); ?>"><i class="fas fa-user"></i> <span>Pengguna</span></a></li>
+                <li <?=( $menu_active == 'configuration' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('configuration'); ?>"><i class="fas fa-cogs"></i> <span>Web Configuration</span></a></li>
             <?php } ?>
+
+            
 
         </ul>
 

@@ -9,6 +9,7 @@ class Model_global extends CI_Model {
 	private $t_penimbangan_balita	= 'blt_penimbangan_balita';
 	private $t_posyandu		        = 'pos_posyandu';
 	private $t_bumil	            = 'bml_bumil';
+	private $t_web_config	        = 'sys_applications';
 
     public function __construct()
 	{
@@ -25,6 +26,14 @@ class Model_global extends CI_Model {
         	return $query->uuid;
         }
     }
+	// sys_config
+	function load_sys_config()
+    {
+		$this->db->from($this->t_web_config);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		return $query->row();
+	}
 
     // data bayi
     public function get_timbangan_bayi_total($tahun = null, $jk = null)
