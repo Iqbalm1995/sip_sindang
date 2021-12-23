@@ -1,9 +1,9 @@
 <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2021 <div class="bullet"></div> APP SISTEM INFORMASI POSYANDU <a href="#">SINDANG</a>
+          Copyright &copy; 2021 <div class="bullet"></div> APP SISTEM INFORMASI POSYANDU <a href="#">SINDANG</a>, POWERED BY <a href="#"><strong>AEMA</strong></a>
         </div>
         <div class="footer-right">
-          v0.0.1 Alpha
+          v1.0
         </div>
       </footer>
     </div>

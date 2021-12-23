@@ -9,7 +9,7 @@ class Model_user extends CI_Model {
 
 	var $column_order = array(null, 'rol.name', 'pos.nama', 'usr.username', 'usr.email', 'usr.nama', 'usr.status'); //set column field database for datatable orderable
 	var $column_search = array('usr.nama', 'usr.email', 'usr.username', 'rol.name', 'pos.nama', 'usr.status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-	var $order = array('usr.nama' => 'asc'); // default order 
+	var $order = array('usr.created_on' => 'asc'); // default order 
 	
 	public function __construct()
 	{
@@ -51,6 +51,27 @@ class Model_user extends CI_Model {
         }
 
 		return $return_final;
+	}
+
+	
+	public function get_by_username($username)
+	{
+		$this->db->from($this->t_users);
+		$this->db->where('username',$username);
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+
+		return $query->row();
+	}
+
+	public function get_by_email($email_invt)
+	{
+		$this->db->from($this->t_users);
+		$this->db->where('email',$email_invt);
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+
+		return $query->row();
 	}
 
     public function get_roles()

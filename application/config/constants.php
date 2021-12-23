@@ -87,7 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('ROLE_ADMIN_CONTROL_ID', array('eccdbd9e-4c84-11ec-802e-089798e691ce','f104827c-4c84-11ec-802e-089798e691ce'));
 define('ROLE_ADMIN_CONTROL_NAME_LV1', array('Dev','Superadmin'));
-define('ROLE_ADMIN_CONTROL_NAME_LV2', array('Dev','Superadmin'.'Admin'));
+define('ROLE_ADMIN_CONTROL_NAME_LV2', array('Dev','Superadmin','Admin'));
 define('ROLE_ADMIN_CONTROL_NAME_SUBLV1', array('Dev','Superadmin','Manajemen','Monitoring'));
 
 $bulan_satuan = array(
@@ -106,4 +106,7 @@ $bulan_satuan = array(
 );
 
 define('ARRAY_BULAN', $bulan_satuan);
+define('SERIAL_NUMBER', 'xnxch4wSyJQipR3YotJS');
+define('SERVER_IP', '103.28.53.75');
+define('CURRENT_SERVER_IP',  $_SERVER['SERVER_ADDR']);
 
