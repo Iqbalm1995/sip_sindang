@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label>Email <span class="text-danger">*</span></label>
-                            <input type="email" autocomplete="false" name="email" id="email" class="form-control " placeholder="Isi email..." value="<?= $email; ?>" required>
+                            <input type="email" autocomplete="false" name="email" id="email" class="form-control " placeholder="Isi email..." <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> value="<?= $email; ?>" required>
                             <div class="invalid-feedback" id="email_inv"></div>
                         </div>
                         <div class="form-group" id="switch-pass-input" style="display: none;">
@@ -143,6 +143,91 @@
         }
 
     });
+
+    $('#username').change(function() {
+        if (save_method == 'Tambah') {
+            if (this.value != "") {
+                cek_username(this.value);
+            }
+        }
+    });
+
+    $('#email').change(function() {
+        if (save_method == 'Tambah') {
+            if (this.value != "") {
+                cek_email(this.value);
+            }
+        }
+    });
+
+    function cek_username(username)
+    {
+        $.ajax({
+            url : "<?= base_url('users/cek_data_username_json')?>/" + username,
+            type: "POST",
+            dataType: "JSON",
+            success: function(readData)
+            {
+                console.log(readData)
+                if (readData == null) {
+                    // some true condition
+                }else{
+                    swal({
+                            title: 'Cek data Username',
+                            text: 'Username "'+ username +'" sudah terdaftar di data user!',
+                            icon: 'warning',
+                            dangerMode: true,
+                        }).then((ok) => {
+                            $("#username").val("");
+                            $("#username").focus();
+                            $("#username").addClass('is-invalid');
+                            $("#username_inv").text('Username sudah terdaftar di data user');
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                swal('Gagal', 'Terjadi kesalahan pada saat mencari Username!', 'error');
+                $("#username").focus();
+            }
+        });
+    }
+
+    function cek_email(email)
+    {
+        $.ajax({
+            url : "<?= base_url('users/cek_data_email_json')?>",
+            type: "POST",
+            data: {
+                email,
+            },
+            dataType: "JSON",
+            success: function(readData)
+            {
+                console.log(readData)
+                if (readData == null) {
+                    // some true condition
+                }else{
+                    swal({
+                            title: 'Cek data Email',
+                            text: 'Email "'+ email +'" sudah terdaftar di data user!',
+                            icon: 'warning',
+                            dangerMode: true,
+                        }).then((ok) => {
+                            $("#email").val("");
+                            $("#email").focus();
+                            $("#email").addClass('is-invalid');
+                            $("#email_inv").text('Email sudah terdaftar di data user');
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                swal('Gagal', 'Terjadi kesalahan pada saat mencari Email!', 'error');
+                $("#email").focus();
+            }
+        });
+    }
 
     function save()
     {

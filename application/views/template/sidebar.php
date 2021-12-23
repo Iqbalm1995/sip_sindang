@@ -19,6 +19,7 @@
                 <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
             </ul> 
             </li> -->
+            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_SUBLV1)) { ?>
                 <li class="menu-header">Data Posyandu</li>
                 <li <?=( $menu_active == 'bumil' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a></li>
                 <li class="dropdown <?=( $menu_active == 'bayi' ? 'active' : '' );?>">
@@ -35,15 +36,18 @@
                         <li <?=( $subMenu_active == 'balita_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('balita/layanan'); ?>">Layanan Balita</a></li>
                     </ul>
                 </li>
+            <?php } ?>
             
-            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV1)) { ?>
+            <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>
                 <li class="menu-header">Data Master</li>
                 <li <?=( $menu_active == 'desa' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('desa'); ?>"><i class="fas fa-map-marked-alt"></i> <span>Desa</span></a></li>
                 <li <?=( $menu_active == 'posyandu' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('posyandu'); ?>"><i class="fas fa-clinic-medical"></i> <span>Posyandu</span></a></li>
 
                 <li class="menu-header">Data Pengguna</li>
                 <li <?=( $menu_active == 'pengguna' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('users'); ?>"><i class="fas fa-user"></i> <span>Pengguna</span></a></li>
-                <li <?=( $menu_active == 'configuration' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('configuration'); ?>"><i class="fas fa-cogs"></i> <span>Web Configuration</span></a></li>
+                <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV1)) { ?>
+                    <li <?=( $menu_active == 'configuration' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('configuration'); ?>"><i class="fas fa-cogs"></i> <span>Web Configuration</span></a></li>
+                <?php } ?>
             <?php } ?>
 
             

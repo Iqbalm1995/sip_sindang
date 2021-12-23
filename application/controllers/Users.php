@@ -30,7 +30,7 @@ class Users extends CI_Controller {
         $head['title_page']     = 'Data Pengguna';
         $head['menu_active']    = 'pengguna';
         $head['subMenu_active'] = null;
-        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
+        $head['pos_session'] 	= $this->Model_posyandu->get_posyandu();
 
         // body data
         $data['pages_caption']  = 'Data Pengguna';
@@ -108,6 +108,27 @@ class Users extends CI_Controller {
 
 	public function get_data_user_json($id){
 		$data = $this->Model_user->get_users($id);
+		echo json_encode($data);
+	}
+
+    public function cek_data_username($username){
+		$data = $this->Model_user->get_by_username($username);
+		return $data;
+	}
+
+    public function cek_data_username_json($username){
+		$data = $this->Model_user->get_by_username($username);
+		echo json_encode($data);
+	}
+
+    public function cek_data_email($email){
+		$data = $this->Model_user->get_by_email($email);
+		return $data;
+	}
+
+    public function cek_data_email_json(){
+		$email_invt = $this->input->post('email');
+		$data = $this->Model_user->get_by_email($email_invt);
 		echo json_encode($data);
 	}
 
