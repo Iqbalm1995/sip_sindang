@@ -398,8 +398,8 @@ class Balita extends CI_Controller {
 		$pyd_syrp_besi_fe2 		= ($this->input->post('status_pyd_syrp_besi_fe2') ? $this->input->post('pyd_syrp_besi_fe2') : null );
 		$pyd_vit_a_bln1 		= ($this->input->post('status_pyd_vit_a_bln1') ? $this->input->post('pyd_vit_a_bln1') : null );
 		$pyd_vit_a_bln2 		= ($this->input->post('status_pyd_vit_a_bln2') ? $this->input->post('pyd_vit_a_bln2') : null );
-		$pyd_pmt_pemulihan 		= ($this->input->post('pyd_pmt_pemulihan') ? 1 : 0);
-		$pyd_oralit 			= ($this->input->post('pyd_oralit') ? 1 : 0);
+		$pyd_pmt_pemulihan 		= ($this->input->post('status_pyd_pmt_pemulihan') ? $this->input->post('pyd_pmt_pemulihan') : null );
+		$pyd_oralit 			= ($this->input->post('status_pyd_oralit') ? $this->input->post('pyd_oralit') : null );
 		$keterangan 			= $this->input->post('keterangan');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');

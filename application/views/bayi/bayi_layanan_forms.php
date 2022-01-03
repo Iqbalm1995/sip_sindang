@@ -281,10 +281,15 @@
                                                 <div class="form-group">
                                                     <div class="control-label">Oralit</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_oralit" id="pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_oralit" id="status_pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_oralit">
+                                                    <label>Tanggal Pemberian Oralit (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_oralit" id="pyd_oralit" class="form-control datepicker" value="<?= $pyd_oralit; ?>">
+                                                    <div class="invalid-feedback" id="pyd_oralit_inv"></div>
                                                 </div>
 
                                             </div>
@@ -296,10 +301,15 @@
                                                 <div class="form-group">
                                                     <div class="control-label">BCG</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_bcg" id="pyd_bcg" <?= ( !empty($pyd_bcg) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_bcg" id="status_pyd_bcg" <?= ( !empty($pyd_bcg) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_bcg">
+                                                    <label>Tanggal BCG (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_bcg" id="pyd_bcg" class="form-control datepicker" value="<?= $pyd_bcg; ?>">
+                                                    <div class="invalid-feedback" id="pyd_bcg_inv"></div>
                                                 </div>
 
                                             </div>
@@ -315,28 +325,43 @@
                                                 <div class="form-group">
                                                     <div class="control-label">DPT I</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_dpt1" id="pyd_dpt1" <?= ( !empty($pyd_dpt1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_dpt1" id="status_pyd_dpt1" <?= ( !empty($pyd_dpt1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_dpt1">
+                                                    <label>Tanggal DPT I (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_dpt1" id="pyd_dpt1" class="form-control datepicker" value="<?= $pyd_dpt1; ?>">
+                                                    <div class="invalid-feedback" id="pyd_dpt1_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">DPT II</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_dpt2" id="pyd_dpt2" <?= ( !empty($pyd_dpt2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_dpt2" id="status_pyd_dpt2" <?= ( !empty($pyd_dpt2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_dpt2">
+                                                    <label>Tanggal DPT II (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_dpt2" id="pyd_dpt2" class="form-control datepicker" value="<?= $pyd_dpt2; ?>">
+                                                    <div class="invalid-feedback" id="pyd_dpt2_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">DPT III</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_dpt3" id="pyd_dpt3" <?= ( !empty($pyd_dpt3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_dpt3" id="status_pyd_dpt3" <?= ( !empty($pyd_dpt3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_dpt3">
+                                                    <label>Tanggal DPT II (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_dpt3" id="pyd_dpt3" class="form-control datepicker" value="<?= $pyd_dpt3; ?>">
+                                                    <div class="invalid-feedback" id="pyd_dpt3_inv"></div>
                                                 </div>
 
                                             </div>
@@ -348,37 +373,57 @@
                                                 <div class="form-group">
                                                     <div class="control-label">POLIO I</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_polio1" id="pyd_polio1" <?= ( !empty($pyd_polio1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_polio1" id="status_pyd_polio1" <?= ( !empty($pyd_polio1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_polio1">
+                                                    <label>Tanggal POLIO I (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_polio1" id="pyd_polio1" class="form-control datepicker" value="<?= $pyd_polio1; ?>">
+                                                    <div class="invalid-feedback" id="pyd_polio1_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">POLIO II</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_polio2" id="pyd_polio2" <?= ( !empty($pyd_polio2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_polio2" id="status_pyd_polio2" <?= ( !empty($pyd_polio2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_polio2">
+                                                    <label>Tanggal POLIO II (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_polio2" id="pyd_polio2" class="form-control datepicker" value="<?= $pyd_polio2; ?>">
+                                                    <div class="invalid-feedback" id="pyd_polio2_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">POLIO III</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_polio3" id="pyd_polio3" <?= ( !empty($pyd_polio3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_polio3" id="status_pyd_polio3" <?= ( !empty($pyd_polio3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_polio3">
+                                                    <label>Tanggal POLIO III (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_polio3" id="pyd_polio3" class="form-control datepicker" value="<?= $pyd_polio3; ?>">
+                                                    <div class="invalid-feedback" id="pyd_polio3_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">POLIO IV</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_polio4" id="pyd_polio4" <?= ( !empty($pyd_polio4) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_polio4" id="status_pyd_polio4" <?= ( !empty($pyd_polio4) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_polio4">
+                                                    <label>Tanggal POLIO III (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_polio4" id="pyd_polio4" class="form-control datepicker" value="<?= $pyd_polio4; ?>">
+                                                    <div class="invalid-feedback" id="pyd_polio4_inv"></div>
                                                 </div>
 
                                             </div>
@@ -394,10 +439,15 @@
                                                 <div class="form-group">
                                                     <div class="control-label">Campak</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_campak" id="pyd_campak" <?= ( !empty($pyd_campak) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_campak" id="status_pyd_campak" <?= ( !empty($pyd_campak) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_campak">
+                                                    <label>Tanggal Campak (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_campak" id="pyd_campak" class="form-control datepicker" value="<?= $pyd_campak; ?>">
+                                                    <div class="invalid-feedback" id="pyd_campak_inv"></div>
                                                 </div>
 
                                             </div>
@@ -409,28 +459,43 @@
                                                 <div class="form-group">
                                                     <div class="control-label">HEPATITIS I</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_hepatitis1" id="pyd_hepatitis1" <?= ( !empty($pyd_hepatitis1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_hepatitis1" id="status_pyd_hepatitis1" <?= ( !empty($pyd_hepatitis1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_hepatitis1">
+                                                    <label>Tanggal HEPATITIS I (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_hepatitis1" id="pyd_hepatitis1" class="form-control datepicker" value="<?= $pyd_hepatitis1; ?>">
+                                                    <div class="invalid-feedback" id="pyd_hepatitis1_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">HEPATITIS II</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_hepatitis2" id="pyd_hepatitis2" <?= ( !empty($pyd_hepatitis2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_hepatitis2" id="status_pyd_hepatitis2" <?= ( !empty($pyd_hepatitis2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_hepatitis2">
+                                                    <label>Tanggal HEPATITIS II (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_hepatitis2" id="pyd_hepatitis2" class="form-control datepicker" value="<?= $pyd_hepatitis2; ?>">
+                                                    <div class="invalid-feedback" id="pyd_hepatitis2_inv"></div>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <div class="control-label">HEPATITIS III</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_hepatitis3" id="pyd_hepatitis3" <?= ( !empty($pyd_hepatitis3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_hepatitis3" id="status_pyd_hepatitis3" <?= ( !empty($pyd_hepatitis3) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_hepatitis3">
+                                                    <label>Tanggal HEPATITIS III (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_hepatitis3" id="pyd_hepatitis3" class="form-control datepicker" value="<?= $pyd_hepatitis3; ?>">
+                                                    <div class="invalid-feedback" id="pyd_hepatitis3_inv"></div>
                                                 </div>
 
                                             </div>
@@ -547,6 +612,84 @@
             $("#inpt_pyd_vit_a_bln2").css('display', 'none');
         }
 
+        if ($('#status_pyd_oralit').is(':checked')) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        }else{
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
+
+        if ($('#status_pyd_bcg').is(':checked')) {
+            $("#inpt_pyd_bcg").css('display', 'block');
+        }else{
+            $("#inpt_pyd_bcg").css('display', 'none');
+        }
+
+        if ($('#status_pyd_dpt1').is(':checked')) {
+            $("#inpt_pyd_dpt1").css('display', 'block');
+        }else{
+            $("#inpt_pyd_dpt1").css('display', 'none');
+        }
+
+        if ($('#status_pyd_dpt2').is(':checked')) {
+            $("#inpt_pyd_dpt2").css('display', 'block');
+        }else{
+            $("#inpt_pyd_dpt2").css('display', 'none');
+        }
+
+        if ($('#status_pyd_dpt3').is(':checked')) {
+            $("#inpt_pyd_dpt3").css('display', 'block');
+        }else{
+            $("#inpt_pyd_dpt3").css('display', 'none');
+        }
+
+        if ($('#status_pyd_polio1').is(':checked')) {
+            $("#inpt_pyd_polio1").css('display', 'block');
+        }else{
+            $("#inpt_pyd_polio1").css('display', 'none');
+        }
+
+        if ($('#status_pyd_polio2').is(':checked')) {
+            $("#inpt_pyd_polio2").css('display', 'block');
+        }else{
+            $("#inpt_pyd_polio2").css('display', 'none');
+        }
+
+        if ($('#status_pyd_polio3').is(':checked')) {
+            $("#inpt_pyd_polio3").css('display', 'block');
+        }else{
+            $("#inpt_pyd_polio3").css('display', 'none');
+        }
+
+        if ($('#status_pyd_polio4').is(':checked')) {
+            $("#inpt_pyd_polio4").css('display', 'block');
+        }else{
+            $("#inpt_pyd_polio4").css('display', 'none');
+        }
+
+        if ($('#status_pyd_campak').is(':checked')) {
+            $("#inpt_pyd_campak").css('display', 'block');
+        }else{
+            $("#inpt_pyd_campak").css('display', 'none');
+        }
+
+        if ($('#status_pyd_hepatitis1').is(':checked')) {
+            $("#inpt_pyd_hepatitis1").css('display', 'block');
+        }else{
+            $("#inpt_pyd_hepatitis1").css('display', 'none');
+        }
+
+        if ($('#status_pyd_hepatitis2').is(':checked')) {
+            $("#inpt_pyd_hepatitis2").css('display', 'block');
+        }else{
+            $("#inpt_pyd_hepatitis2").css('display', 'none');
+        }
+
+        if ($('#status_pyd_hepatitis3').is(':checked')) {
+            $("#inpt_pyd_hepatitis3").css('display', 'block');
+        }else{
+            $("#inpt_pyd_hepatitis3").css('display', 'none');
+        }
+
         if ($('#status_meninggal_bayi').is(':checked')) {
             $("#inpt_tgl_meninggal_bayi").css('display', 'block');
         }else{
@@ -595,14 +738,6 @@
             }
         });
     }
-
-    $('#status_meninggal_bayi').change(function() {
-        if (this.checked) {
-            $("#inpt_tgl_meninggal_bayi").css('display', 'block');
-        } else {
-            $("#inpt_tgl_meninggal_bayi").css('display', 'none');
-        }
-    });
 
     function save()
     {
@@ -682,6 +817,110 @@
         }
     });
 
+    $('#status_pyd_oralit').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        } else {
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_bcg').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_bcg").css('display', 'block');
+        } else {
+            $("#inpt_pyd_bcg").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_dpt1').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_dpt1").css('display', 'block');
+        } else {
+            $("#inpt_pyd_dpt1").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_dpt2').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_dpt2").css('display', 'block');
+        } else {
+            $("#inpt_pyd_dpt2").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_dpt3').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_dpt3").css('display', 'block');
+        } else {
+            $("#inpt_pyd_dpt3").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_polio1').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_polio1").css('display', 'block');
+        } else {
+            $("#inpt_pyd_polio1").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_polio2').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_polio2").css('display', 'block');
+        } else {
+            $("#inpt_pyd_polio2").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_polio3').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_polio3").css('display', 'block');
+        } else {
+            $("#inpt_pyd_polio3").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_polio4').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_polio4").css('display', 'block');
+        } else {
+            $("#inpt_pyd_polio4").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_campak').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_campak").css('display', 'block');
+        } else {
+            $("#inpt_pyd_campak").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_hepatitis1').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_hepatitis1").css('display', 'block');
+        } else {
+            $("#inpt_pyd_hepatitis1").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_hepatitis2').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_hepatitis2").css('display', 'block');
+        } else {
+            $("#inpt_pyd_hepatitis2").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_hepatitis3').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_hepatitis3").css('display', 'block');
+        } else {
+            $("#inpt_pyd_hepatitis3").css('display', 'none');
+        }
+    });
+
     $('#status_meninggal_bayi').change(function() {
         if (this.checked) {
             $("#inpt_tgl_meninggal_bayi").css('display', 'block');
@@ -740,17 +979,6 @@
             $("#tgl_lahir_bayi_inv").text('Tanggal lahir bayi masih kosong');
         }
 
-        if ($('#status_meninggal_bayi').is(':checked')) {
-            if ($("#tgl_meninggal_bayi").val() == "") {
-                status = false;
-                $("#tgl_meninggal_bayi").addClass('is-invalid');
-                $("#tgl_meninggal_bayi_inv").text('Tanggal meninggal bayi masih kosong');
-            }else{
-                $("#tgl_meninggal_bayi").removeClass('is-invalid');
-                $("#tgl_meninggal_bayi_inv").text('');
-            }
-        }
-
         if ($("#role_id").val() != 'eccdbd9e-4c84-11ec-802e-089798e691ce' && $("#role_id").val() != 'f104827c-4c84-11ec-802e-089798e691ce') {
             if ($("#pos_id").val() == "") {
                 status = false;
@@ -763,6 +991,204 @@
             status = false;
             $("#pos_id").addClass('is-invalid');
             $("#pos_id_inv").text('Posyandu masih belum dipilih');
+        }
+
+        if ($('#status_pyd_syrp_besi_fe1').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe1").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe1").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('Tanggal Sirup besi 1 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe1").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_syrp_besi_fe2').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe2").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe2").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('Tanggal Sirup besi 2 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe2").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln1').is(':checked')) {
+            if ($("#pyd_vit_a_bln1").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln1").addClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('Tanggal Vitamin Bln 1 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln1").removeClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln2').is(':checked')) {
+            if ($("#pyd_vit_a_bln2").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln2").addClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('Tanggal Vitamin Bln 2 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln2").removeClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_oralit').is(':checked')) {
+            if ($("#pyd_oralit").val() == "") {
+                status = false;
+                $("#pyd_oralit").addClass('is-invalid');
+                $("#pyd_oralit_inv").text('Tanggal Oralit masih kosong');
+            }else{
+                $("#pyd_oralit").removeClass('is-invalid');
+                $("#pyd_oralit_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_bcg').is(':checked')) {
+            if ($("#pyd_bcg").val() == "") {
+                status = false;
+                $("#pyd_bcg").addClass('is-invalid');
+                $("#pyd_bcg_inv").text('Tanggal BCG masih kosong');
+            }else{
+                $("#pyd_bcg").removeClass('is-invalid');
+                $("#pyd_bcg_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_dpt1').is(':checked')) {
+            if ($("#pyd_dpt1").val() == "") {
+                status = false;
+                $("#pyd_dpt1").addClass('is-invalid');
+                $("#pyd_dpt1_inv").text('Tanggal DPT 1 masih kosong');
+            }else{
+                $("#pyd_dpt1").removeClass('is-invalid');
+                $("#pyd_dpt1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_dpt2').is(':checked')) {
+            if ($("#pyd_dpt2").val() == "") {
+                status = false;
+                $("#pyd_dpt2").addClass('is-invalid');
+                $("#pyd_dpt2_inv").text('Tanggal DPT 2 masih kosong');
+            }else{
+                $("#pyd_dpt2").removeClass('is-invalid');
+                $("#pyd_dpt2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_dpt3').is(':checked')) {
+            if ($("#pyd_dpt3").val() == "") {
+                status = false;
+                $("#pyd_dpt3").addClass('is-invalid');
+                $("#pyd_dpt3_inv").text('Tanggal DPT 3 masih kosong');
+            }else{
+                $("#pyd_dpt3").removeClass('is-invalid');
+                $("#pyd_dpt3_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_polio1').is(':checked')) {
+            if ($("#pyd_polio1").val() == "") {
+                status = false;
+                $("#pyd_polio1").addClass('is-invalid');
+                $("#pyd_polio1_inv").text('Tanggal POLIO 1 masih kosong');
+            }else{
+                $("#pyd_polio1").removeClass('is-invalid');
+                $("#pyd_polio1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_polio2').is(':checked')) {
+            if ($("#pyd_polio2").val() == "") {
+                status = false;
+                $("#pyd_polio2").addClass('is-invalid');
+                $("#pyd_polio2_inv").text('Tanggal POLIO 2 masih kosong');
+            }else{
+                $("#pyd_polio2").removeClass('is-invalid');
+                $("#pyd_polio2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_polio3').is(':checked')) {
+            if ($("#pyd_polio3").val() == "") {
+                status = false;
+                $("#pyd_polio3").addClass('is-invalid');
+                $("#pyd_polio3_inv").text('Tanggal POLIO 3 masih kosong');
+            }else{
+                $("#pyd_polio3").removeClass('is-invalid');
+                $("#pyd_polio3_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_polio4').is(':checked')) {
+            if ($("#pyd_polio4").val() == "") {
+                status = false;
+                $("#pyd_polio4").addClass('is-invalid');
+                $("#pyd_polio4_inv").text('Tanggal POLIO 4 masih kosong');
+            }else{
+                $("#pyd_polio4").removeClass('is-invalid');
+                $("#pyd_polio4_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_campak').is(':checked')) {
+            if ($("#pyd_campak").val() == "") {
+                status = false;
+                $("#pyd_campak").addClass('is-invalid');
+                $("#pyd_campak_inv").text('Tanggal Campak masih kosong');
+            }else{
+                $("#pyd_campak").removeClass('is-invalid');
+                $("#pyd_campak_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_hepatitis1').is(':checked')) {
+            if ($("#pyd_hepatitis1").val() == "") {
+                status = false;
+                $("#pyd_hepatitis1").addClass('is-invalid');
+                $("#pyd_hepatitis1_inv").text('Tanggal Hepatitis 1 masih kosong');
+            }else{
+                $("#pyd_hepatitis1").removeClass('is-invalid');
+                $("#pyd_hepatitis1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_hepatitis2').is(':checked')) {
+            if ($("#pyd_hepatitis2").val() == "") {
+                status = false;
+                $("#pyd_hepatitis2").addClass('is-invalid');
+                $("#pyd_hepatitis2_inv").text('Tanggal Hepatitis 2 masih kosong');
+            }else{
+                $("#pyd_hepatitis2").removeClass('is-invalid');
+                $("#pyd_hepatitis2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_hepatitis3').is(':checked')) {
+            if ($("#pyd_hepatitis3").val() == "") {
+                status = false;
+                $("#pyd_hepatitis3").addClass('is-invalid');
+                $("#pyd_hepatitis3_inv").text('Tanggal Hepatitis 3 masih kosong');
+            }else{
+                $("#pyd_hepatitis3").removeClass('is-invalid');
+                $("#pyd_hepatitis3_inv").text('');
+            }
+        }
+
+        if ($('#status_meninggal_bayi').is(':checked')) {
+            if ($("#tgl_meninggal_bayi").val() == "") {
+                status = false;
+                $("#tgl_meninggal_bayi").addClass('is-invalid');
+                $("#tgl_meninggal_bayi_inv").text('Tanggal meninggal bayi masih kosong');
+            }else{
+                $("#tgl_meninggal_bayi").removeClass('is-invalid');
+                $("#tgl_meninggal_bayi_inv").text('');
+            }
         }
 
         return status
@@ -807,6 +1233,125 @@
         if ($("#tgl_lahir_bayi").val() != "") {
             $("#tgl_lahir_bayi").removeClass('is-invalid');
             $("#tgl_lahir_bayi_inv").text('');
+        }
+    });
+
+    $("#pyd_syrp_besi_fe1").keyup(function(){
+        if ($("#pyd_syrp_besi_fe1").val() != "") {
+            $("#pyd_syrp_besi_fe1").removeClass('is-invalid');
+            $("#pyd_syrp_besi_fe1_inv").text('');
+        }
+    });
+
+    $("#pyd_syrp_besi_fe2").keyup(function(){
+        if ($("#pyd_syrp_besi_fe2").val() != "") {
+            $("#pyd_syrp_besi_fe2").removeClass('is-invalid');
+            $("#pyd_syrp_besi_fe2_inv").text('');
+        }
+    });
+
+    $("#pyd_vit_a_bln1").keyup(function(){
+        if ($("#pyd_vit_a_bln1").val() != "") {
+            $("#pyd_vit_a_bln1").removeClass('is-invalid');
+            $("#pyd_vit_a_bln1_inv").text('');
+        }
+    });
+
+    $("#pyd_vit_a_bln2").keyup(function(){
+        if ($("#pyd_vit_a_bln2").val() != "") {
+            $("#pyd_vit_a_bln2").removeClass('is-invalid');
+            $("#pyd_vit_a_bln2_inv").text('');
+        }
+    });
+
+    $("#pyd_oralit").keyup(function(){
+        if ($("#pyd_oralit").val() != "") {
+            $("#pyd_oralit").removeClass('is-invalid');
+            $("#pyd_oralit_inv").text('');
+        }
+    });
+
+    $("#pyd_bcg").keyup(function(){
+        if ($("#pyd_bcg").val() != "") {
+            $("#pyd_bcg").removeClass('is-invalid');
+            $("#pyd_bcg_inv").text('');
+        }
+    });
+
+    $("#pyd_dpt1").keyup(function(){
+        if ($("#pyd_dpt1").val() != "") {
+            $("#pyd_dpt1").removeClass('is-invalid');
+            $("#pyd_dpt1_inv").text('');
+        }
+    });
+
+    $("#pyd_dpt2").keyup(function(){
+        if ($("#pyd_dpt2").val() != "") {
+            $("#pyd_dpt2").removeClass('is-invalid');
+            $("#pyd_dpt2_inv").text('');
+        }
+    });
+
+    $("#pyd_dpt3").keyup(function(){
+        if ($("#pyd_dpt3").val() != "") {
+            $("#pyd_dpt3").removeClass('is-invalid');
+            $("#pyd_dpt3_inv").text('');
+        }
+    });
+
+    $("#pyd_polio1").keyup(function(){
+        if ($("#pyd_polio1").val() != "") {
+            $("#pyd_polio1").removeClass('is-invalid');
+            $("#pyd_polio1_inv").text('');
+        }
+    });
+
+    $("#pyd_polio2").keyup(function(){
+        if ($("#pyd_polio2").val() != "") {
+            $("#pyd_polio2").removeClass('is-invalid');
+            $("#pyd_polio2_inv").text('');
+        }
+    });
+
+    $("#pyd_polio3").keyup(function(){
+        if ($("#pyd_polio3").val() != "") {
+            $("#pyd_polio3").removeClass('is-invalid');
+            $("#pyd_polio3_inv").text('');
+        }
+    });
+
+    $("#pyd_polio4").keyup(function(){
+        if ($("#pyd_polio4").val() != "") {
+            $("#pyd_polio4").removeClass('is-invalid');
+            $("#pyd_polio4_inv").text('');
+        }
+    });
+
+    $("#pyd_campak").keyup(function(){
+        if ($("#pyd_campak").val() != "") {
+            $("#pyd_campak").removeClass('is-invalid');
+            $("#pyd_campak_inv").text('');
+        }
+    });
+
+    $("#pyd_hepatitis1").keyup(function(){
+        if ($("#pyd_hepatitis1").val() != "") {
+            $("#pyd_hepatitis1").removeClass('is-invalid');
+            $("#pyd_hepatitis1_inv").text('');
+        }
+    });
+
+    $("#pyd_hepatitis2").keyup(function(){
+        if ($("#pyd_hepatitis2").val() != "") {
+            $("#pyd_hepatitis2").removeClass('is-invalid');
+            $("#pyd_hepatitis2_inv").text('');
+        }
+    });
+
+    $("#pyd_hepatitis3").keyup(function(){
+        if ($("#pyd_hepatitis3").val() != "") {
+            $("#pyd_hepatitis3").removeClass('is-invalid');
+            $("#pyd_hepatitis3_inv").text('');
         }
     });
 

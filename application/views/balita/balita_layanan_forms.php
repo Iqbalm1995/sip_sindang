@@ -272,10 +272,15 @@
                                                 <div class="form-group">
                                                     <div class="control-label">Oralit</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_oralit" id="pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_oralit" id="status_pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_oralit">
+                                                    <label>Tanggal Pemberian Oralit (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_oralit" id="pyd_oralit" class="form-control datepicker" value="<?= $pyd_oralit; ?>">
+                                                    <div class="invalid-feedback" id="pyd_oralit_inv"></div>
                                                 </div>
 
                                             </div>
@@ -287,10 +292,15 @@
                                                 <div class="form-group">
                                                     <div class="control-label">PMT Pemulihan</div>
                                                     <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_pmt_pemulihan" id="pyd_pmt_pemulihan" <?= ( !empty($pyd_pmt_pemulihan) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <input type="checkbox" name="status_pyd_pmt_pemulihan" id="status_pyd_pmt_pemulihan" <?= ( !empty($pyd_pmt_pemulihan) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
                                                     <span class="custom-switch-indicator mt-3"></span>
                                                     <span class="custom-switch-description mt-3"> Belum / Sudah</span>
                                                     </label>
+                                                </div>
+                                                <div class="form-group" style="display: none;" id="inpt_pyd_pmt_pemulihan">
+                                                    <label>Tanggal PMT Pemulihan (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                    <input type="text" name="pyd_pmt_pemulihan" id="pyd_pmt_pemulihan" class="form-control datepicker" value="<?= $pyd_pmt_pemulihan; ?>">
+                                                    <div class="invalid-feedback" id="pyd_pmt_pemulihan_inv"></div>
                                                 </div>
 
                                             </div>
@@ -396,6 +406,18 @@
         }else{
             $("#inpt_pyd_vit_a_bln2").css('display', 'none');
         }
+
+        if ($('#status_pyd_pmt_pemulihan').is(':checked')) {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'block');
+        }else{
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'none');
+        }
+
+        if ($('#status_pyd_oralit').is(':checked')) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        }else{
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
         
     });
 
@@ -474,6 +496,22 @@
         }
     });
 
+    $('#status_pyd_pmt_pemulihan').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'block');
+        } else {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_oralit').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        } else {
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
+    });
+
     $('#balita-tab1').click(function(){
         $('#submit-state').css('display', 'none');
     });
@@ -498,6 +536,72 @@
             status = false;
             $("#pos_id").addClass('is-invalid');
             $("#pos_id_inv").text('Posyandu masih belum dipilih');
+        }
+
+        if ($('#status_pyd_syrp_besi_fe1').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe1").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe1").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('Tanggal Sirup besi 1 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe1").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_syrp_besi_fe2').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe2").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe2").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('Tanggal Sirup besi 2 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe2").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln1').is(':checked')) {
+            if ($("#pyd_vit_a_bln1").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln1").addClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('Tanggal Vitamin Bln 1 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln1").removeClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln2').is(':checked')) {
+            if ($("#pyd_vit_a_bln2").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln2").addClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('Tanggal Vitamin Bln 2 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln2").removeClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_pmt_pemulihan').is(':checked')) {
+            if ($("#pyd_pmt_pemulihan").val() == "") {
+                status = false;
+                $("#pyd_pmt_pemulihan").addClass('is-invalid');
+                $("#pyd_pmt_pemulihan_inv").text('Tanggal PMT Pemulihan masih kosong');
+            }else{
+                $("#pyd_pmt_pemulihan").removeClass('is-invalid');
+                $("#pyd_pmt_pemulihan_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_oralit').is(':checked')) {
+            if ($("#pyd_oralit").val() == "") {
+                status = false;
+                $("#pyd_oralit").addClass('is-invalid');
+                $("#pyd_oralit_inv").text('Tanggal Oralit masih kosong');
+            }else{
+                $("#pyd_oralit").removeClass('is-invalid');
+                $("#pyd_oralit_inv").text('');
+            }
         }
 
         return status
