@@ -20,7 +20,7 @@
             <input type="hidden" name="save_method" value="<?= $aksi; ?>">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
                         <?php if (empty($this->session->userdata('pos_id'))) { ?>
                             <div class="form-group" id='input_pos'>
                                 <label>Posisi Posyandu Bumil <span class="text-danger">*</span></label>
@@ -60,58 +60,6 @@
                             <input type="text" name="nama_bapak" id="nama_bapak" class="form-control " placeholder="Isi nama bapak..." value="<?= $nama_bapak; ?>" required>
                             <div class="invalid-feedback" id="nama_bapak_inv"></div>
                         </div>
-                        <div class="form-group">
-                            <label>Nama Bayi <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_bayi" id="nama_bayi" class="form-control " placeholder="Isi nama bayi..." value="<?= $nama_bayi; ?>" required>
-                            <div class="invalid-feedback" id="nama_bayi_inv"></div>
-                        </div>
-                        <div class="form-group">
-                        <label>Tanggal Lahir Bayi (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                            <input type="text" name="tgl_lahir_bayi" id="tgl_lahir_bayi" class="form-control datepicker" value="<?= $tgl_lahir_bayi; ?>">
-                            <div class="invalid-feedback" id="tgl_lahir_bayi_inv"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>Jenis Kelamin Bayi (L/P) <span class="text-danger">*</span></label>
-                            <select name="jk_bayi" id="jk_bayi" class="form-control">
-                                <option value="">-Pilih Jenis Kelamin-</option>
-                                <option value="L" <?= ( $jk_bayi == "L" ? "selected" : "" ) ?>>Laki-laki</option>
-                                <option value="P" <?= ( $jk_bayi == "P" ? "selected" : "" ) ?>>Perempuan</option>
-                            </select>
-                            <div class="invalid-feedback" id="jk_bayi_inv"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="control-label">Status Meninggal Bayi</div>
-                            <label class="custom-switch mt-2">
-                            <input type="checkbox" name="status_meninggal_bayi" id="status_meninggal_bayi" <?= ( !empty($tgl_meninggal_bayi) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                            <span class="custom-switch-indicator mt-3"></span>
-                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                            </label>
-                        </div>
-                        <div class="form-group" style="display: none;" id="inpt_tgl_meninggal_bayi">
-                            <label>Tanggal Meninggal Bayi (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                            <input type="text" name="tgl_meninggal_bayi" id="tgl_meninggal_bayi" class="form-control datepicker" value="<?= $tgl_meninggal_bayi; ?>">
-                            <div class="invalid-feedback" id="tgl_meninggal_bayi_inv"></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Status Meninggal Ibu</div>
-                            <label class="custom-switch mt-2">
-                            <input type="checkbox" name="status_meninggal_ibu" id="status_meninggal_ibu" <?= ( !empty($tgl_meninggal_ibu) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                            <span class="custom-switch-indicator mt-3"></span>
-                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                            </label>
-                        </div>
-                        <div class="form-group" style="display: none;" id="inpt_tgl_meninggal_ibu">
-                            <label>Tanggal Meninggal Ibu (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                            <input type="text" name="tgl_meninggal_ibu" id="tgl_meninggal_ibu" class="form-control datepicker" value="<?= $tgl_meninggal_ibu; ?>">
-                            <div class="invalid-feedback" id="tgl_meninggal_ibu_inv"></div>
-                        </div>
-                        <div class="form-group">
-                        <label>Keterangan</label>
-                            <textarea name="keterangan" id="keterangan" class="form-control" style="height: 150px;" placeholder="Isi Keterangan (Opsional)..."><?= ( !empty($keterangan) ? $keterangan : '' ); ?></textarea>
-                            <div class="invalid-feedback" id="keterangan_inv"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -144,18 +92,6 @@
             $('#desa_id').val(desaId); 
             $('#desa_name').val(desaName); 
         }); 
-
-        if ($('#status_meninggal_bayi').is(':checked')) {
-            $("#inpt_tgl_meninggal_bayi").css('display', 'block');
-        }else{
-            $("#inpt_tgl_meninggal_bayi").css('display', 'none');
-        }
-
-        if ($('#status_meninggal_ibu').is(':checked')) {
-            $("#inpt_tgl_meninggal_ibu").css('display', 'block');
-        }else{
-            $("#inpt_tgl_meninggal_ibu").css('display', 'none');
-        }
 
     }); 
 
@@ -199,22 +135,6 @@
             }
         });
     }
-
-    $('#status_meninggal_bayi').change(function() {
-        if (this.checked) {
-            $("#inpt_tgl_meninggal_bayi").css('display', 'block');
-        } else {
-            $("#inpt_tgl_meninggal_bayi").css('display', 'none');
-        }
-    });
-
-    $('#status_meninggal_ibu').change(function() {
-        if (this.checked) {
-            $("#inpt_tgl_meninggal_ibu").css('display', 'block');
-        } else {
-            $("#inpt_tgl_meninggal_ibu").css('display', 'none');
-        }
-    });
 
     function save()
     {
@@ -275,52 +195,6 @@
             $("#nama_ibu_inv").text('Nama ibu masih kosong');
         }
 
-        if ($("#nama_bapak").val() == "") {
-            status = false;
-            $("#nama_bapak").addClass('is-invalid');
-            $("#nama_bapak_inv").text('Nama bapak masih kosong');
-        }
-
-        if ($("#nama_bayi").val() == "") {
-            status = false;
-            $("#nama_bayi").addClass('is-invalid');
-            $("#nama_bayi_inv").text('Nama bayi masih kosong');
-        }
-
-        if ($("#tgl_lahir_bayi").val() == "") {
-            status = false;
-            $("#tgl_lahir_bayi").addClass('is-invalid');
-            $("#tgl_lahir_bayi_inv").text('Tanggal lahir bayi masih kosong');
-        }
-
-        if ($("#jk_bayi").val() == "") {
-            status = false;
-            $("#jk_bayi").addClass('is-invalid');
-            $("#jk_bayi_inv").text('Jenis kelamin bayi masih belum dipilih');
-        }
-
-        if ($('#status_meninggal_bayi').is(':checked')) {
-            if ($("#tgl_meninggal_bayi").val() == "") {
-                status = false;
-                $("#tgl_meninggal_bayi").addClass('is-invalid');
-                $("#tgl_meninggal_bayi_inv").text('Tanggal meninggal bayi masih kosong');
-            }else{
-                $("#tgl_meninggal_bayi").removeClass('is-invalid');
-                $("#tgl_meninggal_bayi_inv").text('');
-            }
-        }
-
-        if ($('#status_meninggal_ibu').is(':checked')) {
-            if ($("#tgl_meninggal_ibu").val() == "") {
-                status = false;
-                $("#tgl_meninggal_ibu").addClass('is-invalid');
-                $("#tgl_meninggal_ibu_inv").text('Tanggal meninggal ibu masih kosong');
-            }else{
-                $("#tgl_meninggal_ibu").removeClass('is-invalid');
-                $("#tgl_meninggal_ibu_inv").text('');
-            }
-        }
-
         if ($("#pos_id").val() == "") {
             status = false;
             $("#pos_id").addClass('is-invalid');
@@ -348,48 +222,6 @@
         if ($("#nama_bapak").val() != "") {
             $("#nama_bapak").removeClass('is-invalid');
             $("#nama_bapak_inv").text('');
-        }
-    });
-
-    $("#nama_bayi").keyup(function(){
-        if ($("#nama_bayi").val() != "") {
-            $("#nama_bayi").removeClass('is-invalid');
-            $("#nama_bayi_inv").text('');
-        }
-    });
-
-    $("#tgl_lahir_bayi").keyup(function(){
-        if ($("#tgl_lahir_bayi").val() != "") {
-            $("#tgl_lahir_bayi").removeClass('is-invalid');
-            $("#tgl_lahir_bayi_inv").text('');
-        }
-    });
-
-    $("#tgl_lahir_bayi").change(function(){
-        if ($("#tgl_lahir_bayi").val() != "") {
-            $("#tgl_lahir_bayi").removeClass('is-invalid');
-            $("#tgl_lahir_bayi_inv").text('');
-        }
-    });
-
-    $("#jk_bayi").change(function(){
-        if ($("#jk_bayi").val() != "") {
-            $("#jk_bayi").removeClass('is-invalid');
-            $("#jk_bayi_inv").text('');
-        }
-    });
-
-    $("#tgl_meninggal_bayi").keyup(function(){
-        if ($("#tgl_meninggal_bayi").val() != "") {
-            $("#tgl_meninggal_bayi").removeClass('is-invalid');
-            $("#tgl_meninggal_bayi_inv").text('');
-        }
-    });
-
-    $("#tgl_meninggal_ibu").keyup(function(){
-        if ($("#tgl_meninggal_ibu").val() != "") {
-            $("#tgl_meninggal_ibu").removeClass('is-invalid');
-            $("#tgl_meninggal_ibu_inv").text('');
         }
     });
 

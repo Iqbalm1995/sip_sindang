@@ -21,7 +21,13 @@
             </li> -->
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_SUBLV1)) { ?>
                 <li class="menu-header">Data Posyandu</li>
-                <li <?=( $menu_active == 'bumil' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a></li>
+                <li class="dropdown <?=( $menu_active == 'bumil' ? 'active' : '' );?>">
+                    <a class="nav-link has-dropdown" href="#"><i class="fas fa-female"></i> <span>Ibu Hamil</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?=( $subMenu_active == 'bumil_data' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil'); ?>">Data Ibu Hamil</a></li>
+                        <li <?=( $subMenu_active == 'bumil_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumil/layanan'); ?>">Layanan Ibu Hamil</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown <?=( $menu_active == 'bayi' ? 'active' : '' );?>">
                     <a class="nav-link has-dropdown" href="#"><i class="fas fa-baby"></i> <span>Bayi</span></a>
                     <ul class="dropdown-menu">

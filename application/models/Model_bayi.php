@@ -5,6 +5,7 @@ class Model_bayi extends CI_Model {
 
 	private $t_bayi	= 'byi_bayi';
 	private $t_penimbangan_bayi	= 'byi_penimbangan_bayi';
+	private $t_kunjungan_bayi	= 'byi_kunjungan_bayi';
     
     var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama_bayi', 'tgl_lahir_bayi', 'jk_bayi', 
                                     'bbl', 'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_bayi', 'keterangan', 'nama_pic', 'created_on');
@@ -16,6 +17,22 @@ class Model_bayi extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->database();
+	}
+
+	public function get_kunjugan_bayi($bayi_id, $tahun = null)
+	{
+        $this->db->select('*');
+		$this->db->from($this->t_kunjungan_bayi);
+		$this->db->where('bayi_id', $bayi_id);
+		if ($tahun == null) {
+			$tahun = date('Y');
+			$this->db->where('tahun', $tahun);
+		}else{
+			$this->db->where('tahun', $tahun);
+		}
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
 	}
 
     public function get_timbangan_bayi($bayi_id, $tahun = null)
@@ -56,6 +73,9 @@ class Model_bayi extends CI_Model {
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(DISTINCT by1.id) AS total_penimbang');
 		$this->db->from($this->t_penimbangan_bayi.' b1');
 		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
@@ -76,6 +96,9 @@ class Model_bayi extends CI_Model {
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		
 		$this->db->select('COUNT(id) AS total_bayi_meninggal');
 		$this->db->from($this->t_bayi);
@@ -90,6 +113,9 @@ class Model_bayi extends CI_Model {
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
 		}
 		$this->db->from($this->t_bayi);
 		$this->db->where('YEAR(created_on)', $tahun);
@@ -110,9 +136,31 @@ class Model_bayi extends CI_Model {
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
+		}
         $this->db->select('b1.bulan, b1.tahun');
 		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM byi_penimbangan_bayi b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_penimbangan_bayi.' b1');
+		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
+		$this->db->where('b1.tahun', $tahun);
+		$this->db->where('by1.deleted', 0);
+		$this->db->group_by('b1.bulan, b1.tahun');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_kunjungan_bayi_total($tahun = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
+		}
+        $this->db->select('b1.bulan, b1.tahun');
+		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_bayi.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->from($this->t_kunjungan_bayi.' b1');
 		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
 		$this->db->where('b1.tahun', $tahun);
 		$this->db->where('by1.deleted', 0);
@@ -235,6 +283,14 @@ class Model_bayi extends CI_Model {
 		return $save;
 	}
 
+    public function save_kunjungan($data)
+	{
+		$this->db->trans_start();
+		$save = $this->db->insert_batch($this->t_kunjungan_bayi, $data);
+		$this->db->trans_complete();
+		return $save;
+	}
+
 	public function update($where, $data)
 	{
 		$this->db->trans_start();
@@ -255,6 +311,15 @@ class Model_bayi extends CI_Model {
 		$this->db->where('bayi_id', $bayi_id);
 		$this->db->where('tahun', $year);
 		$this->db->delete($this->t_penimbangan_bayi);
+		$this->db->trans_complete();
+	}
+
+    public function clear_kunjungan_data_bayi($bayi_id, $year)
+	{
+		$this->db->trans_start();
+		$this->db->where('bayi_id', $bayi_id);
+		$this->db->where('tahun', $year);
+		$this->db->delete($this->t_kunjungan_bayi);
 		$this->db->trans_complete();
 	}
 

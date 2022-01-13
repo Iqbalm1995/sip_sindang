@@ -36,7 +36,7 @@ class Model_global extends CI_Model {
 	}
 
     // data bayi
-    public function get_timbangan_bayi_total($tahun = null, $jk = null)
+    public function get_timbangan_bayi_total($tahun = null, $jk = null, $bulan = null)
 	{
         if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
@@ -71,216 +71,311 @@ class Model_global extends CI_Model {
 		return $query->result();
 	}
 
-    function byi_total_pyd_syrp_besi_fe1($tahun)
+    function byi_total_pyd_syrp_besi_fe1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_syrp_besi_fe1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_syrp_besi_fe1');
 		$this->db->from($this->t_bayi);
 		$this->db->where('pyd_syrp_besi_fe1 !=', NULL);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_syrp_besi_fe1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_syrp_besi_fe2($tahun)
+    function byi_total_pyd_syrp_besi_fe2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_syrp_besi_fe2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_syrp_besi_fe2');
 		$this->db->from($this->t_bayi);
 		$this->db->where('pyd_syrp_besi_fe2 !=', NULL);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_syrp_besi_fe2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_vit_a_bln1($tahun)
+    function byi_total_pyd_vit_a_bln1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_vit_a_bln1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_vit_a_bln1');
 		$this->db->from($this->t_bayi);
 		$this->db->where('pyd_vit_a_bln1 !=', NULL);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_vit_a_bln1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_vit_a_bln2($tahun)
+    function byi_total_pyd_vit_a_bln2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_vit_a_bln2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_vit_a_bln2');
 		$this->db->from($this->t_bayi);
 		$this->db->where('pyd_vit_a_bln2 !=', NULL);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_vit_a_bln2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_oralit($tahun)
+    function byi_total_pyd_oralit($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_oralit,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_oralit');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_oralit', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_oralit)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_bcg($tahun)
+    function byi_total_pyd_bcg($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_bcg,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_bcg');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_bcg', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_bcg)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_dpt1($tahun)
+    function byi_total_pyd_dpt1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_dpt1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_dpt1');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_dpt1', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_dpt1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_dpt2($tahun)
+    function byi_total_pyd_dpt2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_dpt2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_dpt2');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_dpt2', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_dpt2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_dpt3($tahun)
+    function byi_total_pyd_dpt3($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_dpt3,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_dpt3');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_dpt3', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_dpt3)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_polio1($tahun)
+    function byi_total_pyd_polio1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_polio1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_polio1');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_polio1', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_polio1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_polio2($tahun)
+    function byi_total_pyd_polio2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_polio2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_polio2');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_polio2', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_polio2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_polio3($tahun)
+    function byi_total_pyd_polio3($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_polio3,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_polio3');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_polio3', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_polio3)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_polio4($tahun)
+    function byi_total_pyd_polio4($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_polio4,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_polio4');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_polio4', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_polio4)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_campak($tahun)
+    function byi_total_pyd_campak($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_campak,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_campak');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_campak', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_campak)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_hepatitis1($tahun)
+    function byi_total_pyd_hepatitis1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_hepatitis1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_hepatitis1');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_hepatitis1', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_hepatitis1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_hepatitis2($tahun)
+    function byi_total_pyd_hepatitis2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_hepatitis2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_hepatitis2');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_hepatitis2', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_hepatitis2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_pyd_hepatitis3($tahun)
+    function byi_total_pyd_hepatitis3($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_hepatitis3,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_hepatitis3');
 		$this->db->from($this->t_bayi);
-		$this->db->where('pyd_hepatitis3', 1);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_hepatitis3)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function byi_total_meninggal_bayi($tahun)
+    function byi_total_meninggal_bayi($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(tgl_meninggal_bayi,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_meninggal_bayi');
 		$this->db->from($this->t_bayi);
 		$this->db->where('tgl_meninggal_bayi', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(tgl_meninggal_bayi)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
@@ -289,6 +384,7 @@ class Model_global extends CI_Model {
     // data balita
     public function get_timbangan_balita_total($tahun = null, $jk = null)
 	{
+		$filter_pos = "";
         if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
@@ -306,7 +402,7 @@ class Model_global extends CI_Model {
                     JOIN '.$this->t_balita.' b3 ON b3.id = b2.balita_id
                     WHERE b2.tinggi_sekarang > 0 
                     AND b3.jk_anak = "'.$jk.'"
-                    AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+                    AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun )
                     AND b1.tahun = "'.$tahun.'" 
                 ) AS total'
             );
@@ -322,67 +418,97 @@ class Model_global extends CI_Model {
 		return $query->result();
 	}
 
-    function blt_total_pyd_syrp_besi_fe1($tahun)
+    function blt_total_pyd_syrp_besi_fe1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_syrp_besi_fe1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_syrp_besi_fe1');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_syrp_besi_fe1 !=', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_syrp_besi_fe1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function blt_total_pyd_syrp_besi_fe2($tahun)
+    function blt_total_pyd_syrp_besi_fe2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_syrp_besi_fe2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_syrp_besi_fe2');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_syrp_besi_fe2 !=', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_syrp_besi_fe2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function blt_total_pyd_vit_a_bln1($tahun)
+    function blt_total_pyd_vit_a_bln1($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_vit_a_bln1,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_vit_a_bln1');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_vit_a_bln1 !=', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_vit_a_bln1)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function blt_total_pyd_vit_a_bln2($tahun)
+    function blt_total_pyd_vit_a_bln2($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_vit_a_bln2,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_vit_a_bln2');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_vit_a_bln2 !=', NULL);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_vit_a_bln2)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function blt_total_pyd_pmt_pemulihan($tahun)
+    function blt_total_pyd_pmt_pemulihan($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_pmt_pemulihan,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_pmt_pemulihan');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_pmt_pemulihan', 1);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_pmt_pemulihan)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function blt_total_pyd_oralit($tahun)
+    function blt_total_pyd_oralit($tahun = null, $bulan = null)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(pyd_oralit,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_pyd_oralit');
 		$this->db->from($this->t_balita);
-		$this->db->where('pyd_oralit', 1);
-		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('year(pyd_oralit)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
@@ -400,29 +526,50 @@ class Model_global extends CI_Model {
 		return $query->row();
     }
 
-    function top_total_bumil()
+    function top_total_bumil($tahun, $bulan)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(created_on,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_bumil');
 		$this->db->from($this->t_bumil);
-		$this->db->where('tgl_meninggal_bayi !=', NULL);
+		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('tgl_meninggal_ibu', NULL);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
-    function top_total_bayi()
+    function top_total_bayi($tahun, $bulan)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(created_on,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_bayi');
 		$this->db->from($this->t_bayi);
-		$this->db->where('tgl_meninggal_bayi !=', NULL);
+		$this->db->where('year(created_on)', $tahun);
+		$this->db->where('tgl_meninggal_bayi', NULL);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();
     }
 
-    function top_total_balita()
+    function top_total_balita($tahun, $bulan)
     {
+		if ($bulan != "all") {
+			$this->db->where('DATE_FORMAT(created_on,"%m")', $bulan);
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(id) AS total_balita');
 		$this->db->from($this->t_balita);
+		$this->db->where('year(created_on)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 		return $query->row();

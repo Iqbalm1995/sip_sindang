@@ -92,6 +92,7 @@ class Bayi extends CI_Controller {
             'data_pos' 			    => $this->Model_posyandu->get_posyandu(),
 		    'data_penimbangan' 		=> $this->Model_bayi->get_timbangan_bayi($id, $year),
 		    'arsip_penimbangan' 	=> $this->Model_bayi->get_arsip_timbangan_bayi($id),
+		    'data_kunjugan' 		=> $this->Model_bayi->get_kunjugan_bayi($id, $year),
 		    'id' 					=> set_value('id', $r_bayi->id),
             'pos_id' 				=> set_value('pos_id', $r_bayi->pos_id),
 		    'pos_name' 				=> set_value('pos_name', $r_bayi->pos_name),
@@ -247,6 +248,12 @@ class Bayi extends CI_Controller {
 	public function get_statistik_timbangan_bayi_json(){
 		$tahun = $this->input->post('filterYear');
 		$data = $this->Model_bayi->get_timbangan_bayi_total($tahun);
+		echo json_encode($data);
+	}
+
+	public function get_statistik_bumil_json(){
+		$tahun = $this->input->post('filterYear');
+		$data = $this->Model_bayi->get_kunjungan_bayi_total($tahun);
 		echo json_encode($data);
 	}
 
@@ -559,7 +566,6 @@ class Bayi extends CI_Controller {
 		$pyd_hepatitis2 		= ($this->input->post('status_pyd_hepatitis2') ? $this->input->post('pyd_hepatitis2') : null );
 		$pyd_hepatitis3 		= ($this->input->post('status_pyd_hepatitis3') ? $this->input->post('pyd_hepatitis3') : null );
 		$tgl_meninggal_bayi 	= ($this->input->post('status_meninggal_bayi') ? $this->input->post('tgl_meninggal_bayi') : null );
-		$keterangan 			= $this->input->post('keterangan');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -590,7 +596,6 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis2' 	    => $pyd_hepatitis2,
 		    'pyd_hepatitis3' 	    => $pyd_hepatitis3,
 		    'tgl_meninggal_bayi' 	=> $tgl_meninggal_bayi,
-		    'keterangan' 	        => $keterangan,
 		);
 
         if (count($timbangan_bayi_bln) > 0) {
@@ -621,6 +626,32 @@ class Bayi extends CI_Controller {
 
         $clear_timbangan_bayi 		= $this->Model_bayi->clear_penimbangan_data_bayi($id, $year_assign);
 
+		$kunjungan_bayi_bln 	= $_POST["kunjungan_bayi_bln"];
+        $kunjungan_bayi_thn 	= $_POST["kunjungan_bayi_thn"];
+        $kunjungan_val 			= $_POST["kunjungan_val"];
+        $keterangan 			= $_POST["keterangan"];
+
+		if (count($kunjungan_bayi_bln) > 0) {
+
+            for ($i=0; $i < count($kunjungan_bayi_bln) ; $i++) { 
+                $data_kunjungan[$i] = array(
+                    'id'                    => $this->Model_global->create_id(), 
+                    'bayi_id'               => $id, 
+                    'bulan'                 => $kunjungan_bayi_bln[$i], 
+                    'tahun'                 => $kunjungan_bayi_thn[$i], 
+                    'is_kunjungan'       	=> (!empty($kunjungan_val[$i])? $kunjungan_val[$i] : 0 ), 
+                    'keterangan'        	=> (!empty($keterangan[$i])? $keterangan[$i] : null), 
+                    'created_by'            => $created_by, 
+                    'created_on'            => $created_on, 
+                    'updated_by'            => $updated_by, 
+                    'updated_on'            => $updated_on, 
+                );
+
+            }
+        }
+
+        $clear_kunjungan_bayi 		= $this->Model_bayi->clear_kunjungan_data_bayi($id, $year_assign);
+
 		$save = FALSE;
 		if ($save_method == 'Tambah') {
 			$data['id'] 			= $id;
@@ -630,15 +661,18 @@ class Bayi extends CI_Controller {
 			$data['updated_on'] 	= $updated_on;
 			$save = $this->Model_bayi->save($data);
             $save_penimbnagan_bayi = $this->Model_bayi->save_penimbangan($data_timbangan);
+			$save_kunjungan_bayi = $this->Model_bayi->save_kunjungan($data_kunjungan);
 		}elseif ($save_method == 'Ubah') {
 			$data['id'] 			= $id;
 			$data['updated_by'] 	= $updated_by;
 			$data['updated_on'] 	= $updated_on;
 			$save = $this->Model_bayi->update(array('id' => $id), $data);
             $save_penimbnagan_bayi = $this->Model_bayi->save_penimbangan($data_timbangan);
+			$save_kunjungan_bayi = $this->Model_bayi->save_kunjungan($data_kunjungan);
 		}
 
 		$data['clear_timbangan_bayi'] 	= $clear_timbangan_bayi;
+		$data['clear_kunjungan_bayi'] 	= $clear_kunjungan_bayi;
 		if ($save) {
 			$data['status_save'] 	= TRUE;
 		}else{

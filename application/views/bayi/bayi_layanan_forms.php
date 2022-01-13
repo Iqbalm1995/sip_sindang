@@ -22,14 +22,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="nav nav-pills pt-3" id="myTab3" role="tablist">
-                            <li class="nav-item pr-2">
+                            <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link active" id="bayi-tab1" data-toggle="tab" href="#bayi1" role="tab" aria-controls="bayi" aria-selected="true">Data Bayi</a>
                             </li>
-                            <li class="nav-item pr-2">
+                            <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link" id="bayi-tab2" data-toggle="tab" href="#bayi2" role="tab" aria-controls="penimbangan" aria-selected="false">Timbangan</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link" id="bayi-tab3" data-toggle="tab" href="#bayi3" role="tab" aria-controls="pelayanan" aria-selected="false">Layanan</a>
+                            </li>
+                            <li class="nav-item tombolfull">
+                                <a class="nav-link" id="bayi-tab4" data-toggle="tab" href="#bayi4" role="tab" aria-controls="kunjungan" aria-selected="false">Kunjungan</a>
                             </li>
                         </ul>
                         <hr>
@@ -121,12 +124,12 @@
                                 </div>
                                 
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="bayi2" role="tabpanel" aria-labelledby="bayi-tab2">
                                 <div class="row">
-                                    <div class="col-md-8 col-sm-12">
+                                    <div class="col-md-9 col-sm-12">
                                         <div class="card" style="border-radius:10px;">
                                             <div class="card-header">
                                                 <h5>Data penimbangan bayi tahun <?= $year_assign; ?>.</h5>
@@ -138,6 +141,8 @@
                                                             <th scope="col"><strong>Bulan</strong></th>
                                                             <th scope="col"><strong>Tinggi (cm)</strong></th>
                                                             <th scope="col"><strong>Berat (kg)</strong></th>
+                                                            <!-- <th scope="col"><strong>Kunjungan</strong></th> -->
+                                                            <!-- <th scope="col"><strong>Keterangan</strong></th> -->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -153,6 +158,8 @@
                                                                     <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
                                                                     <td><input type="number" class="form-control" name="tinggi_bayi[]" value="<?= $value->tinggi_sekarang; ?>" min="0" step="0.1" pattern="^\d+(?:\.\d{1,1})?$"></td>
                                                                     <td><input type="number" class="form-control" name="berat_bayi[]" value="<?= $value->berat_sekarang; ?>" min="0" step="0.1" pattern="^\d+(?:\.\d{1,1})?$"></td>
+                                                                    <!-- <td><input type="text" class="form-control" name="tgl_kunjungan[]" value=""></td> -->
+                                                                    <!-- <td><input type="text" class="form-control" name="keterangan[]" value=""></td> -->
                                                                 </tr>
                                                             <?php } ?>
                                                         <?php }else{ ?>
@@ -167,6 +174,8 @@
                                                                     <th scope="row"><?= $value; ?></th>
                                                                     <td><input type="number" class="form-control" name="tinggi_bayi[]" value="0" min="0" step="0.1" pattern="^\d+(?:\.\d{1,1})?$"></td>
                                                                     <td><input type="number" class="form-control" name="berat_bayi[]" value="0" min="0" step="0.1" pattern="^\d+(?:\.\d{1,1})?$"></td>
+                                                                    <!-- <td><input type="text" class="form-control" name="tgl_kunjungan[]" value=""></td> -->
+                                                                    <!-- <td><input type="text" class="form-control" name="keterangan[]" value=""></td> -->
                                                                 </tr>
                                                             <?php } ?>
                                                         <?php } ?>
@@ -176,7 +185,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-4 col-sm-12">
+                                    <div class="col-md-3 col-sm-12">
                                         <div class="card" style="border-radius:10px;">
                                             <div class="card-header">
                                                 Data Timbangan Bayi Per Tahun
@@ -199,8 +208,8 @@
                                 </div>
                                 
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
-                                    <button class="btn btn-primary btn-lg nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="bayi3" role="tabpanel" aria-labelledby="bayi-tab3">
@@ -517,12 +526,6 @@
                                                     <input type="text" name="tgl_meninggal_bayi" id="tgl_meninggal_bayi" class="form-control datepicker" value="<?= $tgl_meninggal_bayi; ?>">
                                                     <div class="invalid-feedback" id="tgl_meninggal_bayi_inv"></div>
                                                 </div>
-                                                
-                                                <div class="form-group">
-                                                    <label>Keterangan</label>
-                                                    <textarea name="keterangan" id="keterangan" class="form-control" style="height: 150px;" placeholder="Isi Keterangan (Opsional)..."><?= ( !empty($keterangan) ? $keterangan : '' ); ?></textarea>
-                                                    <div class="invalid-feedback" id="keterangan_inv"></div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -531,7 +534,79 @@
                                 </div>
 
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="bayi4" role="tabpanel" aria-labelledby="bayi-tab4">
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
+                                        <div class="card" style="border-radius:10px;">
+                                            <div class="card-header">
+                                                <h5>Data Kunjungan Layanan Bayi tahun <?= $year_assign; ?>.</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col"><strong>Bulan</strong></th>
+                                                                <th scope="col"><strong>Kunjungan</strong></th>
+                                                                <th scope="col"><strong>Keterangan</strong></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                                if (count($data_kunjugan) > 0) {
+                                                                    $arrayNum=0;
+                                                                    foreach ($data_kunjugan as $key => $value) { 
+                                                                        $no=1; ?>
+                                                                    <!-- Ubah Data -->
+                                                                    <tr>
+                                                                        <input type="hidden" name="kunjungan_bayi_bln[]" id="kunjungan_bayi_bln<?= $arrayNum; ?>" value="<?= $value->bulan; ?>">
+                                                                        <input type="hidden" name="kunjungan_bayi_thn[]" id="kunjungan_bayi_thn<?= $arrayNum; ?>" value="<?= $value->tahun; ?>">
+                                                                        <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kunjungan_bayi[]" id="kunjungan_bayi<?= $arrayNum; ?>" <?= ( $value->is_kunjungan == 1 ? 'checked="true"' : '' ) ?>  onchange="is_kunjungan(<?= $arrayNum; ?>)" value="1" class="custom-switch-input">
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span> 
+                                                                            <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="<?= $value->is_kunjungan; ?>">  
+                                                                        </td>
+                                                                        <td><input type="text" class="form-control" name="keterangan[]" value="<?= $value->keterangan; ?>"></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php }else{ ?>
+                                                                <!-- Tambah baru -->
+                                                                <?php 
+                                                                    $arrayNum=0;
+                                                                    foreach (ARRAY_BULAN as $key => $value) { 
+                                                                    $no=1;
+                                                                ?>
+                                                                    <tr>
+                                                                        <input type="hidden" name="kunjungan_bayi_bln[]" id="kunjungan_bayi_bln<?= $arrayNum; ?>" value="<?= $key; ?>">
+                                                                        <input type="hidden" name="kunjungan_bayi_thn[]" id="kunjungan_bayi_thn<?= $arrayNum; ?>" value="<?= $year_assign; ?>">
+                                                                        <th scope="row"><?= $value; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kunjungan_bayi[]" id="kunjungan_bayi<?= $arrayNum; ?>" class="custom-switch-input" onchange="is_kunjungan(<?= $arrayNum; ?>)" value="1" >
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>   
+                                                                            <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="0">   
+                                                                        </td>
+                                                                        <td><input type="text" class="form-control" name="keterangan[]" value=""></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right mt-4">
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
                                 </div>
                             </div>
                         </div>
@@ -739,6 +814,16 @@
         });
     }
 
+    function is_kunjungan(idx)
+    {
+        if ($("#kunjungan_bayi"+idx).is(":checked")) {
+            $("#kunjungan_val"+idx).val("1");
+        }else{
+            $("#kunjungan_val"+idx).val("0");
+        }
+        
+    }
+
     function save()
     {
         var validation = _validation();
@@ -936,6 +1021,9 @@
         $('#submit-state').css('display', 'none');
     });
     $('#bayi-tab3').click(function(){
+        $('#submit-state').css('display', 'none');
+    });
+    $('#bayi-tab4').click(function(){
         $('#submit-state').css('display', 'block');
     });
 

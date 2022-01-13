@@ -29,7 +29,7 @@ class Bumil extends CI_Controller {
         // head data
         $head['title_page']     = 'Data Bumil';
         $head['menu_active']    = 'bumil';
-        $head['subMenu_active'] = null;
+        $head['subMenu_active'] = 'bumil_data';
         $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
@@ -39,6 +39,24 @@ class Bumil extends CI_Controller {
         
 		$this->load->view('template/header', $head);
         $this->load->view('bumil/bumil_views', $data);
+        $this->load->view('template/footer');
+	}
+
+	public function layanan()
+	{
+        // head data
+        $head['title_page']     = 'Layanan Bumil';
+        $head['menu_active']    = 'bumil';
+        $head['subMenu_active'] = 'bumil_layanan';
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
+
+        // body data
+        $data['pages_caption']  = 'Layanan Bumil';
+
+		$data['data_pos']  	    = $this->Model_posyandu->get_posyandu();
+        
+		$this->load->view('template/header', $head);
+        $this->load->view('bumil/bumil_layanan_views', $data);
         $this->load->view('template/footer');
 	}
 
@@ -55,22 +73,7 @@ class Bumil extends CI_Controller {
 			$row[] = $r_bml->nik;
 			$row[] = $r_bml->nama_ibu;
 			$row[] = $r_bml->nama_bapak;
-			$row[] = $r_bml->nama_bayi;
-			$row[] = '<div class="text-center">'.$r_bml->tgl_lahir_bayi.'</div>';;
-			$row[] = '<div class="text-center">'.$r_bml->jk_bayi.'</div>';
-			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_bayi) ? $r_bml->tgl_meninggal_bayi : '-' ).'</div>';
-			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_ibu) ? $r_bml->tgl_meninggal_ibu : '-' ).'</div>';
-			$row[] = ( !empty($r_bml->keterangan) ? $r_bml->keterangan : '<div class="text-center">-</div>' );
 
-			//add html for action
-            // $row[] = '<div class="text-center">
-            //                 <a class="btn btn-sm btn-primary" href="'.base_url().'bumil/edit/'.$r_bml->id.'" title="Ubah">
-            //                     <i class="fas fa-edit"></i> Ubah</a>
-            //                 <a class="btn btn-sm btn-danger" href="javascript:void(0)" 
-            //                         title="Hapus"
-            //                         onclick="delete_bumil('."'".$r_bml->id."'".')">
-            //                         <i class="fas fa-trash"></i> Hapus</a>
-            //             </div>';
             $row[] = '<div class="text-center">
                         <div class="btn-group mb-2">
                             <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -79,8 +82,44 @@ class Bumil extends CI_Controller {
                             <div class="dropdown-menu">
                             <a class="dropdown-item" href="'.base_url().'bumil/edit/'.$r_bml->id.'" title="Ubah"><i class="fas fa-edit"></i> Ubah</a>
                             <a class="dropdown-item" href="javascript:void(0)" title="Hapus" onclick="delete_bumil('."'".$r_bml->id."'".')"><i class="fas fa-trash"></i> Hapus</a>
-                            <a class="dropdown-item" href="'.base_url().'bumil/detail/'.$r_bml->id.'" title="Detail"><i class="fas fa-info-circle"></i> Detail</a>
                         </div>
+                      </div>';
+		
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->Model_bumil->count_all(),
+						"recordsFiltered" => $this->Model_bumil->count_filtered(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	public function datatable_layanan_bumil()
+	{
+		$list = $this->Model_bumil->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $r_bml) {
+			$no++;
+			$row = array();
+
+			$row[] = '<div class="text-center">'.$no.'</div>';
+			$row[] = $r_bml->nik;
+			$row[] = $r_bml->nama_ibu;
+			$row[] = $r_bml->nama_bapak;
+			$row[] = ( !empty($r_bml->nama_bayi) ? $r_bml->nama_bayi : '<div class="text-center">-</div>' );
+			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_lahir_bayi) ? $r_bml->tgl_lahir_bayi : '-' ).'</div>';
+			$row[] = '<div class="text-center">'.( !empty($r_bml->jk_bayi) ? $r_bml->jk_bayi : '-' ).'</div>';
+			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_bayi) ? $r_bml->tgl_meninggal_bayi : '-' ).'</div>';
+			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_ibu) ? $r_bml->tgl_meninggal_ibu : '-' ).'</div>';
+
+            
+            $row[] = '<div class="text-center">
+						<a class="btn btn-sm btn-success" href="javascript:void(0)" title="Update Layanan" onclick="layanan_pos('."'".$r_bml->id."'".')"><i class="fas fa-comment-medical"></i> Layanan Posyandu</a>
                       </div>';
 		
 			$data[] = $row;
@@ -116,12 +155,33 @@ class Bumil extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function get_total_data_json(){
+		$tahun = $this->input->post('filterYear');
+		if (empty($tahun)) {
+			$tahun = date('Y');
+		}
+		
+		$dataTotal = array(
+			'total_bumil' => (int)$this->Model_bumil->get_total_data_bumil($tahun), 
+			'total_ibu_sudah_melahirkan' => (int)$this->Model_bumil->get_total_ibu_sudah_melahirkan($tahun), 
+			'total_bayi_meninggal' => (int)$this->Model_bumil->get_total_bayi_meninggal($tahun), 
+			'total_ibu_meninggal' => (int)$this->Model_bumil->get_total_ibu_meninggal($tahun), 
+		);
+		echo json_encode($dataTotal);
+	}
+
+	public function get_statistik_bumil_json(){
+		$tahun = $this->input->post('filterYear');
+		$data = $this->Model_bumil->get_kunjungan_bumil_total($tahun);
+		echo json_encode($data);
+	}
+
 	public function add()
 	{
         // head data
         $head['title_page'] 	= 'Tambah Bumil';
         $head['menu_active'] 	= 'bumil';
-        $head['subMenu_active'] = null;
+        $head['subMenu_active'] = 'bumil_data';
         $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
@@ -162,7 +222,7 @@ class Bumil extends CI_Controller {
         // head data
         $head['title_page'] 	= 'Ubah Data Bumil';
         $head['menu_active'] 	= 'bumil';
-        $head['subMenu_active'] = null;
+        $head['subMenu_active'] = 'bumil_data';
         $head['pos_session'] = $this->Model_posyandu->get_posyandu();
 
         // body data
@@ -182,12 +242,62 @@ class Bumil extends CI_Controller {
 		    'tgl_lahir_bayi' 		=> set_value('tgl_lahir_bayi', $r_bml->tgl_lahir_bayi),
 		    'jk_bayi' 				=> set_value('jk_bayi', $r_bml->jk_bayi),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bml->tgl_meninggal_bayi),
-		    'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu),
-		    'keterangan' 			=> set_value('keterangan', $r_bml->keterangan),
+		    'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu)
 		);
 
 		$this->load->view('template/header', $head);
         $this->load->view('bumil/bumil_forms', $data);
+        $this->load->view('template/footer');
+	}
+
+	public function update_layanan($id, $year = null)
+	{
+		if (empty($id)) {
+			redirect(base_url().'bumil/layanan');
+			return null;
+		}
+
+		if ($year == null) {
+			$year = date('Y');
+		}
+
+		$r_bml = $this->get_data_bumil($id);
+		if (empty($r_bml)) {
+			redirect(base_url().'bumil');
+		}
+
+        // head data
+        $head['title_page'] 	= 'Ubah Layanan Bumil';
+        $head['menu_active'] 	= 'bumil';
+        $head['subMenu_active'] = 'bumil_layanan';
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
+
+        // body data
+        $data['pages_caption']  = 'Update Layanan Bumil';
+
+		// body data
+		$data = array(
+			'aksi' 					=> 'Ubah',
+			'year_assign'			=> $year,
+			'data_pos' 			    => $this->Model_posyandu->get_posyandu(),
+		    'data_kunjugan' 		=> $this->Model_bumil->get_kunjugan_bumil($id, $year),
+			'id' 					=> set_value('id', $r_bml->id),
+			'pos_id' 				=> set_value('pos_id', $r_bml->pos_id),
+			'pos_name' 				=> set_value('pos_name', $r_bml->pos_name),
+			'desa_id' 				=> set_value('desa_id', $r_bml->desa_id),
+			'desa_name' 			=> set_value('desa_name', $r_bml->desa_name),
+			'nik' 					=> set_value('nik', $r_bml->nik),
+			'nama_bapak' 			=> set_value('nama_bapak', $r_bml->nama_bapak),
+			'nama_ibu' 				=> set_value('nama_ibu', $r_bml->nama_ibu),
+			'nama_bayi' 			=> set_value('nama_bayi', $r_bml->nama_bayi),
+			'tgl_lahir_bayi' 		=> set_value('tgl_lahir_bayi', $r_bml->tgl_lahir_bayi),
+			'jk_bayi' 				=> set_value('jk_bayi', (!empty($r_bml->jk_bayi) ? $r_bml->jk_bayi : "L" )),
+			'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bml->tgl_meninggal_bayi),
+			'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu)
+		);
+        
+		$this->load->view('template/header', $head);
+        $this->load->view('bumil/bumil_layanan_forms', $data);
         $this->load->view('template/footer');
 	}
 
@@ -226,12 +336,12 @@ class Bumil extends CI_Controller {
 		$nik 					= $this->input->post('nik');
 		$nama_bapak 			= $this->input->post('nama_bapak');
 		$nama_ibu 				= $this->input->post('nama_ibu');
-		$nama_bayi 				= $this->input->post('nama_bayi');
-		$tgl_lahir_bayi 		= $this->input->post('tgl_lahir_bayi');
-		$jk_bayi 				= $this->input->post('jk_bayi');
-		$tgl_meninggal_bayi 	= ($this->input->post('status_meninggal_bayi') ? $this->input->post('tgl_meninggal_bayi') : null );
-		$tgl_meninggal_ibu 		= ($this->input->post('status_meninggal_ibu') ? $this->input->post('tgl_meninggal_ibu') : null );
-		$keterangan 			= $this->input->post('keterangan');
+		// $nama_bayi 				= $this->input->post('nama_bayi');
+		// $tgl_lahir_bayi 		= $this->input->post('tgl_lahir_bayi');
+		// $jk_bayi 				= $this->input->post('jk_bayi');
+		// $tgl_meninggal_bayi 	= ($this->input->post('status_meninggal_bayi') ? $this->input->post('tgl_meninggal_bayi') : null );
+		// $tgl_meninggal_ibu 		= ($this->input->post('status_meninggal_ibu') ? $this->input->post('tgl_meninggal_ibu') : null );
+		// $keterangan 			= $this->input->post('keterangan');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -244,14 +354,14 @@ class Bumil extends CI_Controller {
 			'desa_id' 					=> $desa_id,
 			'desa_name' 				=> $desa_name,
 			'nik' 						=> $nik,
-			'nama_bapak' 				=> $nama_bapak,
-			'nama_ibu' 					=> $nama_ibu,
-			'nama_bayi' 				=> $nama_bayi,
-			'tgl_lahir_bayi' 			=> $tgl_lahir_bayi,
-			'jk_bayi' 					=> $jk_bayi,
-			'tgl_meninggal_bayi' 		=> $tgl_meninggal_bayi,
-			'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
-			'keterangan' 				=> $keterangan,
+			'nama_bapak' 				=> ucwords($nama_bapak),
+			'nama_ibu' 					=> ucwords($nama_ibu),
+			// 'nama_bayi' 				=> $nama_bayi,
+			// 'tgl_lahir_bayi' 			=> $tgl_lahir_bayi,
+			// 'jk_bayi' 					=> $jk_bayi,
+			// 'tgl_meninggal_bayi' 		=> $tgl_meninggal_bayi,
+			// 'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
+			// 'keterangan' 				=> $keterangan,
 			'nama_pic' 					=> $nama_pic,
 		);
 
@@ -272,6 +382,94 @@ class Bumil extends CI_Controller {
 			$save = $this->Model_bumil->update(array('id' => $id), $data);
 		}
 
+		if ($save) {
+			$data['status_save'] 	= TRUE;
+		}else{
+			$data['status_save'] 	= FALSE;
+		}
+		
+		echo json_encode($data);
+	}
+
+	public function action_process_services()
+	{
+		$save_method 			= $this->input->post('save_method');
+
+		if ($save_method != 'Ubah') {
+			$data['status_save'] 	= FALSE;
+			echo json_encode($data);
+			return FALSE;
+		}
+
+		$id 					= $this->input->post('id');
+		$year_assign 			= $this->input->post('year_assign');
+
+		$status_melahirkan 		= $this->input->post('status_melahirkan');
+		if ($status_melahirkan) {
+			$nama_bayi 				= $this->input->post('nama_bayi');
+			$tgl_lahir_bayi 		= $this->input->post('tgl_lahir_bayi');
+			$jk_bayi 				= $this->input->post('jk_bayi');
+			$tgl_meninggal_bayi 	= ($this->input->post('status_meninggal_bayi') ? $this->input->post('tgl_meninggal_bayi') : null );
+			$tgl_meninggal_ibu 		= ($this->input->post('status_meninggal_ibu') ? $this->input->post('tgl_meninggal_ibu') : null );
+		}else{
+			$nama_bayi 				= null;
+			$tgl_lahir_bayi 		= null;
+			$jk_bayi 				= null;
+			$tgl_meninggal_bayi 	= null;
+			$tgl_meninggal_ibu 		= null;
+		}
+		
+		$nama_pic 				= $this->session->userdata('nama');
+		$created_by 			= $this->session->userdata('id');
+		$created_on 			= date('Y-m-d H:i:s');
+		$updated_by 			= $this->session->userdata('id');
+		$updated_on 			= date('Y-m-d H:i:s');
+
+		$kunjungan_bumil_bln 	= $_POST["kunjungan_bumil_bln"];
+        $kunjungan_bumil_thn 	= $_POST["kunjungan_bumil_thn"];
+        $kunjungan_val 			= $_POST["kunjungan_val"];
+        $keterangan 			= $_POST["keterangan"];
+
+		$data = array(
+			'nama_bayi' 				=> (!empty($nama_bayi) ? ucwords($nama_bayi) : null),
+			'tgl_lahir_bayi' 			=> $tgl_lahir_bayi,
+			'jk_bayi' 					=> $jk_bayi,
+			'tgl_meninggal_bayi' 		=> $tgl_meninggal_bayi,
+			'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
+			'nama_pic' 					=> $nama_pic,
+		);
+
+		if (count($kunjungan_bumil_bln) > 0) {
+
+            for ($i=0; $i < count($kunjungan_bumil_bln) ; $i++) { 
+                $data_kunjungan[$i] = array(
+                    'id'                    => $this->Model_global->create_id(), 
+                    'bumil_id'               => $id, 
+                    'bulan'                 => $kunjungan_bumil_bln[$i], 
+                    'tahun'                 => $kunjungan_bumil_thn[$i], 
+                    'is_kunjungan'       	=> (!empty($kunjungan_val[$i])? $kunjungan_val[$i] : 0 ), 
+                    'keterangan'        	=> (!empty($keterangan[$i])? $keterangan[$i] : null), 
+                    'created_by'            => $created_by, 
+                    'created_on'            => $created_on, 
+                    'updated_by'            => $updated_by, 
+                    'updated_on'            => $updated_on, 
+                );
+
+            }
+        }
+
+        $clear_kunjungan_bumil 		= $this->Model_bumil->clear_kunjungan_data_bumil($id, $year_assign);
+
+		$save = FALSE;
+		$data['id'] 			= $id;
+		$data['updated_by'] 	= $updated_by;
+		$data['updated_on'] 	= $updated_on;
+		$save = $this->Model_bumil->update(array('id' => $id), $data);
+		$save_kunjungan_bumil = $this->Model_bumil->save_kunjungan($data_kunjungan);
+
+		
+		$data['clear_kunjungan_bumil'] 	= $clear_kunjungan_bumil;
+		$data['data_kunjungan'] 		= $data_kunjungan;
 		if ($save) {
 			$data['status_save'] 	= TRUE;
 		}else{

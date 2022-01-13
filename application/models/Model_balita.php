@@ -5,6 +5,7 @@ class Model_balita extends CI_Model {
 
 	private $t_balita	= 'blt_balita';
 	private $t_penimbangan_balita	= 'blt_penimbangan_balita';
+	private $t_kunjungan_balita	= 'blt_kunjungan_balita';
     
     var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama_anak', 'tgl_lahir_anak', 'jk_anak', 
                                     'nama_bapak', 'nama_ibu', 'kel_dawis', 'tgl_meninggal_anak', 'keterangan', 'nama_pic', 'created_on');
@@ -16,6 +17,22 @@ class Model_balita extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->database();
+	}
+
+	public function get_kunjugan_balita($balita_id, $tahun = null)
+	{
+        $this->db->select('*');
+		$this->db->from($this->t_kunjungan_balita);
+		$this->db->where('balita_id', $balita_id);
+		if ($tahun == null) {
+			$tahun = date('Y');
+			$this->db->where('tahun', $tahun);
+		}else{
+			$this->db->where('tahun', $tahun);
+		}
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
 	}
 
     public function get_timbangan_balita($balita_id, $tahun = null)
@@ -56,6 +73,9 @@ class Model_balita extends CI_Model {
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('bt1.pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->select('COUNT(DISTINCT bt1.id) AS total_penimbang');
 		$this->db->from($this->t_penimbangan_balita.' b1');
 		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
@@ -73,6 +93,9 @@ class Model_balita extends CI_Model {
 
     public function get_total_data_balita()
 	{
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->from($this->t_balita);
 		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
@@ -83,12 +106,34 @@ class Model_balita extends CI_Model {
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('bt1.pos_id', $this->session->userdata('pos_id'));
+		}
         $this->db->select('b1.bulan, b1.tahun');
 		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM blt_penimbangan_balita b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_penimbangan_balita.' b1');
 		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
 		$this->db->where('b1.tahun', $tahun);
 		$this->db->where('bt1.deleted', 0);
+		$this->db->group_by('b1.bulan, b1.tahun');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_kunjungan_balita_total($tahun = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('bt1.pos_id', $this->session->userdata('pos_id'));
+		}
+        $this->db->select('b1.bulan, b1.tahun');
+		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_balita.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->from($this->t_kunjungan_balita.' b1');
+		$this->db->join($this->t_balita.' by1', 'by1.id = b1.balita_id');
+		$this->db->where('b1.tahun', $tahun);
+		$this->db->where('by1.deleted', 0);
 		$this->db->group_by('b1.bulan, b1.tahun');
 		$query = $this->db->get();
 		return $query->result();
@@ -207,6 +252,14 @@ class Model_balita extends CI_Model {
 		return $save;
 	}
 
+    public function save_kunjungan($data)
+	{
+		$this->db->trans_start();
+		$save = $this->db->insert_batch($this->t_kunjungan_balita, $data);
+		$this->db->trans_complete();
+		return $save;
+	}
+
 	public function update($where, $data)
 	{
 		$this->db->trans_start();
@@ -227,6 +280,15 @@ class Model_balita extends CI_Model {
 		$this->db->where('balita_id', $balita_id);
 		$this->db->where('tahun', $year);
 		$this->db->delete($this->t_penimbangan_balita);
+		$this->db->trans_complete();
+	}
+
+    public function clear_kunjungan_data_balita($balita_id, $year)
+	{
+		$this->db->trans_start();
+		$this->db->where('balita_id', $balita_id);
+		$this->db->where('tahun', $year);
+		$this->db->delete($this->t_kunjungan_balita);
 		$this->db->trans_complete();
 	}
 

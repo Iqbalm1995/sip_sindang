@@ -35,6 +35,7 @@ class Dashboard extends CI_Controller {
     function get_stat_timbangan_bayi() 
     {
 		$tahun = ( !empty($this->input->post('filterYear')) ? $this->input->post('filterYear') : date('Y') );
+		$bulan = ( !empty($this->input->post('filterMonth')) ? $this->input->post('filterMonth') : date('m') );
         $dataStats = array(
             'stat_tbg_bayi_L' => $this->Model_global->get_timbangan_bayi_total($tahun, 'L'),
             'stat_tbg_bayi_P' => $this->Model_global->get_timbangan_bayi_total($tahun, 'P'),
@@ -46,6 +47,7 @@ class Dashboard extends CI_Controller {
     function get_stat_timbangan_balita() 
     {
 		$tahun = ( !empty($this->input->post('filterYear')) ? $this->input->post('filterYear') : date('Y') );
+		$bulan = ( !empty($this->input->post('filterMonth')) ? $this->input->post('filterMonth') : date('m') );
         $dataStats = array(
             'stat_tbg_balita_L' => $this->Model_global->get_timbangan_balita_total($tahun, 'L'),
             'stat_tbg_balita_P' => $this->Model_global->get_timbangan_balita_total($tahun, 'P'),
@@ -57,24 +59,25 @@ class Dashboard extends CI_Controller {
     function get_stat_pelayanan_bayi()
     {
 		$tahun = ( !empty($this->input->post('filterYear')) ? $this->input->post('filterYear') : date('Y') );
+		$bulan = ( !empty($this->input->post('filterMonth')) ? $this->input->post('filterMonth') : date('m') );
         $dataStats = array(
-            'total_pyd_syrp_besi_fe1'   => $this->Model_global->byi_total_pyd_syrp_besi_fe1($tahun)->total_pyd_syrp_besi_fe1,
-            'total_pyd_syrp_besi_fe2'   => $this->Model_global->byi_total_pyd_syrp_besi_fe2($tahun)->total_pyd_syrp_besi_fe2,
-            'total_pyd_vit_a_bln1'      => $this->Model_global->byi_total_pyd_vit_a_bln1($tahun)->total_pyd_vit_a_bln1,
-            'total_pyd_vit_a_bln2'      => $this->Model_global->byi_total_pyd_vit_a_bln2($tahun)->total_pyd_vit_a_bln2,
-            'total_pyd_oralit'          => $this->Model_global->byi_total_pyd_oralit($tahun)->total_pyd_oralit,
-            'total_pyd_bcg'             => $this->Model_global->byi_total_pyd_bcg($tahun)->total_pyd_bcg,
-            'total_pyd_dpt1'            => $this->Model_global->byi_total_pyd_dpt1($tahun)->total_pyd_dpt1,
-            'total_pyd_dpt2'            => $this->Model_global->byi_total_pyd_dpt2($tahun)->total_pyd_dpt2,
-            'total_pyd_dpt3'            => $this->Model_global->byi_total_pyd_dpt3($tahun)->total_pyd_dpt3,
-            'total_pyd_polio1'          => $this->Model_global->byi_total_pyd_polio1($tahun)->total_pyd_polio1,
-            'total_pyd_polio2'          => $this->Model_global->byi_total_pyd_polio2($tahun)->total_pyd_polio2,
-            'total_pyd_polio3'          => $this->Model_global->byi_total_pyd_polio3($tahun)->total_pyd_polio3,
-            'total_pyd_polio4'          => $this->Model_global->byi_total_pyd_polio4($tahun)->total_pyd_polio4,
-            'total_pyd_campak'          => $this->Model_global->byi_total_pyd_campak($tahun)->total_pyd_campak,
-            'total_pyd_hepatitis1'      => $this->Model_global->byi_total_pyd_hepatitis1($tahun)->total_pyd_hepatitis1,
-            'total_pyd_hepatitis2'      => $this->Model_global->byi_total_pyd_hepatitis2($tahun)->total_pyd_hepatitis2,
-            'total_pyd_hepatitis3'      => $this->Model_global->byi_total_pyd_hepatitis3($tahun)->total_pyd_hepatitis3
+            'total_pyd_syrp_besi_fe1'   => $this->Model_global->byi_total_pyd_syrp_besi_fe1($tahun, $bulan)->total_pyd_syrp_besi_fe1,
+            'total_pyd_syrp_besi_fe2'   => $this->Model_global->byi_total_pyd_syrp_besi_fe2($tahun, $bulan)->total_pyd_syrp_besi_fe2,
+            'total_pyd_vit_a_bln1'      => $this->Model_global->byi_total_pyd_vit_a_bln1($tahun, $bulan)->total_pyd_vit_a_bln1,
+            'total_pyd_vit_a_bln2'      => $this->Model_global->byi_total_pyd_vit_a_bln2($tahun, $bulan)->total_pyd_vit_a_bln2,
+            'total_pyd_oralit'          => $this->Model_global->byi_total_pyd_oralit($tahun, $bulan)->total_pyd_oralit,
+            'total_pyd_bcg'             => $this->Model_global->byi_total_pyd_bcg($tahun, $bulan)->total_pyd_bcg,
+            'total_pyd_dpt1'            => $this->Model_global->byi_total_pyd_dpt1($tahun, $bulan)->total_pyd_dpt1,
+            'total_pyd_dpt2'            => $this->Model_global->byi_total_pyd_dpt2($tahun, $bulan)->total_pyd_dpt2,
+            'total_pyd_dpt3'            => $this->Model_global->byi_total_pyd_dpt3($tahun, $bulan)->total_pyd_dpt3,
+            'total_pyd_polio1'          => $this->Model_global->byi_total_pyd_polio1($tahun, $bulan)->total_pyd_polio1,
+            'total_pyd_polio2'          => $this->Model_global->byi_total_pyd_polio2($tahun, $bulan)->total_pyd_polio2,
+            'total_pyd_polio3'          => $this->Model_global->byi_total_pyd_polio3($tahun, $bulan)->total_pyd_polio3,
+            'total_pyd_polio4'          => $this->Model_global->byi_total_pyd_polio4($tahun, $bulan)->total_pyd_polio4,
+            'total_pyd_campak'          => $this->Model_global->byi_total_pyd_campak($tahun, $bulan)->total_pyd_campak,
+            'total_pyd_hepatitis1'      => $this->Model_global->byi_total_pyd_hepatitis1($tahun, $bulan)->total_pyd_hepatitis1,
+            'total_pyd_hepatitis2'      => $this->Model_global->byi_total_pyd_hepatitis2($tahun, $bulan)->total_pyd_hepatitis2,
+            'total_pyd_hepatitis3'      => $this->Model_global->byi_total_pyd_hepatitis3($tahun, $bulan)->total_pyd_hepatitis3
         );
 
 		echo json_encode($dataStats);
@@ -83,13 +86,14 @@ class Dashboard extends CI_Controller {
     function get_stat_pelayanan_balita()
     {
 		$tahun = ( !empty($this->input->post('filterYear')) ? $this->input->post('filterYear') : date('Y') );
+		$bulan = ( !empty($this->input->post('filterMonth')) ? $this->input->post('filterMonth') : date('m') );
         $dataStats = array(
-            'total_pyd_syrp_besi_fe1'   => $this->Model_global->blt_total_pyd_syrp_besi_fe1($tahun)->total_pyd_syrp_besi_fe1,
-            'total_pyd_syrp_besi_fe2'   => $this->Model_global->blt_total_pyd_syrp_besi_fe2($tahun)->total_pyd_syrp_besi_fe2,
-            'total_pyd_vit_a_bln1'      => $this->Model_global->blt_total_pyd_vit_a_bln1($tahun)->total_pyd_vit_a_bln1,
-            'total_pyd_vit_a_bln2'      => $this->Model_global->blt_total_pyd_vit_a_bln2($tahun)->total_pyd_vit_a_bln2,
-            'total_pyd_oralit'          => $this->Model_global->blt_total_pyd_oralit($tahun)->total_pyd_oralit,
-            'total_pyd_pmt_pemulihan'   => $this->Model_global->blt_total_pyd_pmt_pemulihan($tahun)->total_pyd_pmt_pemulihan
+            'total_pyd_syrp_besi_fe1'   => $this->Model_global->blt_total_pyd_syrp_besi_fe1($tahun, $bulan)->total_pyd_syrp_besi_fe1,
+            'total_pyd_syrp_besi_fe2'   => $this->Model_global->blt_total_pyd_syrp_besi_fe2($tahun, $bulan)->total_pyd_syrp_besi_fe2,
+            'total_pyd_vit_a_bln1'      => $this->Model_global->blt_total_pyd_vit_a_bln1($tahun, $bulan)->total_pyd_vit_a_bln1,
+            'total_pyd_vit_a_bln2'      => $this->Model_global->blt_total_pyd_vit_a_bln2($tahun, $bulan)->total_pyd_vit_a_bln2,
+            'total_pyd_oralit'          => $this->Model_global->blt_total_pyd_oralit($tahun, $bulan)->total_pyd_oralit,
+            'total_pyd_pmt_pemulihan'   => $this->Model_global->blt_total_pyd_pmt_pemulihan($tahun, $bulan)->total_pyd_pmt_pemulihan
         );
 
 		echo json_encode($dataStats);
@@ -97,11 +101,14 @@ class Dashboard extends CI_Controller {
 
     function get_top_jumlah_total()
     {
+		$tahun = ( !empty($this->input->post('filterYear')) ? $this->input->post('filterYear') : date('Y') );
+		$bulan = ( !empty($this->input->post('filterMonth')) ? $this->input->post('filterMonth') : date('m') );
+
         $dataStats = array(
             'total_pos'         => $this->Model_global->top_total_pos()->total_pos,
-            'total_bumil'       => $this->Model_global->top_total_bumil()->total_bumil,
-            'total_bayi'        => $this->Model_global->top_total_bayi()->total_bayi,
-            'total_balita'      => $this->Model_global->top_total_balita()->total_balita,
+            'total_bumil'       => $this->Model_global->top_total_bumil($tahun, $bulan)->total_bumil,
+            'total_bayi'        => $this->Model_global->top_total_bayi($tahun, $bulan)->total_bayi,
+            'total_balita'      => $this->Model_global->top_total_balita($tahun, $bulan)->total_balita,
         );
 
 		echo json_encode($dataStats);

@@ -14,7 +14,15 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
-                            Filter : 
+                            Filter :
+                        </div>
+                        <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
+                            <select name="filterMonth" id="filterMonth" class="form-control select2">
+                                <option value="all">(Semua data)</option>
+                                <?php  foreach (ARRAY_BULAN as $key => $value) {
+                                        echo '<option value="'.$key.'" >'.$value.'</option>';
+                                } ?>
+                            </select>
                         </div>
                         <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
                             <input type="text" name="filterYear" id="filterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
@@ -103,7 +111,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="card" style="border-radius:10px;">
                 <div class="card-header">
-                    <h4>Jumlah Pelayanan Posyandu Balita Tahun <span id="tahunLabel2"></span></h4>
+                    <h4>Jumlah Pelayanan Posyandu Bayi <span id="tahunLabel2"></span></h4>
                 </div>
                 <div class="card-body">
                     <canvas id="chartPelayananBayi"></canvas>
@@ -123,7 +131,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="card" style="border-radius:10px;">
                 <div class="card-header">
-                    <h4>Jumlah Pelayanan Posyandu Balita Tahun <span id="tahunLabel4"></span></h4>
+                    <h4>Jumlah Pelayanan Posyandu Balita <span id="tahunLabel4"></span></h4>
                 </div>
                 <div class="card-body">
                     <canvas id="chartPelayananBalita"></canvas>
@@ -139,27 +147,50 @@
 <script type="text/javascript">
 
     var table;
+    var myChartTimbanganBayi;
+    var mychartTimbanganBalita;
+    var myChartPelayananBayi;
+    var myChartPelayananBalita;
     var base_url = '<?php echo base_url();?>';
+    const bulanStr = [];
+
+    bulanStr["01"] = "Januari";
+    bulanStr["02"] = "Februari";
+    bulanStr["03"] = "Maret";
+    bulanStr["04"] = "April";
+    bulanStr["05"] = "Mei";
+    bulanStr["06"] = "Juni";
+    bulanStr["07"] = "Juli";
+    bulanStr["08"] = "Agustus";
+    bulanStr["09"] = "September";
+    bulanStr["10"] = "Oktober";
+    bulanStr["11"] = "November";
+    bulanStr["12"] = "Desember";
     
 	var d = new Date();
 	var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 	var strYear = d.getFullYear();
+	var getMonth = d.getMonth() + 1;
+    var strMonth = ('0'+getMonth).slice(-2);
 
     var filterYear = $("#filterYear").val();
+    var filterMonth = $("#filterMonth").val();
 
     $(document).ready(function() {
         
+        filterMonth = "all";
         filterYear = $("#filterYear").val();
+        
         $("#tahunLabel1").text(filterYear);
         $("#tahunLabel2").text(filterYear);
         $("#tahunLabel3").text(filterYear);
         $("#tahunLabel4").text(filterYear);
 
-        chartTimbanganBayi(filterYear);
-        chartTimbanganBalita(filterYear);
-        chartPelayananBayi(filterYear);
-        chartPelayananBalita(filterYear);
-        topJumlahTotal()
+        chartTimbanganBayi(filterYear, filterMonth);
+        chartTimbanganBalita(filterYear, filterMonth);
+        chartPelayananBayi(filterYear, filterMonth);
+        chartPelayananBalita(filterYear, filterMonth);
+        topJumlahTotal(filterYear, filterMonth);
 
     });
 
@@ -173,35 +204,44 @@
 
     $('#filterBtn').click(function(){
         
+        filterMonth = $("#filterMonth").val();
         filterYear = $("#filterYear").val();
         $("#tahunLabel1").text(filterYear);
-        $("#tahunLabel2").text(filterYear);
         $("#tahunLabel3").text(filterYear);
-        $("#tahunLabel4").text(filterYear);
+        if (filterMonth == "all") {
+            $("#tahunLabel2").text(filterYear);
+            $("#tahunLabel4").text(filterYear);
+        }else{
+            $("#tahunLabel2").text(bulanStr[filterMonth] + " " + filterYear);
+            $("#tahunLabel4").text(bulanStr[filterMonth] + " " + filterYear);
+        }
 
-        chartTimbanganBayi(filterYear);
-        chartTimbanganBalita(filterYear);
-        chartPelayananBayi(filterYear);
-        chartPelayananBalita(filterYear);
+        chartTimbanganBayi(filterYear, filterMonth);
+        chartTimbanganBalita(filterYear, filterMonth);
+        chartPelayananBayi(filterYear, filterMonth);
+        chartPelayananBalita(filterYear, filterMonth);
+        topJumlahTotal(filterYear, filterMonth);
 
     });
 
     function reload_table()
     {
+        $("#filterMonth").val("all").trigger('change');
         $("#filterYear").val(strYear);
-        $("#tahunLabel").text(strYear);
-        $("#tahunLabel1").text(strYear);
-        $("#tahunLabel2").text(strYear);
-        $("#tahunLabel3").text(strYear);
-        $("#tahunLabel4").text(strYear);
+        
+        $("#tahunLabel1").text(filterYear);
+        $("#tahunLabel2").text(filterYear);
+        $("#tahunLabel3").text(filterYear);
+        $("#tahunLabel4").text(filterYear);
 
-        chartTimbanganBayi(strYear);
-        chartTimbanganBalita(strYear);
-        chartPelayananBayi(strYear);
-        chartPelayananBalita(strYear);
+        chartTimbanganBayi(strYear, strMonth);
+        chartTimbanganBalita(strYear, strMonth);
+        chartPelayananBayi(strYear, strMonth);
+        chartPelayananBalita(strYear, strMonth);
+        topJumlahTotal(strYear, "all");
     }
 
-    function topJumlahTotal() {
+    function topJumlahTotal(year, month) {
 
         var labelsCht_L = [];
         var valuesCht_L = [];
@@ -212,7 +252,8 @@
             url : "<?= base_url('dashboard/get_top_jumlah_total')?>",
             type: "POST",
             data: {
-                // filterYear: year,
+                filterYear: year,
+                filterMonth: month,
             },
             beforeSend: function() {
                 // $('#loading-sales').show(200)
@@ -237,12 +278,18 @@
     }
 
     // Chart Timbangan Bayi (chartTimbanganBayi)----------------------------------------------------------------------------------------------->>
-        function chartTimbanganBayi(year) {
+        function chartTimbanganBayi(year, month) {
 
             var labelsCht_L = [];
             var valuesCht_L = [];
             var labelsCht_P = [];
             var valuesCht_P = [];
+
+            console.log("chartTimbanganBayi")
+            console.log(labelsCht_L)
+            console.log(valuesCht_L)
+            console.log(labelsCht_P)
+            console.log(valuesCht_P)
 
             $.ajax({
                 url : "<?= base_url('dashboard/get_stat_timbangan_bayi')?>",
@@ -278,8 +325,10 @@
                         }
                     }
 
+                    myChartTimbanganBayi?.destroy();
+
                     var ctxTimbanganBayi = document.getElementById("chartTimbanganBayi").getContext('2d');
-                    var myChartTimbanganBayi = new Chart(ctxTimbanganBayi, {
+                    myChartTimbanganBayi = new Chart(ctxTimbanganBayi, {
                         type: 'line',
                         data: {
                                 labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nop", "Des"],
@@ -353,11 +402,17 @@
 
     
     // Chart Timbangan Balita (chartTimbanganBalita)------------------------------------------------------------------------------------------->>
-        function chartTimbanganBalita(year) {
+        function chartTimbanganBalita(year, month) {
             var labelsCht_L = [];
             var valuesCht_L = [];
             var labelsCht_P = [];
             var valuesCht_P = [];
+
+            console.log("chartTimbanganBalita")
+            console.log(labelsCht_L)
+            console.log(valuesCht_L)
+            console.log(labelsCht_P)
+            console.log(valuesCht_P)
 
             $.ajax({
                 url : "<?= base_url('dashboard/get_stat_timbangan_balita')?>",
@@ -393,9 +448,10 @@
                         }
                     }
                     
+                    mychartTimbanganBalita?.destroy();
 
                     var ctxTimbanganBalita = document.getElementById("chartTimbanganBalita").getContext('2d');
-                    var mychartTimbanganBalita = new Chart(ctxTimbanganBalita, {
+                    mychartTimbanganBalita = new Chart(ctxTimbanganBalita, {
                         type: 'line',
                         data: {
                                 labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nop", "Des"],
@@ -471,24 +527,31 @@
     
     // Chart Pelayanan Bayi (chartPelayananBayi)----------------------------------------------------------------------------------------------->>
         // 17 data
-        function chartPelayananBayi(year) {
+        function chartPelayananBayi(year, month) {
             var labelsCht = [];
             var valuesCht = [];
+
+            console.log("chartPelayananBayi")
+            console.log(labelsCht)
+            console.log(valuesCht)
 
             $.ajax({
                 url : "<?= base_url('dashboard/get_stat_pelayanan_bayi')?>",
                 type: "POST",
                 data: {
                     filterYear: year,
+                    filterMonth: month,
                 },
                 beforeSend: function() {
                     // $('#loading-sales').show(200)
                 },
                 dataType: "JSON",
                 success: function(response) {
+                    
+                    myChartPelayananBayi?.destroy();
 
                     var ctxPelayananBayi = document.getElementById("chartPelayananBayi").getContext('2d');
-                    var myChartPelayananBayi = new Chart(ctxPelayananBayi, {
+                    myChartPelayananBayi = new Chart(ctxPelayananBayi, {
                         type: 'pie',
                         data: {
                             datasets: [{
@@ -575,7 +638,7 @@
 
     // Chart Pelayanan Balita (chartPelayananBalita)------------------------------------------------------------------------------------------->>
         // 6 data
-        function chartPelayananBalita(year) {
+        function chartPelayananBalita(year, month) {
             var labelsCht = [];
             var valuesCht = [];
 
@@ -584,15 +647,18 @@
                 type: "POST",
                 data: {
                     filterYear: year,
+                    filterMonth: month,
                 },
                 beforeSend: function() {
                     // $('#loading-sales').show(200)
                 },
                 dataType: "JSON",
                 success: function(response) {
+                    
+                    myChartPelayananBalita?.destroy();
 
                     var ctxPelayananBalita = document.getElementById("chartPelayananBalita").getContext('2d');
-                    var myChartPelayananBalita = new Chart(ctxPelayananBalita, {
+                    myChartPelayananBalita = new Chart(ctxPelayananBalita, {
                         type: 'pie',
                         data: {
                             datasets: [{
