@@ -1,17 +1,17 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Ibu Hamil</h1>
+    <h1>Data Wus Pus</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
-        <div class="breadcrumb-item">Ibu Hamil</div>
+        <div class="breadcrumb-item">Wus Pus</div>
     </div>
     </div>
 
     <div class="section-body">
         <div class="text-left pb-4">
-            <a class="btn btn-primary tombolfull" href="<?= base_url('bumil/add'); ?>">
-                <i class="fas fa-plus"></i> Tambah Data Bumil</a>
+            <a class="btn btn-primary tombolfull" href="<?= base_url('wuspus/add'); ?>">
+                <i class="fas fa-plus"></i> Tambah Data Wus Pus</a>
         </div>
         <div class="card">
             <div class="card-body">
@@ -27,13 +27,17 @@
                     </div>
                 </div>
                 <div class="pt-3">
-                    <table id="datatable_bumil" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <table id="datatable_wuspus" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="width:2%;" class="text-center">No</th>
                                 <th style="width:15%;" >No. KMS</th>
-                                <th>Nama Ibu</th>
-                                <th>Nama Bapak</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
+                                <th>Suami Pus</th>
+                                <th>Kel Dawis</th>
+                                <th>Anak Hidup</th>
+                                <th>Anak Meninggal</th>
                                 <th style="width:15%;"></th>
                             </tr>
                         </thead>
@@ -44,8 +48,12 @@
                             <tr>
                                 <th></th>
                                 <th>No. KMS</th>
-                                <th>Nama Ibu</th>
-                                <th>Nama Bapak</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
+                                <th>Suami Pus</th>
+                                <th>Kel Dawis</th>
+                                <th>Anak Hidup</th>
+                                <th>Anak Meninggal</th>
                                 <th></th>
                             </tr>
                         </tfoot>
@@ -70,7 +78,7 @@
     $(document).ready(function() {
         
         filterSearch = $("#filterSearch").val();
-        table = datatable_bumil(filterSearch);
+        table = datatable_wuspus(filterSearch);
 
         $('.select2').select2()
 
@@ -80,12 +88,12 @@
         filterSearch = $("#filterSearch").val();
         table.destroy();
         table.ajax.reload();
-        table = datatable_bumil(filterSearch);
+        table = datatable_wuspus(filterSearch);
     });
 
-    function datatable_bumil(search) 
+    function datatable_wuspus(search) 
     {
-        return $('#datatable_bumil').DataTable({ 
+        return $('#datatable_wuspus').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
@@ -99,7 +107,7 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('bumil/datatable_list_bumil')?>",
+                "url": "<?php echo base_url('wuspus/datatable_list_wuspus')?>",
                 "type": "POST",
                 "data": {
                     "searchFilter": search,
@@ -128,14 +136,14 @@
         $("#filterSearch").val('');
         table.destroy();
         table.ajax.reload();
-        table = datatable_bumil('');
+        table = datatable_wuspus('');
     }
 
-    function delete_bumil(id)
+    function delete_wuspus(id)
     {
 
         $.ajax({
-            url : "<?= base_url('bumil/get_data_bumil_json')?>/" + id,
+            url : "<?= base_url('wuspus/get_data_wuspus_json')?>/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(readData)
@@ -143,7 +151,7 @@
                 console.log(readData)
                 swal({
                     title: 'Menghapus data',
-                    text: 'Apakah anda yakin akan menghapus data ibu hamil "'+ readData.nik +' - '+ readData.nama_ibu +'" ?',
+                    text: 'Apakah anda yakin akan menghapus data Wus Pus "'+ readData.kms +' - '+ readData.nama +'" ?',
                     icon: 'warning',
                     buttons: true,
                     dangerMode: true,
@@ -151,19 +159,19 @@
                     if (willDelete) {
 
                         $.ajax({
-                            url : "<?= base_url('bumil/delete')?>/" + id,
+                            url : "<?= base_url('wuspus/delete')?>/" + id,
                             type: "POST",
                             dataType: "JSON",
                             success: function(data)
                             {
-                                swal('Data ibu hamil "'+ readData.nik +' - '+ readData.nama_ibu +'" berhasil dihapus!', {
+                                swal('Data Wus Pus "'+ readData.kms +' - '+ readData.nama +'" berhasil dihapus!', {
                                     icon: 'success',
                                 });
                                 reload_table()
                             },
                             error: function (jqXHR, textStatus, errorThrown)
                             {
-                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data ibu hamil!', 'error');
+                                swal('Gagal', 'Terjadi kesalahan pada saat manghapus data Wus Pus!', 'error');
                             }
                         });
 
@@ -174,7 +182,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data ibu hamil!', 'error');
+                swal('Gagal', 'Terjadi kesalahan pada saat mengambil data Wus Pus!', 'error');
             }
         });
     }

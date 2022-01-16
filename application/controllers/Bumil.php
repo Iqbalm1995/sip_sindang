@@ -419,9 +419,6 @@ class Bumil extends CI_Controller {
 			$tgl_meninggal_ibu 		= null;
 		}
 		
-		$nama_pic 				= $this->session->userdata('nama');
-		$created_by 			= $this->session->userdata('id');
-		$created_on 			= date('Y-m-d H:i:s');
 		$updated_by 			= $this->session->userdata('id');
 		$updated_on 			= date('Y-m-d H:i:s');
 

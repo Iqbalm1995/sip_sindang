@@ -1,17 +1,17 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Ibu Hamil</h1>
+    <h1>Data Wus Pus</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
-        <div class="breadcrumb-item"><a href="#">Ibu Hamil</a></div>
+        <div class="breadcrumb-item"><a href="#">Wus Pus</a></div>
         <div class="breadcrumb-item">Tambah</div>
     </div>
     </div>
 
     <div class="section-body">
     <div class="text-left pb-4">
-        <a class="btn btn-primary tombolfull" href="<?= base_url('bumil'); ?>">
+        <a class="btn btn-primary tombolfull" href="<?= base_url('wuspus'); ?>">
             <i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card">
@@ -23,7 +23,7 @@
                     <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
                         <?php if (empty($this->session->userdata('pos_id'))) { ?>
                             <div class="form-group" id='input_pos'>
-                                <label>Posisi Posyandu Bumil <span class="text-danger">*</span></label>
+                                <label>Posisi Posyandu Wus Pus <span class="text-danger">*</span></label>
                                 <div class="form-group">
                                     <div class=" pl-0 pr-0">
                                         <select name="pos_id" id="pos_id" class="form-control select2">
@@ -46,19 +46,44 @@
                         <input type="hidden" name="desa_name" id="desa_name" value="<?= $desa_name; ?>">
                         <div class="form-group">
                             <label>Nomor KMS <span class="text-danger">*</span></label>
-                            <input type="text" name="nik" id="nik" class="form-control " maxlength="20" placeholder="Isi Nomor KMS..." value="<?= $nik; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
-                            <div class="invalid-feedback" id="nik_inv"></div>
-                            <div class="valid-feedback" id="nik_valid"></div>
+                            <input type="text" name="kms" id="kms" class="form-control " maxlength="20" placeholder="Isi Nomor KMS..." value="<?= $kms; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
+                            <div class="invalid-feedback" id="kms_inv"></div>
+                            <div class="valid-feedback" id="kms_valid"></div>
                         </div>
                         <div class="form-group">
-                            <label>Nama Ibu <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control " placeholder="Isi nama ibu..." value="<?= $nama_ibu; ?>" required>
-                            <div class="invalid-feedback" id="nama_ibu_inv"></div>
+                            <label>Nama <span class="text-danger">*</span></label>
+                            <input type="text" name="nama" id="nama" class="form-control " placeholder="Isi nama..." value="<?= $nama; ?>" required>
+                            <div class="invalid-feedback" id="nama_inv"></div>
                         </div>
                         <div class="form-group">
-                            <label>Nama Bapak <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_bapak" id="nama_bapak" class="form-control " placeholder="Isi nama bapak..." value="<?= $nama_bapak; ?>" required>
-                            <div class="invalid-feedback" id="nama_bapak_inv"></div>
+                            <label>Umur <span class="text-danger">*</span></label>
+                            <input type="number" name="umur" id="umur" class="form-control " placeholder="Isi umur..." value="<?= $umur; ?>" required>
+                            <div class="invalid-feedback" id="umur_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Suami Pus</label>
+                            <input type="text" name="suami_pus" id="suami_pus" class="form-control " placeholder="Isi suami pus..." value="<?= $suami_pus; ?>">
+                            <div class="invalid-feedback" id="suami_pus_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Taha HK KS</label>
+                            <input type="text" name="taha_kan_ks" id="taha_kan_ks" class="form-control " placeholder="Isi taha kan ks..." value="<?= $taha_kan_ks; ?>">
+                            <div class="invalid-feedback" id="taha_kan_ks_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kel Dawis</label>
+                            <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " maxlength='3' placeholder="Isi Kel dawis..." value="<?= $kel_dawis; ?>">
+                            <div class="invalid-feedback" id="kel_dawis_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Anak Hidup <span class="text-danger">*</span></label>
+                            <input type="number" name="jml_anak_hidup" id="jml_anak_hidup" class="form-control " maxlength='2' placeholder="0" value="<?= $jml_anak_hidup; ?>" required>
+                            <div class="invalid-feedback" id="jml_anak_hidup_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Anak Meninggal <span class="text-danger">*</span></label>
+                            <input type="number" name="jml_anak_meninggal" id="jml_anak_meninggal" class="form-control " maxlength='2' placeholder="0" value="<?= $jml_anak_meninggal; ?>" required>
+                            <div class="invalid-feedback" id="jml_anak_meninggal_inv"></div>
                         </div>
                     </div>
                 </div>
@@ -95,18 +120,18 @@
 
     }); 
 
-    $('#nik').change(function() {
+    $('#kms').change(function() {
         if (save_method == 'Tambah') {
             if (this.value != "") {
-                cek_nik_bumil(this.value);
+                cek_kms_wuspus(this.value);
             }
         }
     });
     
-    function cek_nik_bumil(nik)
+    function cek_kms_wuspus(kms)
     {
         $.ajax({
-            url : "<?= base_url('bumil/cek_data_bumil_json')?>/" + nik,
+            url : "<?= base_url('wuspus/cek_data_wuspus_json')?>/" + kms,
             type: "POST",
             dataType: "JSON",
             success: function(readData)
@@ -117,21 +142,21 @@
                 }else{
                     swal({
                             title: 'Cek data Nomor KMS',
-                            text: 'Nomor KMS "'+ nik +'" sudah terdaftar di data ibu hamil!',
+                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Wus Pus!',
                             icon: 'warning',
                             dangerMode: true,
                         }).then((ok) => {
-                            $("#nik").val("");
-                            $("#nik").focus();
-                            $("#nik").addClass('is-invalid');
-                            $("#nik_inv").text('Nomor KMS sudah terdaftar di data ibu hamil');
+                            $("#kms").val("");
+                            $("#kms").focus();
+                            $("#kms").addClass('is-invalid');
+                            $("#kms_inv").text('Nomor KMS sudah terdaftar di data Wus Pus');
                     });
                 }
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
                 swal('Gagal', 'Terjadi kesalahan pada saat mencari Nomor KMS!', 'error');
-                $("#nik").focus();
+                $("#kms").focus();
             }
         });
     }
@@ -149,7 +174,7 @@
 
         var formData = new FormData($('#form')[0]);
         $.ajax({
-            url : "<?= base_url('bumil/action_process')?>",
+            url : "<?= base_url('wuspus/action_process')?>",
             type: "POST",
             data: formData,
             contentType: false,
@@ -160,11 +185,11 @@
                 // console.log(data);
                 if(data.status_save)
                 {
-                    swal('Berhasil', 'Data bumil berhasil disimpan!', 'success').then((data) => {
-                        document.location = "<?php echo base_url('bumil')?>";
+                    swal('Berhasil', 'Data Wus Pus berhasil disimpan!', 'success').then((data) => {
+                        document.location = "<?php echo base_url('wuspus')?>";
                     });
                 }else{
-                    swal('Gagal', 'Data bumil gagal disimpan!', 'error');
+                    swal('Gagal', 'Data Wus Pus gagal disimpan!', 'error');
                 }
                 $('#btnSave').text('Simpan'); 
                 $('#btnSave').attr('disabled',false); 
@@ -172,7 +197,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Data bumil gagal disimpan!', 'error');
+                swal('Gagal', 'Data Wus Pus gagal disimpan!', 'error');
                 $('#btnSave').text('Simpan'); 
                 $('#btnSave').attr('disabled',false);
 
@@ -183,16 +208,28 @@
     function _validation() {
         var status = true;
 
-        if ($("#nik").val() == "") {
+        if ($("#kms").val() == "") {
             status = false;
-            $("#nik").addClass('is-invalid');
-            $("#nik_inv").text('Nomor KMS masih kosong');
+            $("#kms").addClass('is-invalid');
+            $("#kms_inv").text('Nomor KMS masih kosong');
         }
 
-        if ($("#nama_ibu").val() == "") {
+        if ($("#nama").val() == "") {
             status = false;
-            $("#nama_ibu").addClass('is-invalid');
-            $("#nama_ibu_inv").text('Nama ibu masih kosong');
+            $("#nama").addClass('is-invalid');
+            $("#nama_inv").text('Nama ibu masih kosong');
+        }
+
+        if ($("#jml_anak_hidup").val() == "") {
+            status = false;
+            $("#jml_anak_hidup").addClass('is-invalid');
+            $("#jml_anak_hidup_inv").text('Jumlah Anak Hidup masih kosong');
+        }
+
+        if ($("#jml_anak_meninggal").val() == "") {
+            status = false;
+            $("#jml_anak_meninggal").addClass('is-invalid');
+            $("#jml_anak_meninggal_inv").text('Jumlah Anak Meninggal ibu masih kosong');
         }
 
         if ($("#pos_id").val() == "") {
@@ -204,24 +241,38 @@
         return status
     }
 
-    $("#nik").keyup(function(){
-        if ($("#nik").val() != "") {
-            $("#nik").removeClass('is-invalid');
-            $("#nik_inv").text('');
+    $("#kms").keyup(function(){
+        if ($("#kms").val() != "") {
+            $("#kms").removeClass('is-invalid');
+            $("#kms_inv").text('');
         }
     });
 
-    $("#nama_ibu").keyup(function(){
-        if ($("#nama_ibu").val() != "") {
-            $("#nama_ibu").removeClass('is-invalid');
-            $("#nama_ibu_inv").text('');
+    $("#nama").keyup(function(){
+        if ($("#nama").val() != "") {
+            $("#nama").removeClass('is-invalid');
+            $("#nama_inv").text('');
         }
     });
 
-    $("#nama_bapak").keyup(function(){
-        if ($("#nama_bapak").val() != "") {
-            $("#nama_bapak").removeClass('is-invalid');
-            $("#nama_bapak_inv").text('');
+    $("#umur").keyup(function(){
+        if ($("#umur").val() != "") {
+            $("#umur").removeClass('is-invalid');
+            $("#umur_inv").text('');
+        }
+    });
+
+    $("#jml_anak_hidup").keyup(function(){
+        if ($("#jml_anak_hidup").val() != "") {
+            $("#jml_anak_hidup").removeClass('is-invalid');
+            $("#jml_anak_hidup_inv").text('');
+        }
+    });
+
+    $("#jml_anak_meninggal").keyup(function(){
+        if ($("#jml_anak_meninggal").val() != "") {
+            $("#jml_anak_meninggal").removeClass('is-invalid');
+            $("#jml_anak_meninggal_inv").text('');
         }
     });
 

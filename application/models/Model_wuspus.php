@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_bumil extends CI_Model {
+class Model_wuspus extends CI_Model {
 
-	private $t_bumil	= 'bml_bumil';
-	private $t_kunjungan_bumil	= 'bml_kunjungan_bumil';
-    
-    var $column_order = array(null, 'pos_name', 'desa_name', 'nik', 'nama_bapak', 'nama_ibu', 'nama_bayi', 
-                                    'tgl_lahir_bayi', 'jk_bayi', 'tgl_meninggal_bayi', 'tgl_meninggal_ibu', 
-                                    'keterangan', 'nama_pic', 'created_on');
-    var $column_search = array('pos_name', 'desa_name', 'nik', 'nama_bapak', 'nama_ibu', 'nama_bayi', 
-                                    'tgl_lahir_bayi', 'jk_bayi', 'tgl_meninggal_bayi', 'tgl_meninggal_ibu', 
-                                    'keterangan', 'nama_pic', 'created_on');
+	private $t_wuspus	= 'wsp_wuspus';
+	private $t_kunjungan_wuspus	= 'wsp_kunjungan_wuspus';
+
+    var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama', 'umur', 'suami_pus', 
+                                    'taha_kan_ks', 'kel_dawis', 'jml_anak_hidup', 'jml_anak_meninggal', 
+                                    'umur_anak_meninggal', 'lila', 'keterangan', 'created_on');
+    var $column_search = array('pos_name', 'desa_name', 'kms', 'nama', 'umur', 'suami_pus', 
+                                    'taha_kan_ks', 'kel_dawis', 'jml_anak_hidup', 'jml_anak_meninggal', 
+                                    'umur_anak_meninggal', 'lila', 'keterangan', 'created_on');
     var $order = array('created_on' => 'desc');
 	
 	public function __construct()
@@ -20,11 +20,11 @@ class Model_bumil extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_kunjugan_bumil($bumil_id, $tahun = null)
+    public function get_kunjugan_wuspus($wuspus_id, $tahun = null)
 	{
         $this->db->select('*');
-		$this->db->from($this->t_kunjungan_bumil);
-		$this->db->where('bumil_id', $bumil_id);
+		$this->db->from($this->t_kunjungan_wuspus);
+		$this->db->where('wuspus_id', $wuspus_id);
 		if ($tahun == null) {
 			$tahun = date('Y');
 			$this->db->where('tahun', $tahun);
@@ -36,7 +36,7 @@ class Model_bumil extends CI_Model {
 		return $query->result();
 	}
 
-	function get_total_data_bumil($tahun = null)
+    function get_total_data_wuspus($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
@@ -45,14 +45,14 @@ class Model_bumil extends CI_Model {
 		if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('pos_id', $this->session->userdata('pos_id'));
 		}
-		$this->db->select('COUNT(id) AS total_bumil');
-		$this->db->from($this->t_bumil);
+		$this->db->select('COUNT(id) AS total_wuspus');
+		$this->db->from($this->t_wuspus);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
-		return $query->row()->total_bumil;
+		return $query->row()->total_wuspus;
 	}
 
-	function get_total_ibu_sudah_melahirkan($tahun = null)
+    function get_total_anak_wuspus($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
@@ -61,49 +61,16 @@ class Model_bumil extends CI_Model {
 		if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('pos_id', $this->session->userdata('pos_id'));
 		}
-		$this->db->select('COUNT(id) AS total_ibu_sudah_melahirkan');
-		$this->db->from($this->t_bumil);
-		$this->db->where('YEAR(tgl_lahir_bayi)', $tahun);
+		$this->db->select('SUM(jml_anak_hidup) AS total_anak_hidup');
+		$this->db->select('SUM(jml_anak_meninggal) AS total_anak_meninggal');
+		$this->db->from($this->t_wuspus);
+		$this->db->where('YEAR(created_on)', $tahun);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
-		return $query->row()->total_ibu_sudah_melahirkan;
+		return $query->row();
 	}
 
-	function get_total_bayi_meninggal($tahun = null)
-	{
-		if ($tahun == null) {
-			$tahun = date('Y');
-		}
-		
-		if (!empty($this->session->userdata('pos_id'))) {
-			$this->db->where('pos_id', $this->session->userdata('pos_id'));
-		}
-		$this->db->select('COUNT(id) AS total_bayi_meninggal');
-		$this->db->from($this->t_bumil);
-		$this->db->where('YEAR(tgl_meninggal_bayi)', $tahun);
-		$this->db->where('deleted', 0);
-		$query = $this->db->get();
-		return $query->row()->total_bayi_meninggal;
-	}
-	
-	function get_total_ibu_meninggal($tahun = null)
-	{
-		if ($tahun == null) {
-			$tahun = date('Y');
-		}
-		
-		if (!empty($this->session->userdata('pos_id'))) {
-			$this->db->where('pos_id', $this->session->userdata('pos_id'));
-		}
-		$this->db->select('COUNT(id) AS total_ibu_meninggal');
-		$this->db->from($this->t_bumil);
-		$this->db->where('YEAR(tgl_meninggal_ibu)', $tahun);
-		$this->db->where('deleted', 0);
-		$query = $this->db->get();
-		return $query->row()->total_ibu_meninggal;
-	}
-
-	public function get_kunjungan_bumil_total($tahun = null)
+    public function get_kunjungan_wuspus_total($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
@@ -112,9 +79,9 @@ class Model_bumil extends CI_Model {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_bumil.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
-		$this->db->from($this->t_kunjungan_bumil.' b1');
-		$this->db->join($this->t_bumil.' by1', 'by1.id = b1.bumil_id');
+		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_wuspus.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->from($this->t_kunjungan_wuspus.' b1');
+		$this->db->join($this->t_wuspus.' by1', 'by1.id = b1.wuspus_id');
 		$this->db->where('b1.tahun', $tahun);
 		$this->db->where('by1.deleted', 0);
 		$this->db->group_by('b1.bulan, b1.tahun');
@@ -128,26 +95,17 @@ class Model_bumil extends CI_Model {
 		if (!empty($this->session->userdata('pos_id'))) {
 			$this->db->where('pos_id', $this->session->userdata('pos_id'));
 		}
-
-		if (!empty($this->input->post('is_baby_born'))) {
-			$this->db->where('tgl_lahir_bayi !=', null);
-		}
-		
-		if (!empty($this->input->post('jkFilter'))) {
-			$this->db->where('jk_bayi', $this->input->post('jkFilter'));
-		}
 		
 		if($this->input->post('searchFilter')) { 
 			$this->db->group_start()
-                ->or_like('nik', $this->input->post('searchFilter'))
-                ->or_like('nama_bayi', $this->input->post('searchFilter'))
-                ->or_like('nama_bapak', $this->input->post('searchFilter'))
-                ->or_like('nama_ibu', $this->input->post('searchFilter'))
+                ->or_like('kms', $this->input->post('searchFilter'))
+                ->or_like('nama', $this->input->post('searchFilter'))
+                ->or_like('umur', $this->input->post('searchFilter'))
             ->group_end();
 		}
 
 		$this->db->where('deleted', 0);
-		$this->db->from($this->t_bumil);
+		$this->db->from($this->t_wuspus);
 
 		$i = 0;
 	
@@ -201,14 +159,14 @@ class Model_bumil extends CI_Model {
 
 	public function count_all()
 	{
-		$this->db->from($this->t_bumil);
+		$this->db->from($this->t_wuspus);
 		$this->db->where('deleted', 0);
 		return $this->db->count_all_results();
 	}
 
-	public function get_by_id($id)
+    public function get_by_id($id)
 	{
-		$this->db->from($this->t_bumil);
+		$this->db->from($this->t_wuspus);
 		$this->db->where('id',$id);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
@@ -216,10 +174,10 @@ class Model_bumil extends CI_Model {
 		return $query->row();
 	}
 
-	public function get_by_nik($nik)
+	public function get_by_kms($kms)
 	{
-		$this->db->from($this->t_bumil);
-		$this->db->where('nik',$nik);
+		$this->db->from($this->t_wuspus);
+		$this->db->where('kms',$kms);
 		$this->db->where('deleted', 0);
 		$query = $this->db->get();
 
@@ -229,7 +187,7 @@ class Model_bumil extends CI_Model {
 	public function save($data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->insert($this->t_bumil, $data);
+		$save = $this->db->insert($this->t_wuspus, $data);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -237,7 +195,7 @@ class Model_bumil extends CI_Model {
     public function save_kunjungan($data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->insert_batch($this->t_kunjungan_bumil, $data);
+		$save = $this->db->insert_batch($this->t_kunjungan_wuspus, $data);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -245,7 +203,7 @@ class Model_bumil extends CI_Model {
 	public function update($where, $data)
 	{
 		$this->db->trans_start();
-		$save = $this->db->update($this->t_bumil, $data, $where);
+		$save = $this->db->update($this->t_wuspus, $data, $where);
 		$this->db->trans_complete();
 		return $save;
 	}
@@ -253,20 +211,21 @@ class Model_bumil extends CI_Model {
 	public function delete_by_id($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete($this->t_bumil);
+		$this->db->delete($this->t_wuspus);
 	}
 
-    public function clear_kunjungan_data_bumil($bumil_id, $year)
+    public function clear_kunjungan_data_wuspus($wuspus_id, $year)
 	{
 		$this->db->trans_start();
-		$this->db->where('bumil_id', $bumil_id);
+		$this->db->where('wuspus_id', $wuspus_id);
 		$this->db->where('tahun', $year);
-		$this->db->delete($this->t_kunjungan_bumil);
+		$this->db->delete($this->t_kunjungan_wuspus);
 		$this->db->trans_complete();
 	}
 
 	function cek($where,$table){		
 		return $this->db->get_where($table,$where);
 	}
+
 	
 }
