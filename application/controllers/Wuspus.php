@@ -272,13 +272,15 @@ class Wuspus extends CI_Controller {
 
         // body data
         $data['pages_caption']  = 'Update Layanan  Wus Pus';
-
+		
 		// body data
 		$data = array(
 			'aksi' 					=> 'Ubah',
 			'year_assign'			=> $year,
 			'data_pos' 			    => $this->Model_posyandu->get_posyandu(),
+			'get_akseptor_ks' 		=> $this->Model_global->get_akseptor_ks(),
 		    'data_kunjugan' 		=> $this->Model_wuspus->get_kunjugan_wuspus($id, $year),
+		    'data_akseptor' 		=> $this->Model_wuspus->get_akseptor_wuspus($id, $year),
 		    'id' 					=> set_value('id', $r_wps->id),
 			'pos_id' 				=> set_value('pos_id', $r_wps->pos_id),
 		    'pos_name' 				=> set_value('pos_name', $r_wps->pos_name),
@@ -298,9 +300,6 @@ class Wuspus extends CI_Controller {
 		    'pyd_imsi1' 	        => set_value('pyd_imsi1', $r_wps->pyd_imsi1),
 		    'pyd_imsi2' 	        => set_value('pyd_imsi2', $r_wps->pyd_imsi2),
 		    'pyd_imsi_lengkap'     	=> set_value('pyd_imsi_lengkap', $r_wps->pyd_imsi_lengkap),
-		    'kb_kontrasepsi' 	    => set_value('kb_kontrasepsi', $r_wps->kb_kontrasepsi),
-		    'kb_pgn_tgl' 	        => set_value('kb_pgn_tgl', $r_wps->kb_pgn_tgl),
-		    'kb_pgn_jenis' 	        => set_value('kb_pgn_jenis', $r_wps->kb_pgn_jenis),
 		);
         
 		$this->load->view('template/header', $head);
@@ -395,20 +394,12 @@ class Wuspus extends CI_Controller {
         $pyd_imsi1 	            = ($this->input->post('status_pyd_imsi1') ? $this->input->post('pyd_imsi1') : null );
         $pyd_imsi2 	            = ($this->input->post('status_pyd_imsi2') ? $this->input->post('pyd_imsi2') : null );
         $pyd_imsi_lengkap 	    = ($this->input->post('status_pyd_imsi_lengkap') ? $this->input->post('pyd_imsi_lengkap') : null );
-        $kb_pgn_tgl 	        = ($this->input->post('status_kb_pgn_tgl') ? $this->input->post('kb_pgn_tgl') : null );
-        $kb_kontrasepsi 		= $this->input->post('kb_kontrasepsi');
-        $kb_pgn_jenis 			= $this->input->post('kb_pgn_jenis');
 		
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
 		$updated_by 			= $this->session->userdata('id');
 		$updated_on 			= date('Y-m-d H:i:s');
-
-		$kunjungan_wuspus_bln 	= $_POST["kunjungan_wuspus_bln"];
-        $kunjungan_wuspus_thn 	= $_POST["kunjungan_wuspus_thn"];
-        $kunjungan_val 			= $_POST["kunjungan_val"];
-        $keterangan 			= $_POST["keterangan"];
 
 		$data = array(
 			'jml_anak_hidup' 			=> $jml_anak_hidup,
@@ -419,10 +410,13 @@ class Wuspus extends CI_Controller {
 			'pyd_imsi1' 		        => $pyd_imsi1,
 			'pyd_imsi2' 		        => $pyd_imsi2,
 			'pyd_imsi_lengkap' 		    => $pyd_imsi_lengkap,
-			'kb_pgn_tgl' 		        => $kb_pgn_tgl,
-			'kb_kontrasepsi' 			=> (!empty($kb_kontrasepsi) ? ucwords($kb_kontrasepsi) : null),
-			'kb_pgn_jenis' 				=> (!empty($kb_pgn_jenis) ? ucwords($kb_pgn_jenis) : null),
 		);
+
+		// kunjungan ---------------------
+		$kunjungan_wuspus_bln 	= $_POST["kunjungan_wuspus_bln"];
+        $kunjungan_wuspus_thn 	= $_POST["kunjungan_wuspus_thn"];
+        $kunjungan_val 			= $_POST["kunjungan_val"];
+        $keterangan 			= $_POST["keterangan"];
 
 		if (count($kunjungan_wuspus_bln) > 0) {
 
@@ -445,15 +439,47 @@ class Wuspus extends CI_Controller {
 
         $clear_kunjungan_wuspus 		= $this->Model_wuspus->clear_kunjungan_data_wuspus($id, $year_assign);
 
+		// kb ---------------------------
+
+		$kb_wuspus_bln 			= $_POST["kb_wuspus_bln"];
+        $kb_wuspus_thn 			= $_POST["kb_wuspus_thn"];
+        $kb_val 				= $_POST["kb_val"];
+        $jenis_akseptor 		= $_POST["jenis_akseptor"];
+
+		if (count($kb_wuspus_bln) > 0) {
+
+            for ($i=0; $i < count($kb_wuspus_bln) ; $i++) { 
+                $data_akseptor[$i] = array(
+                    'id'                    => $this->Model_global->create_id(), 
+                    'wuspus_id'             => $id, 
+                    'bulan'                 => $kb_wuspus_bln[$i], 
+                    'tahun'                 => $kb_wuspus_thn[$i], 
+                    'is_akseptor'       	=> (!empty($kb_val[$i])? $kb_val[$i] : 0 ), 
+                    'jenis_akseptor'        => (!empty($jenis_akseptor[$i])? $jenis_akseptor[$i] : null), 
+                    'created_by'            => $created_by, 
+                    'created_on'            => $created_on, 
+                    'updated_by'            => $updated_by, 
+                    'updated_on'            => $updated_on, 
+                );
+
+            }
+        }
+
+        $clear_akseptor_wuspus 		= $this->Model_wuspus->clear_akseptor_data_wuspus($id, $year_assign);
+
+
 		$save = FALSE;
 		$data['id'] 			= $id;
 		$data['updated_by'] 	= $updated_by;
 		$data['updated_on'] 	= $updated_on;
 		$save = $this->Model_wuspus->update(array('id' => $id), $data);
 		$save_kunjungan_wuspus = $this->Model_wuspus->save_kunjungan($data_kunjungan);
+		$save_akseptor_wuspus = $this->Model_wuspus->save_akseptor($data_akseptor);
 
 		$data['clear_kunjungan_wuspus'] 	= $clear_kunjungan_wuspus;
 		$data['data_kunjungan'] 		    = $data_kunjungan;
+		$data['clear_akseptor_wuspus'] 		= $clear_akseptor_wuspus;
+		$data['data_akseptor'] 		    	= $data_akseptor;
 		if ($save) {
 			$data['status_save'] 	= TRUE;
 		}else{

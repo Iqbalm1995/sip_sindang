@@ -1,10 +1,10 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Layanan Posyandu Bumil</h1>
+    <h1>Layanan Posyandu Bumil Dan Bulin</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
-        <div class="breadcrumb-item">Layanan Posyandu Bumil</div>
+        <div class="breadcrumb-item">Layanan Posyandu Bumil Dan Bulin</div>
     </div>
     </div>
 
@@ -19,24 +19,24 @@
                             
                             <div class="statistic-details mt-3 mb-auto">
                                 <div class="statistic-details-item">
-                                    <div class="detail-value" id="txt_total_bumil">0</div>
-                                    <strong class="detail-name">Data Bumil</strong>
+                                    <div class="detail-value" id="txt_total_bumlin">0</div>
+                                    <strong class="detail-name">Data Bumil Dan Bulin</strong>
                                 </div>
                                 <div class="statistic-details-item">
-                                    <div class="detail-value" id="txt_total_ibu_sudah_melahirkan">0</div>
-                                    <strong class="detail-name">Ibu Sudah Melahirkan</strong>
+                                    <div class="detail-value" id="txt_total_melahirkan">0</div>
+                                    <strong class="detail-name">Data Ibu Melahirkan</strong>
                                 </div>
                                 <div class="statistic-details-item">
-                                    <div class="detail-value" id="txt_total_bayi_meninggal">0</div>
-                                    <strong class="detail-name">Bayi Meninggal</strong>
+                                    <div class="detail-value" id="txt_total_beresiko">0</div>
+                                    <strong class="detail-name">Data Ibu Beresiko</strong>
                                 </div>
                                 <div class="statistic-details-item">
                                     <div class="detail-value" id="txt_total_ibu_meninggal">0</div>
-                                    <strong class="detail-name">Ibu Meninggal</strong>
+                                    <strong class="detail-name">Data Bayi Meninggal</strong>
                                 </div>
                                 <div class="statistic-details-item">
-                                    <div class="detail-value" id="txt_total_ibu_beresiko">0</div>
-                                    <strong class="detail-name">Ibu Beresiko</strong>
+                                    <div class="detail-value" id="txt_total_bayi_meninggal">0</div>
+                                    <strong class="detail-name">Data Ibu Meninggal</strong>
                                 </div>
                             </div>
 
@@ -62,13 +62,6 @@
                         <input type="text" name="filterYear" id="filterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
                     </div>
                     <div class="col-md-2 pl-1 pr-0 inputFilterCenter">
-                        <select name="filterJK" id="filterJK" class="form-control" >
-                            <option value="">-Jenis Kelamin Bayi-</option>
-                            <option value="L">L</option>
-                            <option value="P">P</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 pl-1 pr-0 inputFilterCenter">
                         <input type="text" name="filterSearch" id="filterSearch" class="form-control" placeholder="Pencarian...">
                     </div>
                     <div class="col-md-1 pr-0 pl-1 inputFilterCenter">
@@ -79,20 +72,16 @@
                     </div>
                 </div>
                 <div class="pt-3">
-                    <table id="datatable_bumil" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <table id="datatable_bumlin" class="table table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="width:2%;" class="text-center">No</th>
-                                <th>No. KMS</th>
-                                <th>Nama Ibu</th>
-                                <th>Nama Bapak</th>
-                                <th>Nama Bayi</th>
-                                <th>Lahir Bayi</th>
-                                <th style="width:6%;">L/P (Bayi)</th>
-                                <th>Meninggal Bayi</th>
-                                <th>Meninggal Ibu</th>
+                                <th style="width:15%;">No. KMS</th>
+                                <th style="width:14%;">Tgl. Pendaftaran</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
                                 <th>Beresiko(?)</th>
-                                <th style="width:12%;"></th>
+                                <th style="width:20%;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,13 +91,9 @@
                             <tr>
                                 <th></th>
                                 <th>No. KMS</th>
-                                <th>Nama Ibu</th>
-                                <th>Nama Bapak</th>
-                                <th>Nama Bayi</th>
-                                <th>Lahir Bayi</th>
-                                <th>L/P (Bayi)</th>
-                                <th>Meninggal Bayi</th>
-                                <th>Meninggal Ibu</th>
+                                <th>Tgl. Pendaftaran</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
                                 <th>Beresiko(?)</th>
                                 <th></th>
                             </tr>
@@ -156,16 +141,14 @@
 
     var filterSearch = $("#filterSearch").val();
     var filterYear = $("#filterYear").val();
-    var filterJK = $("#filterJK").val();
 
     $(document).ready(function() {
 
         filterSearch = $("#filterSearch").val();
         filterYear = $("#filterYear").val();
-        filterJK = $("#filterJK").val();
         chartKunjungan(filterYear)
         total_data(filterYear)
-        table = datatables_bumil();
+        table = datatable_bumlin(filterSearch);
 
         $('.select2').select2()
 
@@ -173,11 +156,11 @@
 
     function layanan_pos(id) {
         filterYear = $("#filterYear").val();
-        document.location = "<?php echo base_url('bumil/update_layanan/')?>" + id + "/" + filterYear;
+        document.location = "<?php echo base_url('bumlin/update_layanan/')?>" + id + "/" + filterYear;
     }
 
-    function datatables_bumil(search, jk) {
-        return $('#datatable_bumil').DataTable({ 
+    function datatable_bumlin(search) {
+        return $('#datatable_bumlin').DataTable({ 
             "responsive": {
                 details: {
                     type: 'inline'
@@ -191,12 +174,10 @@
 
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('bumil/datatable_layanan_bumil')?>",
+                "url": "<?php echo site_url('bumlin/datatable_layanan_bumlin')?>",
                 "type": "POST",
                 "data": {
                     "searchFilter": search,
-                    "jkFilter": jk,
-                    // "is_pass_away": true
                 }
             },
 
@@ -219,12 +200,11 @@
     $('#filterBtn').click(function(){
         filterSearch = $("#filterSearch").val();
         filterYear = $("#filterYear").val();
-        filterJK = $("#filterJK").val();
         table.destroy();
         table.ajax.reload();
         chartKunjungan(filterYear)
         total_data(filterYear)
-        table = datatables_bumil(filterSearch, filterJK);
+        table = datatable_bumlin(filterSearch);
     });
 
     $("#filterYear").datepicker( {
@@ -239,18 +219,18 @@
     {
         $("#filterSearch").val('');
         $("#filterYear").val(strYear);
-        $("#filterJK").val('');
 
         table.destroy();
         table.ajax.reload();
-        chartKunjungan(filterYear)
+        chartKunjungan(strYear)
         total_data(strYear)
-        table = datatables_bumil('', '');
+        table = datatable_bumlin('');
     }
 
+    
     function total_data(year) {
         $.ajax({
-            url : "<?= base_url('bumil/get_total_data_json')?>",
+            url : "<?= base_url('bumlin/get_total_data_json')?>",
             type: "POST",
             data: {
                 filterYear: year
@@ -261,12 +241,11 @@
             dataType: "JSON",
             success: function(response) {
                 console.log(response)
-                $("#txt_total_bumil").text(response.total_bumil);
-                $("#txt_total_ibu_sudah_melahirkan").text(response.total_ibu_sudah_melahirkan);
-                $("#txt_total_bayi_meninggal").text(response.total_bayi_meninggal);
+                $("#txt_total_bumlin").text(response.total_bumlin);
+                $("#txt_total_melahirkan").text(response.total_melahirkan);
+                $("#txt_total_beresiko").text(response.total_beresiko);
                 $("#txt_total_ibu_meninggal").text(response.total_ibu_meninggal);
-                $("#txt_total_ibu_beresiko").text(response.total_ibu_beresiko);
-                
+                $("#txt_total_bayi_meninggal").text(response.total_bayi_meninggal);
             },
             error: function (xhr, ajaxOptions, thrownError) {
 
@@ -277,6 +256,7 @@
         })
 
     }
+    
 
     // Chart
     "use strict";
@@ -286,7 +266,7 @@
         var valuesCht = [];
         
         $.ajax({
-            url : "<?= base_url('bumil/get_statistik_bumil_json')?>",
+            url : "<?= base_url('bumlin/get_statistik_bumlin_json')?>",
             type: "POST",
             data: {
                 filterYear: year,
@@ -309,7 +289,7 @@
                 data: {
                     labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nop", "Des"],
                     datasets: [{
-                        label: 'Jumlah Kunjungan Bumil',
+                        label: 'Jumlah Kunjungan Bumil Dan Bulin',
                         data: valuesCht,
                         borderWidth: 2,
                         backgroundColor: 'transparent',
@@ -357,6 +337,8 @@
         })
 
     }
+
+    
 
 
 </script>

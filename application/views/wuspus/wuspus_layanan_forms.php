@@ -28,8 +28,11 @@
                             <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link" id="wuspus-tab2" data-toggle="tab" href="#wuspus2" role="tab" aria-controls="pelayanan" aria-selected="false">Layanan</a>
                             </li>
+                            <li class="nav-item tombolfull pr-2">
+                                <a class="nav-link" id="wuspus-tab3" data-toggle="tab" href="#wuspus3" role="tab" aria-controls="kb" aria-selected="false">Keluarga Berencana</a>
+                            </li>
                             <li class="nav-item tombolfull">
-                                <a class="nav-link" id="wuspus-tab3" data-toggle="tab" href="#wuspus3" role="tab" aria-controls="kunjungan" aria-selected="false">Kunjungan</a>
+                                <a class="nav-link" id="wuspus-tab4" data-toggle="tab" href="#wuspus4" role="tab" aria-controls="kunjungan" aria-selected="false">Kunjungan</a>
                             </li>
                         </ul>
                         <hr>
@@ -113,7 +116,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Lila</label>
-                                            <input type="text" name="lila" id="lila" class="form-control " placeholder="Isi Lila..." value="<?= $lila; ?>">
+                                            <input type="number" name="lila" id="lila" class="form-control " placeholder="Isi Lila..." value="<?= $lila; ?>">
                                             <div class="invalid-feedback" id="lila_inv"></div>
                                         </div>
                                     
@@ -173,32 +176,7 @@
                                             <input type="text" name="pyd_imsi_lengkap" id="pyd_imsi_lengkap" class="form-control datepicker" value="<?= $pyd_imsi_lengkap; ?>">
                                             <div class="invalid-feedback" id="pyd_imsi_lengkap_inv"></div>
                                         </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Jenis Kontrasepsi</label>
-                                            <input type="text" name="kb_kontrasepsi" id="kb_kontrasepsi" class="form-control " placeholder="Isi Jenis Kontrasepsi..." value="<?= $kb_kontrasepsi; ?>">
-                                            <div class="invalid-feedback" id="kb_kontrasepsi_inv"></div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <div class="control-label">Pemberian Kontrasepsi</div>
-                                            <label class="custom-switch mt-2">
-                                            <input type="checkbox" name="status_kb_pgn_tgl" id="status_kb_pgn_tgl" <?= ( !empty($kb_pgn_tgl) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                            <span class="custom-switch-indicator mt-3"></span>
-                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                            </label>
-                                        </div>
-                                        <div class="form-group" style="display: none;" id="inpt_kb_pgn_tgl">
-                                            <label>Tanggal Pemberian Kontrasepsi (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                                            <input type="text" name="kb_pgn_tgl" id="kb_pgn_tgl" class="form-control datepicker" value="<?= $kb_pgn_tgl; ?>">
-                                            <div class="invalid-feedback" id="kb_pgn_tgl_inv"></div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Penggantain Jenis Kontrasepsi</label>
-                                            <input type="text" name="kb_pgn_jenis" id="kb_pgn_jenis" class="form-control " placeholder="Isi Jenis Kontrasepsi..." value="<?= $kb_pgn_jenis; ?>">
-                                            <div class="invalid-feedback" id="kb_pgn_jenis_inv"></div>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -208,6 +186,97 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="wuspus3" role="tabpanel" aria-labelledby="wuspus-tab3">
+                                <div class="row">
+                                    <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
+                                        <div class="card" style="border-radius:10px;">
+                                            <div class="card-header">
+                                                <h5>Data Keluarga Berencana Wus Pus tahun <?= $year_assign; ?>.</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col"><strong>Bulan</strong></th>
+                                                                <th scope="col"><strong>KB</strong></th>
+                                                                <th scope="col"><strong>Jenis</strong></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                                if (count($data_akseptor) > 0) {
+                                                                    $arrayNum=0;
+                                                                    foreach ($data_akseptor as $key => $value) { 
+                                                                        $no=1; ?>
+                                                                    <!-- Ubah Data -->
+                                                                    <tr>
+                                                                        <input type="hidden" name="kb_wuspus_bln[]" id="kb_wuspus_bln<?= $arrayNum; ?>" value="<?= $value->bulan; ?>">
+                                                                        <input type="hidden" name="kb_wuspus_thn[]" id="kb_wuspus_thn<?= $arrayNum; ?>" value="<?= $value->tahun; ?>">
+                                                                        <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kb_wuspus[]" id="kb_wuspus<?= $arrayNum; ?>" <?= ( $value->is_akseptor == 1 ? 'checked="true"' : '' ) ?>  onchange="is_akseptor(<?= $arrayNum; ?>)" value="1" class="custom-switch-input">
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span> 
+                                                                            <input type="hidden" name="kb_val[]" id="kb_val<?= $arrayNum++; ?>" value="<?= $value->is_akseptor; ?>">  
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="jenis_akseptor[]" id="jenis_akseptor<?= $arrayNum; ?>" class="form-control">
+                                                                                <option value="">-Tidak ada-</option>
+                                                                                <?php if (!empty($get_akseptor_ks)) {
+                                                                                        foreach ($get_akseptor_ks as $aks) {
+                                                                                            echo '<option value="'.$aks->enum_name.'" '.( $value->jenis_akseptor == $aks->enum_name ? "selected" : "" ).' >'.$aks->enum_name.'</option>';
+                                                                                        }
+                                                                                    } ?>
+                                                                            </select>        
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php }else{ ?>
+                                                                <!-- Tambah baru -->
+                                                                <?php 
+                                                                    $arrayNum=0;
+                                                                    foreach (ARRAY_BULAN as $key => $value) { 
+                                                                    $no=1;
+                                                                ?>
+                                                                    <tr>
+                                                                        <input type="hidden" name="kb_wuspus_bln[]" id="kb_wuspus_bln<?= $arrayNum; ?>" value="<?= $key; ?>">
+                                                                        <input type="hidden" name="kb_wuspus_thn[]" id="kb_wuspus_thn<?= $arrayNum; ?>" value="<?= $year_assign; ?>">
+                                                                        <th scope="row"><?= $value; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kb_wuspus[]" id="kb_wuspus<?= $arrayNum; ?>" class="custom-switch-input" onchange="is_akseptor(<?= $arrayNum; ?>)" value="1" >
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>   
+                                                                            <input type="hidden" name="kb_val[]" id="kb_val<?= $arrayNum++; ?>" value="0">   
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="jenis_akseptor[]" id="jenis_akseptor<?= $arrayNum; ?>" class="form-control">
+                                                                                <option value="">-Tidak ada-</option>
+                                                                                <?php if (!empty($get_akseptor_ks)) {
+                                                                                        foreach ($get_akseptor_ks as $aks) {
+                                                                                            echo '<option value="'.$aks->enum_name.'" >'.$aks->enum_name.'</option>';
+                                                                                        }
+                                                                                    } ?>
+                                                                            </select>    
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-right mt-4">
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="wuspus4" role="tabpanel" aria-labelledby="wuspus-tab4">
                                 
                                 <div class="row">
                                     <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
@@ -415,6 +484,9 @@
     $('#wuspus-tab3').click(function(){
         $('#submit-state').css('display', 'block');
     });
+    $('#wuspus-tab4').click(function(){
+        $('#submit-state').css('display', 'block');
+    });
 
     $('.nexttab').click(function(){
         $('.nav-pills > .nav-item > .active').parent().next().find("a").trigger('click');
@@ -429,6 +501,16 @@
             $("#kunjungan_val"+idx).val("1");
         }else{
             $("#kunjungan_val"+idx).val("0");
+        }
+        
+    }
+    
+    function is_akseptor(idx)
+    {
+        if ($("#kb_wuspus"+idx).is(":checked")) {
+            $("#kb_val"+idx).val("1");
+        }else{
+            $("#kb_val"+idx).val("0");
         }
         
     }

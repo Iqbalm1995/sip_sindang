@@ -49,6 +49,16 @@
                         <li <?=( $subMenu_active == 'wuspus_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('wuspus/layanan'); ?>">Layanan Wus Pus</a></li>
                     </ul>
                 </li>
+                <li class="dropdown <?=( $menu_active == 'bumlin' ? 'active' : '' );?>">
+                    <a class="nav-link has-dropdown" href="#"><i class="fas fa-hand-holding-medical"></i> <span>Bumil Dan Bulin</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?=( $subMenu_active == 'bumlin_data' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumlin'); ?>">Data Bumil Dan Bulin</a></li>
+                        <li <?=( $subMenu_active == 'bumlin_layanan' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('bumlin/layanan'); ?>">Layanan Bumil Dan Bulin</a></li>
+                    </ul>
+                </li>
+                <li class="menu-header">Data Laporan</li>
+                <li <?=( $menu_active == 'laporan_pos_1' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format6'); ?>"><i class="fas fa-book-medical"></i> <span>Format 6</span></a></li>
+                <li <?=( $menu_active == 'laporan_pos_2' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format7'); ?>"><i class="fas fa-book-medical"></i> <span>Format 7</span></a></li>
             <?php } ?>
             
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>

@@ -5,6 +5,7 @@ class Model_wuspus extends CI_Model {
 
 	private $t_wuspus	= 'wsp_wuspus';
 	private $t_kunjungan_wuspus	= 'wsp_kunjungan_wuspus';
+	private $t_akseptor_wuspus	= 'wsp_akseptor_wuspus';
 
     var $column_order = array(null, 'pos_name', 'desa_name', 'kms', 'nama', 'umur', 'suami_pus', 
                                     'taha_kan_ks', 'kel_dawis', 'jml_anak_hidup', 'jml_anak_meninggal', 
@@ -24,6 +25,22 @@ class Model_wuspus extends CI_Model {
 	{
         $this->db->select('*');
 		$this->db->from($this->t_kunjungan_wuspus);
+		$this->db->where('wuspus_id', $wuspus_id);
+		if ($tahun == null) {
+			$tahun = date('Y');
+			$this->db->where('tahun', $tahun);
+		}else{
+			$this->db->where('tahun', $tahun);
+		}
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_akseptor_wuspus($wuspus_id, $tahun = null)
+	{
+        $this->db->select('*');
+		$this->db->from($this->t_akseptor_wuspus);
 		$this->db->where('wuspus_id', $wuspus_id);
 		if ($tahun == null) {
 			$tahun = date('Y');
@@ -200,6 +217,14 @@ class Model_wuspus extends CI_Model {
 		return $save;
 	}
 
+	public function save_akseptor($data)
+	{
+		$this->db->trans_start();
+		$save = $this->db->insert_batch($this->t_akseptor_wuspus, $data);
+		$this->db->trans_complete();
+		return $save;
+	}
+
 	public function update($where, $data)
 	{
 		$this->db->trans_start();
@@ -220,6 +245,15 @@ class Model_wuspus extends CI_Model {
 		$this->db->where('wuspus_id', $wuspus_id);
 		$this->db->where('tahun', $year);
 		$this->db->delete($this->t_kunjungan_wuspus);
+		$this->db->trans_complete();
+	}
+
+    public function clear_akseptor_data_wuspus($wuspus_id, $year)
+	{
+		$this->db->trans_start();
+		$this->db->where('wuspus_id', $wuspus_id);
+		$this->db->where('tahun', $year);
+		$this->db->delete($this->t_akseptor_wuspus);
 		$this->db->trans_complete();
 	}
 

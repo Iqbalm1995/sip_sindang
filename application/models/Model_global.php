@@ -10,6 +10,7 @@ class Model_global extends CI_Model {
 	private $t_posyandu		        = 'pos_posyandu';
 	private $t_bumil	            = 'bml_bumil';
 	private $t_web_config	        = 'sys_applications';
+	private $t_enum	        		= 'mst_enum';
 
     public function __construct()
 	{
@@ -575,5 +576,24 @@ class Model_global extends CI_Model {
 		return $query->row();
     }
 
+    function get_akseptor_ks()
+    {
+		$this->db->select('*');
+		$this->db->from($this->t_enum);
+		$this->db->where('enum_group', 'akseptor_ks');
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
+    }
+
+    function get_pic_melahirkan()
+    {
+		$this->db->select('*');
+		$this->db->from($this->t_enum);
+		$this->db->where('enum_group', 'pic_melahirkan');
+		$this->db->where('deleted', 0);
+		$query = $this->db->get();
+		return $query->result();
+    }
 
 }

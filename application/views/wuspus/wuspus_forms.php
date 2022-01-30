@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label>Taha HK KS</label>
-                            <input type="text" name="taha_kan_ks" id="taha_kan_ks" class="form-control " placeholder="Isi taha kan ks..." value="<?= $taha_kan_ks; ?>">
+                            <input type="number" name="taha_kan_ks" id="taha_kan_ks" class="form-control " placeholder="Isi taha kan ks..." value="<?= $taha_kan_ks; ?>">
                             <div class="invalid-feedback" id="taha_kan_ks_inv"></div>
                         </div>
                         <div class="form-group">
@@ -142,14 +142,19 @@
                 }else{
                     swal({
                             title: 'Cek data Nomor KMS',
-                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Wus Pus!',
+                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Wuspus!, Apakah anda yakin akan mendaftarkan data ini kembali?',
                             icon: 'warning',
+                            buttons: true,
                             dangerMode: true,
                         }).then((ok) => {
-                            $("#kms").val("");
-                            $("#kms").focus();
-                            $("#kms").addClass('is-invalid');
-                            $("#kms_inv").text('Nomor KMS sudah terdaftar di data Wus Pus');
+                            if (ok) {
+                                $("#kms").focus();
+                            }else{
+                                $("#kms").val("");
+                                $("#kms").focus();
+                                $("#kms").addClass('is-invalid');
+                                $("#kms_inv").text('Nomor KMS sudah terdaftar di data Wuspus');
+                            }
                     });
                 }
             },

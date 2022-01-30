@@ -19,6 +19,16 @@
             <input type="hidden" name="id" value="<?= $id; ?>">
             <input type="hidden" name="save_method" value="<?= $aksi; ?>">
             <div class="card-body">
+                <?php if ($is_risk == 1) { ?>
+                    <div class="alert alert-warning alert-has-icon">
+                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                        <div class="alert-body">
+                        <div class="alert-title">Perhatian!</div>
+                        Ibu Hamil <strong><?= $nama_ibu; ?></strong> sedang ditandai sebagai ibu hamil <strong>Beresiko</strong>.
+                        </div>
+                    </div>
+                <?php } ?>
+
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="nav nav-pills pt-3" id="myTab3" role="tablist">
@@ -137,6 +147,20 @@
                                             <label>Tanggal Meninggal Ibu (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
                                             <input type="text" name="tgl_meninggal_ibu" id="tgl_meninggal_ibu" class="form-control datepicker" value="<?= $tgl_meninggal_ibu; ?>" disabled>
                                             <div class="invalid-feedback" id="tgl_meninggal_ibu_inv"></div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <div class="control-label">Status Resiko Ibu Hamil</div>
+                                                    <label class="custom-switch mt-2">
+                                                    <input type="checkbox" name="is_risk" id="is_risk" <?= ( $is_risk == 1 ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                    <span class="custom-switch-indicator mt-3"></span>
+                                                    <span class="custom-switch-description mt-3"> Non-Aktif / Aktif</span>
+                                                    </label>
+                                                    <br>
+                                                    <small><em>*Mengaktifkan Status resiko akan menampilkan tanda perigatan resiko ibu hamil pada data ini.</em></small>
+                                                </div>
+                                            </div>
                                         </div>
 
 

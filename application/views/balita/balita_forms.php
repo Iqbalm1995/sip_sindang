@@ -168,14 +168,19 @@
                 }else{
                     swal({
                             title: 'Cek data Nomor KMS',
-                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data balita!',
+                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data balita!, Apakah anda yakin akan mendaftarkan data ini kembali?',
                             icon: 'warning',
+                            buttons: true,
                             dangerMode: true,
                         }).then((ok) => {
-                            $("#kms").val("");
-                            $("#kms").focus();
-                            $("#kms").addClass('is-invalid');
-                            $("#kms_inv").text('Nomor KMS sudah terdaftar di data balita');
+                            if (ok) {
+                                $("#kms").focus();
+                            }else{
+                                $("#kms").val("");
+                                $("#kms").focus();
+                                $("#kms").addClass('is-invalid');
+                                $("#kms_inv").text('Nomor KMS sudah terdaftar di data balita');
+                            }
                     });
                 }
             },

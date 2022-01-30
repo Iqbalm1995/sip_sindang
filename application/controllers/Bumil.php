@@ -116,6 +116,7 @@ class Bumil extends CI_Controller {
 			$row[] = '<div class="text-center">'.( !empty($r_bml->jk_bayi) ? $r_bml->jk_bayi : '-' ).'</div>';
 			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_bayi) ? $r_bml->tgl_meninggal_bayi : '-' ).'</div>';
 			$row[] = '<div class="text-center">'.( !empty($r_bml->tgl_meninggal_ibu) ? $r_bml->tgl_meninggal_ibu : '-' ).'</div>';
+			$row[] = '<div class="text-center">'.( $r_bml->is_risk == 1 ? '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Beresiko<span>' : '-' ).'</div>';
 
             
             $row[] = '<div class="text-center">
@@ -166,6 +167,7 @@ class Bumil extends CI_Controller {
 			'total_ibu_sudah_melahirkan' => (int)$this->Model_bumil->get_total_ibu_sudah_melahirkan($tahun), 
 			'total_bayi_meninggal' => (int)$this->Model_bumil->get_total_bayi_meninggal($tahun), 
 			'total_ibu_meninggal' => (int)$this->Model_bumil->get_total_ibu_meninggal($tahun), 
+			'total_ibu_beresiko' => (int)$this->Model_bumil->get_total_ibu_beresiko($tahun), 
 		);
 		echo json_encode($dataTotal);
 	}
@@ -293,7 +295,8 @@ class Bumil extends CI_Controller {
 			'tgl_lahir_bayi' 		=> set_value('tgl_lahir_bayi', $r_bml->tgl_lahir_bayi),
 			'jk_bayi' 				=> set_value('jk_bayi', (!empty($r_bml->jk_bayi) ? $r_bml->jk_bayi : "L" )),
 			'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bml->tgl_meninggal_bayi),
-			'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu)
+			'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu),
+			'is_risk' 				=> set_value('is_risk', $r_bml->is_risk)
 		);
         
 		$this->load->view('template/header', $head);
@@ -405,6 +408,7 @@ class Bumil extends CI_Controller {
 		$year_assign 			= $this->input->post('year_assign');
 
 		$status_melahirkan 		= $this->input->post('status_melahirkan');
+		$is_risk 				= ($this->input->post('is_risk') ? 1 : 0 );
 		if ($status_melahirkan) {
 			$nama_bayi 				= $this->input->post('nama_bayi');
 			$tgl_lahir_bayi 		= $this->input->post('tgl_lahir_bayi');
@@ -433,7 +437,7 @@ class Bumil extends CI_Controller {
 			'jk_bayi' 					=> $jk_bayi,
 			'tgl_meninggal_bayi' 		=> $tgl_meninggal_bayi,
 			'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
-			'nama_pic' 					=> $nama_pic,
+			'is_risk' 					=> $is_risk,
 		);
 
 		if (count($kunjungan_bumil_bln) > 0) {
@@ -446,8 +450,8 @@ class Bumil extends CI_Controller {
                     'tahun'                 => $kunjungan_bumil_thn[$i], 
                     'is_kunjungan'       	=> (!empty($kunjungan_val[$i])? $kunjungan_val[$i] : 0 ), 
                     'keterangan'        	=> (!empty($keterangan[$i])? $keterangan[$i] : null), 
-                    'created_by'            => $created_by, 
-                    'created_on'            => $created_on, 
+                    'created_by'            => $updated_by, 
+                    'created_on'            => $updated_by, 
                     'updated_by'            => $updated_by, 
                     'updated_on'            => $updated_on, 
                 );

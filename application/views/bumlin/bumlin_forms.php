@@ -1,17 +1,17 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Ibu Hamil</h1>
+    <h1>Data Bumil Dan Bulin</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Posyandu</a></div>
-        <div class="breadcrumb-item"><a href="#">Ibu Hamil</a></div>
+        <div class="breadcrumb-item"><a href="#">Bumil Dan Bulin</a></div>
         <div class="breadcrumb-item">Tambah</div>
     </div>
     </div>
 
     <div class="section-body">
     <div class="text-left pb-4">
-        <a class="btn btn-primary tombolfull" href="<?= base_url('bumil'); ?>">
+        <a class="btn btn-primary tombolfull" href="<?= base_url('bumlin'); ?>">
             <i class="fas fa-arrow-left"></i> Kembali</a>
     </div>
     <div class="card">
@@ -23,7 +23,7 @@
                     <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
                         <?php if (empty($this->session->userdata('pos_id'))) { ?>
                             <div class="form-group" id='input_pos'>
-                                <label>Posisi Posyandu Bumil <span class="text-danger">*</span></label>
+                                <label>Posisi Posyandu Bumil Dan Bulin <span class="text-danger">*</span></label>
                                 <div class="form-group">
                                     <div class=" pl-0 pr-0">
                                         <select name="pos_id" id="pos_id" class="form-control select2">
@@ -46,19 +46,29 @@
                         <input type="hidden" name="desa_name" id="desa_name" value="<?= $desa_name; ?>">
                         <div class="form-group">
                             <label>Nomor KMS <span class="text-danger">*</span></label>
-                            <input type="text" name="nik" id="nik" class="form-control " maxlength="20" placeholder="Isi Nomor KMS..." value="<?= $nik; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
-                            <div class="invalid-feedback" id="nik_inv"></div>
-                            <div class="valid-feedback" id="nik_valid"></div>
+                            <input type="text" name="kms" id="kms" class="form-control " maxlength="20" placeholder="Isi Nomor KMS..." value="<?= $kms; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
+                            <div class="invalid-feedback" id="kms_inv"></div>
+                            <div class="valid-feedback" id="kms_valid"></div>
                         </div>
                         <div class="form-group">
-                            <label>Nama Ibu <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control " placeholder="Isi nama ibu..." value="<?= $nama_ibu; ?>" required>
-                            <div class="invalid-feedback" id="nama_ibu_inv"></div>
+                            <label>Tanggal Pendaftaran <span class="text-danger">*</span></label>
+                            <input type="text" name="tgl_pendaftaran" id="tgl_pendaftaran" class="form-control datepicker" value="<?= $tgl_pendaftaran; ?>" required>
+                            <div class="invalid-feedback" id="tgl_pendaftaran_inv"></div>
                         </div>
                         <div class="form-group">
-                            <label>Nama Bapak <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_bapak" id="nama_bapak" class="form-control " placeholder="Isi nama bapak..." value="<?= $nama_bapak; ?>" required>
-                            <div class="invalid-feedback" id="nama_bapak_inv"></div>
+                            <label>Nama Ibu Hamil <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_bumil" id="nama_bumil" class="form-control " placeholder="Isi Nama Ibu Hamil..." value="<?= $nama_bumil; ?>" required>
+                            <div class="invalid-feedback" id="nama_bumil_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Umur <span class="text-danger">*</span></label>
+                            <input type="number" name="umur" id="umur" class="form-control " placeholder="Isi umur..." value="<?= $umur; ?>" required>
+                            <div class="invalid-feedback" id="umur_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kel Dawis</label>
+                            <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " maxlength='3' placeholder="Isi Kel dawis..." value="<?= $kel_dawis; ?>">
+                            <div class="invalid-feedback" id="kel_dawis_inv"></div>
                         </div>
                     </div>
                 </div>
@@ -95,18 +105,18 @@
 
     }); 
 
-    $('#nik').change(function() {
+    $('#kms').change(function() {
         if (save_method == 'Tambah') {
             if (this.value != "") {
-                cek_nik_bumil(this.value);
+                cek_kms_bumlin(this.value);
             }
         }
     });
     
-    function cek_nik_bumil(nik)
+    function cek_kms_bumlin(kms)
     {
         $.ajax({
-            url : "<?= base_url('bumil/cek_data_bumil_json')?>/" + nik,
+            url : "<?= base_url('bumlin/cek_data_bumlin_json')?>/" + kms,
             type: "POST",
             dataType: "JSON",
             success: function(readData)
@@ -117,7 +127,7 @@
                 }else{
                     swal({
                             title: 'Cek data Nomor KMS',
-                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Bumil!, Apakah anda yakin akan mendaftarkan data ini kembali?',
+                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Bumil Dan Bulin!, Apakah anda yakin akan mendaftarkan data ini kembali?',
                             icon: 'warning',
                             buttons: true,
                             dangerMode: true,
@@ -128,7 +138,7 @@
                                 $("#kms").val("");
                                 $("#kms").focus();
                                 $("#kms").addClass('is-invalid');
-                                $("#kms_inv").text('Nomor KMS sudah terdaftar di data Bumil');
+                                $("#kms_inv").text('Nomor KMS sudah terdaftar di data Bumil Dan Bulin');
                             }
                     });
                 }
@@ -136,7 +146,7 @@
             error: function (jqXHR, textStatus, errorThrown)
             {
                 swal('Gagal', 'Terjadi kesalahan pada saat mencari Nomor KMS!', 'error');
-                $("#nik").focus();
+                $("#kms").focus();
             }
         });
     }
@@ -154,7 +164,7 @@
 
         var formData = new FormData($('#form')[0]);
         $.ajax({
-            url : "<?= base_url('bumil/action_process')?>",
+            url : "<?= base_url('bumlin/action_process')?>",
             type: "POST",
             data: formData,
             contentType: false,
@@ -165,11 +175,11 @@
                 // console.log(data);
                 if(data.status_save)
                 {
-                    swal('Berhasil', 'Data bumil berhasil disimpan!', 'success').then((data) => {
-                        document.location = "<?php echo base_url('bumil')?>";
+                    swal('Berhasil', 'Data Bumil Dan Bulin berhasil disimpan!', 'success').then((data) => {
+                        document.location = "<?php echo base_url('bumlin')?>";
                     });
                 }else{
-                    swal('Gagal', 'Data bumil gagal disimpan!', 'error');
+                    swal('Gagal', 'Data Bumil Dan Bulin gagal disimpan!', 'error');
                 }
                 $('#btnSave').text('Simpan'); 
                 $('#btnSave').attr('disabled',false); 
@@ -177,7 +187,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                swal('Gagal', 'Data bumil gagal disimpan!', 'error');
+                swal('Gagal', 'Data Bumil Dan Bulin gagal disimpan!', 'error');
                 $('#btnSave').text('Simpan'); 
                 $('#btnSave').attr('disabled',false);
 
@@ -188,16 +198,28 @@
     function _validation() {
         var status = true;
 
-        if ($("#nik").val() == "") {
+        if ($("#kms").val() == "") {
             status = false;
-            $("#nik").addClass('is-invalid');
-            $("#nik_inv").text('Nomor KMS masih kosong');
+            $("#kms").addClass('is-invalid');
+            $("#kms_inv").text('Nomor KMS masih kosong');
         }
 
-        if ($("#nama_ibu").val() == "") {
+        if ($("#nama_bumil").val() == "") {
             status = false;
-            $("#nama_ibu").addClass('is-invalid');
-            $("#nama_ibu_inv").text('Nama ibu masih kosong');
+            $("#nama_bumil").addClass('is-invalid');
+            $("#nama_bumil_inv").text('Ibu Hamil masih kosong');
+        }
+
+        if ($("#umur").val() == "") {
+            status = false;
+            $("#umur").addClass('is-invalid');
+            $("#umur_inv").text('Umur masih kosong');
+        }
+
+        if ($("#tgl_pendaftaran").val() == "") {
+            status = false;
+            $("#tgl_pendaftaran").addClass('is-invalid');
+            $("#tgl_pendaftaran_inv").text('Tanggal Pendaftaran masih kosong');
         }
 
         if ($("#pos_id").val() == "") {
@@ -209,24 +231,31 @@
         return status
     }
 
-    $("#nik").keyup(function(){
-        if ($("#nik").val() != "") {
-            $("#nik").removeClass('is-invalid');
-            $("#nik_inv").text('');
+    $("#kms").keyup(function(){
+        if ($("#kms").val() != "") {
+            $("#kms").removeClass('is-invalid');
+            $("#kms_inv").text('');
         }
     });
 
-    $("#nama_ibu").keyup(function(){
-        if ($("#nama_ibu").val() != "") {
-            $("#nama_ibu").removeClass('is-invalid');
-            $("#nama_ibu_inv").text('');
+    $("#nama_bumil").keyup(function(){
+        if ($("#nama_bumil").val() != "") {
+            $("#nama_bumil").removeClass('is-invalid');
+            $("#nama_bumil_inv").text('');
         }
     });
 
-    $("#nama_bapak").keyup(function(){
-        if ($("#nama_bapak").val() != "") {
-            $("#nama_bapak").removeClass('is-invalid');
-            $("#nama_bapak_inv").text('');
+    $("#umur").keyup(function(){
+        if ($("#umur").val() != "") {
+            $("#umur").removeClass('is-invalid');
+            $("#umur_inv").text('');
+        }
+    });
+
+    $("#tgl_pendaftaran").keyup(function(){
+        if ($("#tgl_pendaftaran").val() != "") {
+            $("#tgl_pendaftaran").removeClass('is-invalid');
+            $("#tgl_pendaftaran_inv").text('');
         }
     });
 
