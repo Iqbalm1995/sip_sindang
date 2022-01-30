@@ -51,7 +51,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2 pr-0 inputFilterLeft">
+                    <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
+                        Filter :
+                    </div>
+                    <div class="col-md-2 pl-1 pr-0 inputFilterCenter">
                         <input type="text" name="filterYear" id="filterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
                     </div>
                     <div class="col-md-2 pl-1 pr-0 inputFilterCenter">
@@ -97,6 +100,27 @@
                     </table>
                 </div>
 
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <div class="section-title mt-0">Export Data</div>
+                <div class="row">
+                    <div class="col-md-2 pt-0 pr-0 inputFilterLeft">
+                        <select name="filterMonth" id="filterMonth" class="form-control select2">
+                            <?php  foreach (ARRAY_BULAN as $key => $value) {
+                                    echo '<option value="'.$key.'" '.( $key == date('m') ? "selected" : "" ).' >'.$value.'</option>';
+                            } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
+                        <input type="text" name="filterYear" id="filterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
+                    </div>
+                    <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-file-export"></i> Export Data Bayi </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -244,7 +268,7 @@
         var valuesCht = [];
         
         $.ajax({
-            url : "<?= base_url('bayi/get_statistik_timbangan_bayi_json')?>",
+            url : "<?= base_url('bayi/get_statistik_bumil_json')?>",
             type: "POST",
             data: {
                 filterYear: year,
@@ -267,7 +291,7 @@
                 data: {
                     labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nop", "Des"],
                     datasets: [{
-                        label: 'Jumlah Penimbang Bayi',
+                        label: 'Jumlah Kunjungan Layanan Bayi',
                         data: valuesCht,
                         borderWidth: 2,
                         backgroundColor: 'transparent',

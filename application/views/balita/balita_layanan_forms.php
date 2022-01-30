@@ -22,14 +22,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="nav nav-pills pt-3" id="myTab3" role="tablist">
-                            <li class="nav-item pr-2">
+                            <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link active" id="balita-tab1" data-toggle="tab" href="#balita1" role="tab" aria-controls="balita" aria-selected="true">Data Balita</a>
                             </li>
-                            <li class="nav-item pr-2">
+                            <li class="nav-item tombolfull pr-2">
                                 <a class="nav-link" id="balita-tab2" data-toggle="tab" href="#balita2" role="tab" aria-controls="penimbangan" aria-selected="false">Timbangan</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item tombolfull">
                                 <a class="nav-link" id="balita-tab3" data-toggle="tab" href="#balita3" role="tab" aria-controls="pelayanan" aria-selected="false">Layanan</a>
+                            </li>
+                            <li class="nav-item tombolfull">
+                                <a class="nav-link" id="balita-tab4" data-toggle="tab" href="#balita4" role="tab" aria-controls="kunjungan" aria-selected="false">Kunjungan</a>
                             </li>
                         </ul>
                         <hr>
@@ -108,7 +111,7 @@
                                 </div>
                                 
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="balita2" role="tabpanel" aria-labelledby="balita-tab2">
@@ -186,137 +189,211 @@
                                 </div>
                                 
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
-                                    <button class="btn btn-primary btn-lg nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="balita3" role="tabpanel" aria-labelledby="balita-tab3">
                                 
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
+                                    <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
+                                        <div class="row">
+                                                    
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
 
-                                                <div class="form-group">
-                                                    <div class="control-label">Sirup Besi FE I</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="status_pyd_syrp_besi_fe1" id="status_pyd_syrp_besi_fe1" <?= ( !empty($pyd_syrp_besi_fe1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group" style="display: none;" id="inpt_pyd_syrp_besi_fe1">
-                                                    <label>Tanggal Sirup Besi FE 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                                                    <input type="text" name="pyd_syrp_besi_fe1" id="pyd_syrp_besi_fe1" class="form-control datepicker" value="<?= $pyd_syrp_besi_fe1; ?>">
-                                                    <div class="invalid-feedback" id="pyd_syrp_besi_fe1_inv"></div>
+                                                        <div class="form-group">
+                                                            <div class="control-label">Sirup Besi FE I</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_syrp_besi_fe1" id="status_pyd_syrp_besi_fe1" <?= ( !empty($pyd_syrp_besi_fe1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_syrp_besi_fe1">
+                                                            <label>Tanggal Sirup Besi FE 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_syrp_besi_fe1" id="pyd_syrp_besi_fe1" class="form-control datepicker" value="<?= $pyd_syrp_besi_fe1; ?>">
+                                                            <div class="invalid-feedback" id="pyd_syrp_besi_fe1_inv"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="control-label">Sirup Besi FE II</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_syrp_besi_fe2" id="status_pyd_syrp_besi_fe2" <?= ( !empty($pyd_syrp_besi_fe2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_syrp_besi_fe2">
+                                                            <label>Tanggal Sirup Besi FE 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_syrp_besi_fe2" id="pyd_syrp_besi_fe2" class="form-control datepicker" value="<?= $pyd_syrp_besi_fe2; ?>">
+                                                            <div class="invalid-feedback" id="pyd_syrp_besi_fe2_inv"></div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <div class="control-label">Sirup Besi FE II</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="status_pyd_syrp_besi_fe2" id="status_pyd_syrp_besi_fe2" <?= ( !empty($pyd_syrp_besi_fe2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
+                                                <div class="card">
+                                                    <div class="card-body">
+
+                                                        <div class="form-group">
+                                                            <div class="control-label">Vitamin A BLN I</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_vit_a_bln1" id="status_pyd_vit_a_bln1" <?= ( !empty($pyd_vit_a_bln1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_vit_a_bln1">
+                                                            <label>Tanggal Vitamin A BLN 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_vit_a_bln1" id="pyd_vit_a_bln1" class="form-control datepicker" value="<?= $pyd_vit_a_bln1; ?>">
+                                                            <div class="invalid-feedback" id="pyd_vit_a_bln1_inv"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="control-label">Vitamin A BLN II</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_vit_a_bln2" id="status_pyd_vit_a_bln2" <?= ( !empty($pyd_vit_a_bln2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_vit_a_bln2">
+                                                            <label>Tanggal Vitamin A BLN 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_vit_a_bln2" id="pyd_vit_a_bln2" class="form-control datepicker" value="<?= $pyd_vit_a_bln2; ?>">
+                                                            <div class="invalid-feedback" id="pyd_vit_a_bln2_inv"></div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <div class="form-group" style="display: none;" id="inpt_pyd_syrp_besi_fe2">
-                                                    <label>Tanggal Sirup Besi FE 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                                                    <input type="text" name="pyd_syrp_besi_fe2" id="pyd_syrp_besi_fe2" class="form-control datepicker" value="<?= $pyd_syrp_besi_fe2; ?>">
-                                                    <div class="invalid-feedback" id="pyd_syrp_besi_fe2_inv"></div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        
+                                                        <div class="form-group">
+                                                            <div class="control-label">Oralit</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_oralit" id="status_pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_oralit">
+                                                            <label>Tanggal Pemberian Oralit (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_oralit" id="pyd_oralit" class="form-control datepicker" value="<?= $pyd_oralit; ?>">
+                                                            <div class="invalid-feedback" id="pyd_oralit_inv"></div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        
+                                                        <div class="form-group">
+                                                            <div class="control-label">PMT Pemulihan</div>
+                                                            <label class="custom-switch mt-2">
+                                                            <input type="checkbox" name="status_pyd_pmt_pemulihan" id="status_pyd_pmt_pemulihan" <?= ( !empty($pyd_pmt_pemulihan) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
+                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" style="display: none;" id="inpt_pyd_pmt_pemulihan">
+                                                            <label>Tanggal PMT Pemulihan (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                                            <input type="text" name="pyd_pmt_pemulihan" id="pyd_pmt_pemulihan" class="form-control datepicker" value="<?= $pyd_pmt_pemulihan; ?>">
+                                                            <div class="invalid-feedback" id="pyd_pmt_pemulihan_inv"></div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
 
                                             </div>
                                         </div>
-
-                                        <div class="card">
-                                            <div class="card-body">
-
-                                                <div class="form-group">
-                                                    <div class="control-label">Vitamin A BLN I</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="status_pyd_vit_a_bln1" id="status_pyd_vit_a_bln1" <?= ( !empty($pyd_vit_a_bln1) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group" style="display: none;" id="inpt_pyd_vit_a_bln1">
-                                                    <label>Tanggal Vitamin A BLN 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                                                    <input type="text" name="pyd_vit_a_bln1" id="pyd_vit_a_bln1" class="form-control datepicker" value="<?= $pyd_vit_a_bln1; ?>">
-                                                    <div class="invalid-feedback" id="pyd_vit_a_bln1_inv"></div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="control-label">Vitamin A BLN II</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="status_pyd_vit_a_bln2" id="status_pyd_vit_a_bln2" <?= ( !empty($pyd_vit_a_bln2) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group" style="display: none;" id="inpt_pyd_vit_a_bln2">
-                                                    <label>Tanggal Vitamin A BLN 1 (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
-                                                    <input type="text" name="pyd_vit_a_bln2" id="pyd_vit_a_bln2" class="form-control datepicker" value="<?= $pyd_vit_a_bln2; ?>">
-                                                    <div class="invalid-feedback" id="pyd_vit_a_bln2_inv"></div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <div class="card">
-                                            <div class="card-body">
-                                                
-                                                <div class="form-group">
-                                                    <div class="control-label">Oralit</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_oralit" id="pyd_oralit" <?= ( !empty($pyd_oralit) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="card">
-                                            <div class="card-body">
-                                                
-                                                <div class="form-group">
-                                                    <div class="control-label">PMT Pemulihan</div>
-                                                    <label class="custom-switch mt-2">
-                                                    <input type="checkbox" name="pyd_pmt_pemulihan" id="pyd_pmt_pemulihan" <?= ( !empty($pyd_pmt_pemulihan) ? 'checked="true"' : '' ) ?> class="custom-switch-input">
-                                                    <span class="custom-switch-indicator mt-3"></span>
-                                                    <span class="custom-switch-description mt-3"> Belum / Sudah</span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <div class="card">
-                                            <div class="card-body">
-                                                
-                                                <div class="form-group">
-                                                    <label>Keterangan</label>
-                                                    <textarea name="keterangan" id="keterangan" class="form-control" style="height: 150px;" placeholder="Isi Keterangan (Opsional)..."><?= ( !empty($keterangan) ? $keterangan : '' ); ?></textarea>
-                                                    <div class="invalid-feedback" id="keterangan_inv"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
 
                                 </div>
-
+                                
                                 <div class="text-right mt-4">
-                                    <button class="btn btn-primary btn-lg prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
+                                    <button class="btn btn-primary btn-lg tombolfull nexttab" type="button">Selanjutnya &nbsp;<i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="balita4" role="tabpanel" aria-labelledby="bayi-tab4">
+                                <div class="row">
+                                    
+                                    <div class="offset-md-2 col-md-8 offset-md-2 col-sm-12">
+                                        <div class="card" style="border-radius:10px;">
+                                            <div class="card-header">
+                                                <h5>Data Kunjungan Layanan Balita tahun <?= $year_assign; ?>.</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col"><strong>Bulan</strong></th>
+                                                                <th scope="col"><strong>Kunjungan</strong></th>
+                                                                <th scope="col"><strong>Keterangan</strong></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                                if (count($data_kunjugan) > 0) {
+                                                                    $arrayNum=0;
+                                                                    foreach ($data_kunjugan as $key => $value) { 
+                                                                        $no=1; ?>
+                                                                    <!-- Ubah Data -->
+                                                                    <tr>
+                                                                        <input type="hidden" name="kunjungan_balita_bln[]" id="kunjungan_balita_bln<?= $arrayNum; ?>" value="<?= $value->bulan; ?>">
+                                                                        <input type="hidden" name="kunjungan_balita_thn[]" id="kunjungan_balita_thn<?= $arrayNum; ?>" value="<?= $value->tahun; ?>">
+                                                                        <th scope="row"><?= ARRAY_BULAN[$value->bulan]; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kunjungan_balita[]" id="kunjungan_balita<?= $arrayNum; ?>" <?= ( $value->is_kunjungan == 1 ? 'checked="true"' : '' ) ?>  onchange="is_kunjungan(<?= $arrayNum; ?>)" value="1" class="custom-switch-input">
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span> 
+                                                                            <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="<?= $value->is_kunjungan; ?>">  
+                                                                        </td>
+                                                                        <td><input type="text" class="form-control" name="keterangan[]" value="<?= $value->keterangan; ?>"></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php }else{ ?>
+                                                                <!-- Tambah baru -->
+                                                                <?php 
+                                                                    $arrayNum=0;
+                                                                    foreach (ARRAY_BULAN as $key => $value) { 
+                                                                    $no=1;
+                                                                ?>
+                                                                    <tr>
+                                                                        <input type="hidden" name="kunjungan_balita_bln[]" id="kunjungan_balita_bln<?= $arrayNum; ?>" value="<?= $key; ?>">
+                                                                        <input type="hidden" name="kunjungan_balita_thn[]" id="kunjungan_balita_thn<?= $arrayNum; ?>" value="<?= $year_assign; ?>">
+                                                                        <th scope="row"><?= $value; ?></th>
+                                                                        <td>
+                                                                            <label class="custom-switch mt-2">
+                                                                            <input type="checkbox" name="kunjungan_balita[]" id="kunjungan_balita<?= $arrayNum; ?>" class="custom-switch-input" onchange="is_kunjungan(<?= $arrayNum; ?>)" value="1" >
+                                                                            <span class="custom-switch-indicator mt-3"></span>
+                                                                            <span class="custom-switch-description mt-3"> Belum / Sudah</span>   
+                                                                            <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="0">   
+                                                                        </td>
+                                                                        <td><input type="text" class="form-control" name="keterangan[]" value=""></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-right mt-4">
+                                    <button class="btn btn-primary btn-lg tombolfull prevtab" type="button"><i class="fas fa-chevron-left"></i>&nbsp; Sebelumnya</button>
                                 </div>
                             </div>
                         </div>
@@ -396,6 +473,18 @@
         }else{
             $("#inpt_pyd_vit_a_bln2").css('display', 'none');
         }
+
+        if ($('#status_pyd_pmt_pemulihan').is(':checked')) {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'block');
+        }else{
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'none');
+        }
+
+        if ($('#status_pyd_oralit').is(':checked')) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        }else{
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
         
     });
 
@@ -442,6 +531,16 @@
         });
     }
 
+    function is_kunjungan(idx)
+    {
+        if ($("#kunjungan_balita"+idx).is(":checked")) {
+            $("#kunjungan_val"+idx).val("1");
+        }else{
+            $("#kunjungan_val"+idx).val("0");
+        }
+        
+    }
+
     $('#status_pyd_syrp_besi_fe1').change(function() {
         if (this.checked) {
             $("#inpt_pyd_syrp_besi_fe1").css('display', 'block');
@@ -474,6 +573,22 @@
         }
     });
 
+    $('#status_pyd_pmt_pemulihan').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'block');
+        } else {
+            $("#inpt_pyd_pmt_pemulihan").css('display', 'none');
+        }
+    });
+
+    $('#status_pyd_oralit').change(function() {
+        if (this.checked) {
+            $("#inpt_pyd_oralit").css('display', 'block');
+        } else {
+            $("#inpt_pyd_oralit").css('display', 'none');
+        }
+    });
+
     $('#balita-tab1').click(function(){
         $('#submit-state').css('display', 'none');
     });
@@ -481,6 +596,9 @@
         $('#submit-state').css('display', 'none');
     });
     $('#balita-tab3').click(function(){
+        $('#submit-state').css('display', 'none');
+    });
+    $('#balita-tab4').click(function(){
         $('#submit-state').css('display', 'block');
     });
 
@@ -498,6 +616,72 @@
             status = false;
             $("#pos_id").addClass('is-invalid');
             $("#pos_id_inv").text('Posyandu masih belum dipilih');
+        }
+
+        if ($('#status_pyd_syrp_besi_fe1').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe1").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe1").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('Tanggal Sirup besi 1 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe1").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_syrp_besi_fe2').is(':checked')) {
+            if ($("#pyd_syrp_besi_fe2").val() == "") {
+                status = false;
+                $("#pyd_syrp_besi_fe2").addClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('Tanggal Sirup besi 2 masih kosong');
+            }else{
+                $("#pyd_syrp_besi_fe2").removeClass('is-invalid');
+                $("#pyd_syrp_besi_fe2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln1').is(':checked')) {
+            if ($("#pyd_vit_a_bln1").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln1").addClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('Tanggal Vitamin Bln 1 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln1").removeClass('is-invalid');
+                $("#pyd_vit_a_bln1_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_vit_a_bln2').is(':checked')) {
+            if ($("#pyd_vit_a_bln2").val() == "") {
+                status = false;
+                $("#pyd_vit_a_bln2").addClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('Tanggal Vitamin Bln 2 masih kosong');
+            }else{
+                $("#pyd_vit_a_bln2").removeClass('is-invalid');
+                $("#pyd_vit_a_bln2_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_pmt_pemulihan').is(':checked')) {
+            if ($("#pyd_pmt_pemulihan").val() == "") {
+                status = false;
+                $("#pyd_pmt_pemulihan").addClass('is-invalid');
+                $("#pyd_pmt_pemulihan_inv").text('Tanggal PMT Pemulihan masih kosong');
+            }else{
+                $("#pyd_pmt_pemulihan").removeClass('is-invalid');
+                $("#pyd_pmt_pemulihan_inv").text('');
+            }
+        }
+
+        if ($('#status_pyd_oralit').is(':checked')) {
+            if ($("#pyd_oralit").val() == "") {
+                status = false;
+                $("#pyd_oralit").addClass('is-invalid');
+                $("#pyd_oralit_inv").text('Tanggal Oralit masih kosong');
+            }else{
+                $("#pyd_oralit").removeClass('is-invalid');
+                $("#pyd_oralit_inv").text('');
+            }
         }
 
         return status

@@ -16,7 +16,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2 pr-0 inputFilterLeft">
+                    <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
+                        Filter :
+                    </div>
+                    <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
                         <input type="text" name="filterSearch" id="filterSearch" class="form-control" placeholder="Pencarian...">
                     </div>
                     <div class="col-md-1 pr-0 pl-1 inputFilterCenter">

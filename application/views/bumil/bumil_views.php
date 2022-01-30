@@ -31,16 +31,10 @@
                         <thead>
                             <tr>
                                 <th style="width:2%;" class="text-center">No</th>
-                                <th>No. KMS</th>
+                                <th style="width:15%;" >No. KMS</th>
                                 <th>Nama Ibu</th>
                                 <th>Nama Bapak</th>
-                                <th>Nama Bayi</th>
-                                <th>Tgl Lahir Bayi</th>
-                                <th>L/P</th>
-                                <th>Tgl Meninggal Bayi</th>
-                                <th>Tgl Meninggal Ibu</th>
-                                <th>Keterangan</th>
-                                <th style="width:12%;"></th>
+                                <th style="width:15%;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,15 +43,9 @@
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>NIK</th>
+                                <th>No. KMS</th>
                                 <th>Nama Ibu</th>
                                 <th>Nama Bapak</th>
-                                <th>Nama Bayi</th>
-                                <th>Tgl Lahir Bayi</th>
-                                <th>L/P</th>
-                                <th>Tgl Meninggal Bayi</th>
-                                <th>Tgl Meninggal Ibu</th>
-                                <th>Keterangan</th>
                                 <th></th>
                             </tr>
                         </tfoot>
