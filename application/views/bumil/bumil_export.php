@@ -4,7 +4,7 @@ header("Content-Disposition: attachment; filename=Laporan Data Bumil Posyandu.xl
 header('Cache-Control: max-age=0');
 ob_end_clean();
 
-require base_url('/assets').'/assets/excel/autoload.php';
+require 'assets/excel/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -20,19 +20,18 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Pembuka
-$sheet->setCellValue('A1', strtoupper($desa_name));
+$sheet->setCellValue('A1', "POGRAM POSYANDU SINDANG");
 $sheet->setCellValue('A2', 'LAPORAN DATA BUMIL POSYANDU');
 $sheet->setCellValue('A5', 'FILTERED BY');
-$sheet->setCellValue('B5', strtoupper($pos_name));
+$sheet->setCellValue('B5', ( !empty($pos_name) ? strtoupper($pos_name) : "Semua Posyandu" ));
 $sheet->setCellValue('A6', 'START DATE');
 $sheet->setCellValue('B6', "-Date here-");
 $sheet->setCellValue('A7', 'END DATE');
 $sheet->setCellValue('B7', "-Date here-");
 
-
 // Isi
 $sheet->setCellValue('A9', 'NO');
-$sheet->setCellValue('B9', 'KMS');
+$sheet->setCellValue('B9', 'NO KMS');
 $sheet->setCellValue('C9', 'NAMA IBU');
 $sheet->setCellValue('D9', 'NAMA BAPAK');
 $sheet->setCellValue('E9', 'NAMA BAYI');
@@ -41,27 +40,36 @@ $sheet->setCellValue('G9', 'TGL LAHIR BAYI');
 $sheet->setCellValue('H9', 'TGL MENINGGAL BAYI');
 $sheet->setCellValue('I9', 'TGL MENINGGAL IBU');
 
+$sheet->setCellValue('A10', '1');
+$sheet->setCellValue('B10', '2');
+$sheet->setCellValue('C10', '3');
+$sheet->setCellValue('D10', '4');
+$sheet->setCellValue('E10', '5');
+$sheet->setCellValue('F10', '6');
+$sheet->setCellValue('G10', '7');
+$sheet->setCellValue('H10', '8');
+$sheet->setCellValue('I10', '9');
+
 $no = 1;
 $number = 1;
-$column = 9;
-$column1 = 9;
+$column = 10;
+$column1 = 10;
 
 
 foreach ($report as $r => $row) {
 
   $column1++;
-  $sheet->setCellValue('A' . $column1, $no);
-  $sheet->setCellValue('B' . $column1, $row->kms);
-  $sheet->setCellValue('C' . $column1, $row->nama_ibu);
-  $sheet->setCellValue('D' . $column1, $row->nama_bapak);
-  $sheet->setCellValue('E' . $column1, $row->nama_bayi);
-  $sheet->setCellValue('F' . $column1, $row->jk_bayi);
-  $sheet->setCellValue('G' . $column1, $row->tgl_lahir_bayi);
-  $sheet->setCellValue('H' . $column1, $row->tgl_meninggal_bayi);
-  $sheet->setCellValue('I' . $column1, $row->tgl_meninggal_ibu);
+  $sheet->setCellValue('A' . $column1, (string)$row['no']);
+  $sheet->setCellValue('B' . $column1, $row['nik']);
+  $sheet->setCellValue('C' . $column1, $row['nama_ibu']);
+  $sheet->setCellValue('D' . $column1, $row['nama_bapak']);
+  $sheet->setCellValue('E' . $column1, $row['nama_bayi']);
+  $sheet->setCellValue('F' . $column1, (empty($row['jk_bayi'])) ? "-" : $row['jk_bayi']);
+  $sheet->setCellValue('G' . $column1, (empty($row['tgl_lahir_bayi']) ? "-" : $row['tgl_lahir_bayi'] ));
+  $sheet->setCellValue('H' . $column1, (empty($row['tgl_meninggal_bayi']) ? "-" : $row['tgl_meninggal_bayi']));
+  $sheet->setCellValue('I' . $column1, (empty($row['tgl_meninggal_ibu']) ? "-" : $row['tgl_meninggal_ibu']));
 
 
-  $no++;
 }
 $column_total = $column1 + 1;
 
@@ -75,14 +83,15 @@ $sheet->mergeCells('A1:M1');
 $sheet->mergeCells('A2:M2');
 
 // Mengubah ukuran kolom
-$sheet->getColumnDimension('A')->setWidth(12);
-$sheet->getColumnDimension('B')->setWidth(20);
-$sheet->getColumnDimension('C')->setWidth(23);
-$sheet->getColumnDimension('D')->setWidth(23);
-$sheet->getColumnDimension('E')->setWidth(23);
-$sheet->getColumnDimension('F')->setWidth(23);
+$sheet->getColumnDimension('A')->setWidth(8);
+$sheet->getColumnDimension('B')->setWidth(30);
+$sheet->getColumnDimension('C')->setWidth(35);
+$sheet->getColumnDimension('D')->setWidth(35);
+$sheet->getColumnDimension('E')->setWidth(35);
+$sheet->getColumnDimension('F')->setWidth(20);
 $sheet->getColumnDimension('G')->setWidth(23);
 $sheet->getColumnDimension('H')->setWidth(23);
+$sheet->getColumnDimension('I')->setWidth(23);
 
 // Mengubah style header file
 
@@ -111,7 +120,28 @@ $sheet->getStyle('A2')->applyFromArray(
   ]
 );
 
-$sheet->getStyle('A9:M9')->applyFromArray(
+$sheet->getStyle('A9:I9')->applyFromArray(
+  [
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
+    'font' => [
+      'bold' => true,
+    ],
+    'borders' => [
+      'allBorders' => [
+        'borderStyle' => Border::BORDER_THIN,
+        'color' => [
+          'argb' => 'FF000000'
+        ],
+      ],
+    ],
+  ]
+);
+
+$sheet->getStyle('A10:I10')->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -143,7 +173,7 @@ $sheet->getStyle('A5:A7')->applyFromArray(
 
 
 //border
-$sheet->getStyle('A10:A' . $column1)->applyFromArray(
+$sheet->getStyle('A11:A' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -156,7 +186,7 @@ $sheet->getStyle('A10:A' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('B10:B' . $column1)->applyFromArray(
+$sheet->getStyle('B11:B' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -169,7 +199,7 @@ $sheet->getStyle('B10:B' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('C10:C' . $column1)->applyFromArray(
+$sheet->getStyle('C11:C' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -182,7 +212,7 @@ $sheet->getStyle('C10:C' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('D10:D' . $column1)->applyFromArray(
+$sheet->getStyle('D11:D' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -195,7 +225,7 @@ $sheet->getStyle('D10:D' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('E10:E' . $column1)->applyFromArray(
+$sheet->getStyle('E11:E' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -208,7 +238,7 @@ $sheet->getStyle('E10:E' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('F10:F' . $column1)->applyFromArray(
+$sheet->getStyle('F11:F' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -221,7 +251,7 @@ $sheet->getStyle('F10:F' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('G10:G' . $column1)->applyFromArray(
+$sheet->getStyle('G11:G' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -234,7 +264,7 @@ $sheet->getStyle('G10:G' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('H10:H' . $column1)->applyFromArray(
+$sheet->getStyle('H11:H' . $column1)->applyFromArray(
   [
 
     'borders' => [
@@ -247,7 +277,7 @@ $sheet->getStyle('H10:H' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('I10:I' . $column1)->applyFromArray(
+$sheet->getStyle('I11:I' . $column1)->applyFromArray(
   [
 
     'borders' => [
