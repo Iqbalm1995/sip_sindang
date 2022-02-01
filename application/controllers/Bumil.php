@@ -67,10 +67,44 @@ class Bumil extends CI_Controller {
 
 		$list = $this->Model_bumil->get_data_bumil();
 
-        $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
-		$data['report'] 		= $list;
-		$data['pos_name'] 		= $pos_name;
-		$data['desa_name'] 		= $desa_name;
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['nik']          			= $r->nik;
+                $row['nama_ibu']          		= $r->nama_ibu;
+                $row['nama_bapak']        		= $r->nama_bapak;
+                $row['nama_bayi']        		= $r->nama_bayi;
+                $row['jk_bayi']   				= $r->jk_bayi;
+                $row['tgl_lahir_bayi']          = $r->tgl_lahir_bayi;
+                $row['tgl_meninggal_bayi']      = $r->tgl_meninggal_bayi;
+                $row['tgl_meninggal_ibu']       = $r->tgl_meninggal_ibu;
+
+                // $sum_order_buyers           += $r->order_buyers;
+                // $sum_product_qty            += $r->product_qty;
+                // $sum_sub_total              += $r->sub_total;
+                // $sum_order_price_total      += $r->order_price_total;
+                // $sum_payment_amount         += $r->payment_amount;
+                // $sum_payment_change         += $r->payment_change;
+                // $sum_grand_total            += ($r->order_price_total);
+                $data_report[]              	= $row;
+            }
+		}
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
 
 		// foreach ($list as $k => $row) {
 		// 	echo $row->nama_ibu;
