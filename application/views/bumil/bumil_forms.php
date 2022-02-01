@@ -117,18 +117,18 @@
                 }else{
                     swal({
                             title: 'Cek data Nomor KMS',
-                            text: 'Nomor KMS "'+ kms +'" sudah terdaftar di data Bumil!, Apakah anda yakin akan mendaftarkan data ini kembali?',
+                            text: 'Nomor KMS "'+ nik +'" sudah terdaftar di data Bumil!, Apakah anda yakin akan mendaftarkan data ini kembali?',
                             icon: 'warning',
                             buttons: true,
                             dangerMode: true,
                         }).then((ok) => {
                             if (ok) {
-                                $("#kms").focus();
+                                $("#nik").focus();
                             }else{
-                                $("#kms").val("");
-                                $("#kms").focus();
-                                $("#kms").addClass('is-invalid');
-                                $("#kms_inv").text('Nomor KMS sudah terdaftar di data Bumil');
+                                $("#nik").val("");
+                                $("#nik").focus();
+                                $("#nik").addClass('is-invalid');
+                                $("#nik_inv").text('Nomor KMS sudah terdaftar di data Bumil');
                             }
                     });
                 }
