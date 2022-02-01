@@ -20,6 +20,30 @@ class Model_bumil extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_data_bumil($tahun = null, $bulan = null)
+	{
+
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+		
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
+
+		$this->db->select('*');
+		$this->db->from($this->t_bumil);
+		$this->db->where('deleted', 0);
+		$this->db->where('MONTH(created_on)', $bulan);
+		$this->db->where('YEAR(created_on)', $tahun);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function get_kunjugan_bumil($bumil_id, $tahun = null)
 	{
         $this->db->select('*');

@@ -59,6 +59,26 @@ class Bumil extends CI_Controller {
         $this->load->view('bumil/bumil_layanan_views', $data);
         $this->load->view('template/footer');
 	}
+	
+	public function export()
+	{
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_bumil->get_data_bumil();
+
+        $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		$data['report'] 		= $list;
+		$data['pos_name'] 		= $pos_name;
+		$data['desa_name'] 		= $desa_name;
+
+		// foreach ($list as $k => $row) {
+		// 	echo $row->nama_ibu;
+		// 	echo "<br>";
+		// }
+
+        $this->load->view('bumil/bumil_export', $data);
+	}
 
     public function datatable_list_bumil()
 	{
