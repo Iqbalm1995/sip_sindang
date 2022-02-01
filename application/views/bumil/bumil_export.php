@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/vnd.ms-excel');
-header("Content-Disposition: attachment; filename=Laporan Data Bumil Posyandu.xls");
+header("Content-Disposition: attachment; filename=Laporan Data Bumil Posyandu ".$filterBulan." ".$filterTahun.".xls");
 header('Cache-Control: max-age=0');
 ob_end_clean();
 
@@ -19,83 +19,87 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
+$headerCop1Column1 = 1;
+$headerCop2Column1 = 2;
+
+$headerTabColumn1 = 4;
+$headerTabColumn2 = 5;
+
+$headerTabColumn3 = 5;
+
+$bodyTabColumn2 = 5;
+$bodyTabColumn2Lock = 6;
+
 // Pembuka
-$sheet->setCellValue('A1', "POGRAM POSYANDU SINDANG");
-$sheet->setCellValue('A2', 'LAPORAN DATA BUMIL POSYANDU');
-$sheet->setCellValue('A5', 'FILTERED BY');
-$sheet->setCellValue('B5', ( !empty($pos_name) ? strtoupper($pos_name) : "Semua Posyandu" ));
-$sheet->setCellValue('A6', 'START DATE');
-$sheet->setCellValue('B6', "-Date here-");
-$sheet->setCellValue('A7', 'END DATE');
-$sheet->setCellValue('B7', "-Date here-");
+$sheet->setCellValue('A' . $headerCop1Column1, 'PROGRAM POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' BULAN '.strtoupper($filterBulan).' TAHUN '.$filterTahun);
+$sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 1 - CATATAN IBU HAMIL, KELAHIRAN, KEMATIAN BAYI, DAN KEMATIAN IBU HAMIL, MELAHIRKAN / NIFAS');
 
 // Isi
-$sheet->setCellValue('A9', 'NO');
-$sheet->setCellValue('B9', 'NO KMS');
-$sheet->setCellValue('C9', 'NAMA IBU');
-$sheet->setCellValue('D9', 'NAMA BAPAK');
-$sheet->setCellValue('E9', 'NAMA BAYI');
-$sheet->setCellValue('F9', 'JENIS KELAMIN BAYI');
-$sheet->setCellValue('G9', 'TGL LAHIR BAYI');
-$sheet->setCellValue('H9', 'TGL MENINGGAL BAYI');
-$sheet->setCellValue('I9', 'TGL MENINGGAL IBU');
-
-$sheet->setCellValue('A10', '1');
-$sheet->setCellValue('B10', '2');
-$sheet->setCellValue('C10', '3');
-$sheet->setCellValue('D10', '4');
-$sheet->setCellValue('E10', '5');
-$sheet->setCellValue('F10', '6');
-$sheet->setCellValue('G10', '7');
-$sheet->setCellValue('H10', '8');
-$sheet->setCellValue('I10', '9');
-
-$no = 1;
-$number = 1;
-$column = 10;
-$column1 = 10;
-
-
-foreach ($report as $r => $row) {
-
-  $column1++;
-  $sheet->setCellValue('A' . $column1, (string)$row['no']);
-  $sheet->setCellValue('B' . $column1, $row['nik']);
-  $sheet->setCellValue('C' . $column1, $row['nama_ibu']);
-  $sheet->setCellValue('D' . $column1, $row['nama_bapak']);
-  $sheet->setCellValue('E' . $column1, $row['nama_bayi']);
-  $sheet->setCellValue('F' . $column1, (empty($row['jk_bayi'])) ? "-" : $row['jk_bayi']);
-  $sheet->setCellValue('G' . $column1, (empty($row['tgl_lahir_bayi']) ? "-" : $row['tgl_lahir_bayi'] ));
-  $sheet->setCellValue('H' . $column1, (empty($row['tgl_meninggal_bayi']) ? "-" : $row['tgl_meninggal_bayi']));
-  $sheet->setCellValue('I' . $column1, (empty($row['tgl_meninggal_ibu']) ? "-" : $row['tgl_meninggal_ibu']));
-
-
-}
-$column_total = $column1 + 1;
-
-//footer
-// $sheet->setCellValue('K' . $column_total, 'TOTAL');
-// $sheet->setCellValue('L' . $column_total, '=SUM(L10:L' . $column1 . ')');
-// $sheet->setCellValue('M' . $column_total, '=SUM(M10:M' . $column1 . ')');
-
-//Merge Cell
-$sheet->mergeCells('A1:M1');
-$sheet->mergeCells('A2:M2');
+$sheet->setCellValue('A' . $headerTabColumn1, 'NO');
+$sheet->setCellValue('B' . $headerTabColumn1, 'NO KMS');
+$sheet->setCellValue('C' . $headerTabColumn1, 'NAMA IBU');
+$sheet->setCellValue('D' . $headerTabColumn1, 'NAMA BAPAK');
+$sheet->setCellValue('E' . $headerTabColumn1, 'NAMA BAYI');
+$sheet->setCellValue('F' . $headerTabColumn1, 'L/P BAYI');
+$sheet->setCellValue('G' . $headerTabColumn1, 'TGL LAHIR BAYI');
+$sheet->setCellValue('H' . $headerTabColumn1, 'TGL MENINGGAL BAYI');
+$sheet->setCellValue('I' . $headerTabColumn1, 'TGL MENINGGAL IBU');
+$sheet->setCellValue('J' . $headerTabColumn1, 'BERESIKO(?)');
 
 // Mengubah ukuran kolom
 $sheet->getColumnDimension('A')->setWidth(8);
-$sheet->getColumnDimension('B')->setWidth(30);
-$sheet->getColumnDimension('C')->setWidth(35);
-$sheet->getColumnDimension('D')->setWidth(35);
-$sheet->getColumnDimension('E')->setWidth(35);
-$sheet->getColumnDimension('F')->setWidth(20);
-$sheet->getColumnDimension('G')->setWidth(23);
-$sheet->getColumnDimension('H')->setWidth(23);
-$sheet->getColumnDimension('I')->setWidth(23);
+$sheet->getColumnDimension('B')->setAutoSize(true);
+$sheet->getColumnDimension('C')->setAutoSize(true);
+$sheet->getColumnDimension('D')->setAutoSize(true);
+$sheet->getColumnDimension('E')->setAutoSize(true);
+$sheet->getColumnDimension('F')->setAutoSize(true);
+$sheet->getColumnDimension('G')->setAutoSize(true);
+$sheet->getColumnDimension('H')->setAutoSize(true);
+$sheet->getColumnDimension('I')->setAutoSize(true);
+$sheet->getColumnDimension('J')->setAutoSize(true);
+
+$sheet->setCellValue('A' . $headerTabColumn2, '1');
+$sheet->setCellValue('B' . $headerTabColumn2, '2');
+$sheet->setCellValue('C' . $headerTabColumn2, '3');
+$sheet->setCellValue('D' . $headerTabColumn2, '4');
+$sheet->setCellValue('E' . $headerTabColumn2, '5');
+$sheet->setCellValue('F' . $headerTabColumn2, '6');
+$sheet->setCellValue('G' . $headerTabColumn2, '7');
+$sheet->setCellValue('H' . $headerTabColumn2, '8');
+$sheet->setCellValue('I' . $headerTabColumn2, '9');
+$sheet->setCellValue('J' . $headerTabColumn2, '10');
+
+
+foreach ($report as $r => $row) {
+  $bodyTabColumn2++;
+
+  $sheet->setCellValue('A' . $bodyTabColumn2, (string)$row['no']);
+  $sheet->setCellValue('B' . $bodyTabColumn2, $row['nik']);
+  $sheet->setCellValue('C' . $bodyTabColumn2, $row['nama_ibu']);
+  $sheet->setCellValue('D' . $bodyTabColumn2, $row['nama_bapak']);
+  $sheet->setCellValue('E' . $bodyTabColumn2, $row['nama_bayi']);
+  $sheet->setCellValue('F' . $bodyTabColumn2, (empty($row['jk_bayi'])) ? "-" : $row['jk_bayi']);
+  $sheet->setCellValue('G' . $bodyTabColumn2, (empty($row['tgl_lahir_bayi']) ? "-" : $row['tgl_lahir_bayi'] ));
+  $sheet->setCellValue('H' . $bodyTabColumn2, (empty($row['tgl_meninggal_bayi']) ? "-" : $row['tgl_meninggal_bayi']));
+  $sheet->setCellValue('I' . $bodyTabColumn2, (empty($row['tgl_meninggal_ibu']) ? "-" : $row['tgl_meninggal_ibu']));
+  $sheet->setCellValue('J' . $bodyTabColumn2, (empty($row['is_risk']) ? "TIDAK BERESIKO" : "BERESIKO"));
+
+
+}
+$footerTabColumn1 = $bodyTabColumn2 + 1;
+
+//footer
+// $sheet->setCellValue('K' . $footerTabColumn1, 'TOTAL');
+// $sheet->setCellValue('L' . $footerTabColumn1, '=SUM(L10:L' . $bodyTabColumn2 . ')');
+// $sheet->setCellValue('M' . $footerTabColumn1, '=SUM(M10:M' . $bodyTabColumn2 . ')');
+
+//Merge Cell
+$sheet->mergeCells('A'.$headerCop1Column1.':J' .$headerCop1Column1);
+$sheet->mergeCells('A'.$headerCop2Column1.':J' .$headerCop2Column1);
 
 // Mengubah style header file
 
-$sheet->getStyle('A1')->applyFromArray(
+$sheet->getStyle('A' . $headerCop1Column1)->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -107,7 +111,7 @@ $sheet->getStyle('A1')->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('A2')->applyFromArray(
+$sheet->getStyle('A' . $headerCop2Column1)->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -120,28 +124,8 @@ $sheet->getStyle('A2')->applyFromArray(
   ]
 );
 
-$sheet->getStyle('A9:I9')->applyFromArray(
-  [
-    'alignment' => [
-      'horizontal' => Alignment::HORIZONTAL_CENTER,
-      'vertical' => Alignment::VERTICAL_CENTER,
-      'wrapText' => true,
-    ],
-    'font' => [
-      'bold' => true,
-    ],
-    'borders' => [
-      'allBorders' => [
-        'borderStyle' => Border::BORDER_THIN,
-        'color' => [
-          'argb' => 'FF000000'
-        ],
-      ],
-    ],
-  ]
-);
-
-$sheet->getStyle('A10:I10')->applyFromArray(
+// header tabel style
+$sheet->getStyle('A'.$headerTabColumn1.':J'.$headerTabColumn1)->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -162,18 +146,47 @@ $sheet->getStyle('A10:I10')->applyFromArray(
   ]
 );
 
-//keterangan filter by outlet, tanggal
-$sheet->getStyle('A5:A7')->applyFromArray(
+$sheet->getStyle('A'.$headerTabColumn2.':J'.$headerTabColumn2)->applyFromArray(
   [
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'font' => [
       'bold' => true,
     ],
+    'borders' => [
+      'allBorders' => [
+        'borderStyle' => Border::BORDER_THIN,
+        'color' => [
+          'argb' => 'FF000000'
+        ],
+      ],
+    ],
   ]
 );
-
 
 //border
-$sheet->getStyle('A11:A' . $column1)->applyFromArray(
+$sheet->getStyle('A'.$bodyTabColumn2Lock.':A' . $bodyTabColumn2)->applyFromArray(
+  [
+
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
+    'borders' => [
+      'outline' => [
+        'borderStyle' => Border::BORDER_THIN,
+        'color' => [
+          'argb' => 'FF000000'
+        ],
+      ],
+    ],
+  ]
+);
+$sheet->getStyle('B'.$bodyTabColumn2Lock.':B' . $bodyTabColumn2)->applyFromArray(
   [
 
     'borders' => [
@@ -186,7 +199,7 @@ $sheet->getStyle('A11:A' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('B11:B' . $column1)->applyFromArray(
+$sheet->getStyle('C'.$bodyTabColumn2Lock.':C' . $bodyTabColumn2)->applyFromArray(
   [
 
     'borders' => [
@@ -199,7 +212,7 @@ $sheet->getStyle('B11:B' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('C11:C' . $column1)->applyFromArray(
+$sheet->getStyle('D'.$bodyTabColumn2Lock.':D' . $bodyTabColumn2)->applyFromArray(
   [
 
     'borders' => [
@@ -212,7 +225,7 @@ $sheet->getStyle('C11:C' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('D11:D' . $column1)->applyFromArray(
+$sheet->getStyle('E'.$bodyTabColumn2Lock.':E' . $bodyTabColumn2)->applyFromArray(
   [
 
     'borders' => [
@@ -225,9 +238,14 @@ $sheet->getStyle('D11:D' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('E11:E' . $column1)->applyFromArray(
+$sheet->getStyle('F'.$bodyTabColumn2Lock.':F' . $bodyTabColumn2)->applyFromArray(
   [
 
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'borders' => [
       'outline' => [
         'borderStyle' => Border::BORDER_THIN,
@@ -238,9 +256,14 @@ $sheet->getStyle('E11:E' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('F11:F' . $column1)->applyFromArray(
+$sheet->getStyle('G'.$bodyTabColumn2Lock.':G' . $bodyTabColumn2)->applyFromArray(
   [
 
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'borders' => [
       'outline' => [
         'borderStyle' => Border::BORDER_THIN,
@@ -251,9 +274,14 @@ $sheet->getStyle('F11:F' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('G11:G' . $column1)->applyFromArray(
+$sheet->getStyle('H'.$bodyTabColumn2Lock.':H' . $bodyTabColumn2)->applyFromArray(
   [
 
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'borders' => [
       'outline' => [
         'borderStyle' => Border::BORDER_THIN,
@@ -264,9 +292,14 @@ $sheet->getStyle('G11:G' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('H11:H' . $column1)->applyFromArray(
+$sheet->getStyle('I'.$bodyTabColumn2Lock.':I' . $bodyTabColumn2)->applyFromArray(
   [
 
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'borders' => [
       'outline' => [
         'borderStyle' => Border::BORDER_THIN,
@@ -277,9 +310,14 @@ $sheet->getStyle('H11:H' . $column1)->applyFromArray(
     ],
   ]
 );
-$sheet->getStyle('I11:I' . $column1)->applyFromArray(
+$sheet->getStyle('J'.$bodyTabColumn2Lock.':J' . $bodyTabColumn2)->applyFromArray(
   [
 
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
     'borders' => [
       'outline' => [
         'borderStyle' => Border::BORDER_THIN,
@@ -292,7 +330,7 @@ $sheet->getStyle('I11:I' . $column1)->applyFromArray(
 );
 
 // footer
-// $sheet->getStyle('K' . $column_total)->applyFromArray(
+// $sheet->getStyle('K' . $bodyTabColumn2Lock)->applyFromArray(
 //   [
 
 //     'borders' => [
@@ -305,7 +343,7 @@ $sheet->getStyle('I11:I' . $column1)->applyFromArray(
 //     ],
 //   ]
 // );
-// $sheet->getStyle('L' . $column_total)->applyFromArray(
+// $sheet->getStyle('L' . $bodyTabColumn2Lock)->applyFromArray(
 //   [
 
 //     'borders' => [
@@ -318,7 +356,7 @@ $sheet->getStyle('I11:I' . $column1)->applyFromArray(
 //     ],
 //   ]
 // );
-// $sheet->getStyle('M' . $column_total)->applyFromArray(
+// $sheet->getStyle('M' . $bodyTabColumn2Lock)->applyFromArray(
 //   [
 
 //     'borders' => [
@@ -332,15 +370,15 @@ $sheet->getStyle('I11:I' . $column1)->applyFromArray(
 //   ]
 // );
 // H, J, K, L, M
-// $sheet->getStyle('L' . $column_total)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('A5A5A5');
-// $sheet->getStyle('H10:H' . $column1)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('J10:J' . $column1)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('K10:K' . $column1)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('L10:L' . $column1)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('M10:M' . $column1)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('L10:L' . $column_total)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('K10:K' . $column_total)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
-// $sheet->getStyle('M10:M' . $column_total)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('L' . $bodyTabColumn2Lock)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('A5A5A5');
+// $sheet->getStyle('H10:H' . $bodyTabColumn2)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('J10:J' . $bodyTabColumn2)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('K10:K' . $bodyTabColumn2)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('L10:L' . $bodyTabColumn2)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('M10:M' . $bodyTabColumn2)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('L10:L' . $bodyTabColumn2Lock)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('K10:K' . $bodyTabColumn2Lock)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
+// $sheet->getStyle('M10:M' . $bodyTabColumn2Lock)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_IDR_SIMPLE);
 
 
 

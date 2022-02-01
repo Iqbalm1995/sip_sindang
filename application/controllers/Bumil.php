@@ -60,8 +60,17 @@ class Bumil extends CI_Controller {
         $this->load->view('template/footer');
 	}
 	
-	public function export()
+	public function export($tahun = null, $bulan = null)
 	{
+
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
 		$pos_name 	= $this->session->userdata('pos_name');
 		$desa_name 	= $this->session->userdata('desa');
 
@@ -89,27 +98,22 @@ class Bumil extends CI_Controller {
                 $row['tgl_lahir_bayi']          = $r->tgl_lahir_bayi;
                 $row['tgl_meninggal_bayi']      = $r->tgl_meninggal_bayi;
                 $row['tgl_meninggal_ibu']       = $r->tgl_meninggal_ibu;
-
-                // $sum_order_buyers           += $r->order_buyers;
-                // $sum_product_qty            += $r->product_qty;
-                // $sum_sub_total              += $r->sub_total;
-                // $sum_order_price_total      += $r->order_price_total;
-                // $sum_payment_amount         += $r->payment_amount;
-                // $sum_payment_change         += $r->payment_change;
-                // $sum_grand_total            += ($r->order_price_total);
+                $row['is_risk']      			= $r->is_risk;
+				
                 $data_report[]              	= $row;
             }
 		}
+
+		
+
+
+        $data['filterBulan'] = ARRAY_BULAN[$bulan];
+        $data['filterTahun'] = $tahun;
         $data['report'] = $data_report;
 
 		// echo "<pre>";
 		// print_r($data_report);
 		// echo "</pre>";
-
-		// foreach ($list as $k => $row) {
-		// 	echo $row->nama_ibu;
-		// 	echo "<br>";
-		// }
 
         $this->load->view('bumil/bumil_export', $data);
 	}
