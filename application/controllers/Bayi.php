@@ -36,6 +36,8 @@ class Bayi extends CI_Controller {
         $data['pages_caption']  = 'Data Bayi';
 
 		$data['data_pos']  	    = $this->Model_posyandu->get_posyandu();
+		$data['laporan_bayi']  	= $this->Model_bayi->get_laporan_bayi();
+		
         
 		$this->load->view('template/header', $head);
         $this->load->view('bayi/bayi_views', $data);

@@ -31,7 +31,7 @@ $bodyTabColumn2 = 5;
 $bodyTabColumn2Lock = 6;
 
 // Pembuka
-$sheet->setCellValue('A' . $headerCop1Column1, 'PROGRAM POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' BULAN '.strtoupper($filterBulan).' TAHUN '.$filterTahun);
+$sheet->setCellValue('A' . $headerCop1Column1, 'SISTEM INFORMASI POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' BULAN '.strtoupper($filterBulan).' TAHUN '.$filterTahun);
 $sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 1 - CATATAN IBU HAMIL, KELAHIRAN, KEMATIAN BAYI, DAN KEMATIAN IBU HAMIL, MELAHIRKAN / NIFAS');
 
 // Isi

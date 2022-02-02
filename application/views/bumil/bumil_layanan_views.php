@@ -180,7 +180,6 @@
         var ExfilterMonth = $("#ExfilterMonth").val();
         var ExfilterYear = $("#ExfilterYear").val();
 
-
         document.location = "<?php echo base_url('bumil/export/')?>" + ExfilterYear + "/" + ExfilterMonth;
     }
 
