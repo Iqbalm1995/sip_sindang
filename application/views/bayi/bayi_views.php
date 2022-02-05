@@ -15,10 +15,6 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <pre>
-                    <?= print_r($laporan_bayi); ?>
-                </pre>
-                <br>
                 <div class="row">
                     <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
                         Filter :

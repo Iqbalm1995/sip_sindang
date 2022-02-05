@@ -19,13 +19,16 @@ class Model_bayi extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_laporan_bayi($tahun = null)
+	public function get_laporan_bayi($tahun = null, $bulan = null)
 	{
+
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
 
-        $pos_id = '935940e4-64a6-11ec-b4f3-6ab5b06fe68d';
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
 
 		$compailed_query_tinggi 	= [];
 		$compailed_query_berat 		= [];
@@ -56,14 +59,19 @@ class Model_bayi extends CI_Model {
 		// select penimbangan sub query
 		$qNo = 0;
 		foreach (ARRAY_BULAN as $key => $value) { 
-			$this->db->select('('.$compailed_query_tinggi[$qNo].') AS "'.$key.'_tinggi"');
-			$this->db->select('('.$compailed_query_berat[$qNo].') AS "'.$key.'_berat"');
+			$this->db->select('('.$compailed_query_tinggi[$qNo].') AS "r'.$key.'_tinggi"');
+			$this->db->select('('.$compailed_query_berat[$qNo].') AS "r'.$key.'_berat"');
 			$qNo++;
 		}
 
-
+		
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
 		$this->db->from($this->t_bayi.' b');
 		$this->db->where('b.deleted', 0);
+		$this->db->where('MONTH(b.created_on)', $bulan);
+		$this->db->where('YEAR(b.created_on)', $tahun);
 		$this->db->order_by('b.id', 'ASC');
 		$query = $this->db->get();
 		return $query->result();

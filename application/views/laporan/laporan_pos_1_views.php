@@ -92,7 +92,7 @@
                 <div class="section-title mt-0">Export Data</div>
                 <div class="row">
                     <div class="col-md-2 pt-0 pr-0 inputFilterLeft">
-                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-file-export"></i> Export Data Bayi </button>
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn" href="javascript:void(0)" title="Export" onclick="exportData()"><i class="fas fa-file-export"></i> Export Data Bayi </button>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,10 @@
         table = datatable_laporan(filterYear);
     });
 
-    
+    function exportData() {
+        document.location = "<?php echo base_url('laporan/export_laporan6/')?>" + filterYear;
+    }
+
     function datatable_laporan(filterYear) 
     {
         return $('#datatable_laporan').DataTable({ 

@@ -21,6 +21,55 @@ class Model_wuspus extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_laporan_wuspus($tahun = null, $bulan = null)
+	{
+
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$compailed_jenis 	= [];
+
+		foreach (ARRAY_BULAN as $key => $value) { 
+
+			$subQueryJenis = $this->db->select('jenis_akseptor')
+								 ->from($this->t_akseptor_wuspus)
+								 ->where('wuspus_id = b.id')
+								 ->where('bulan', $key)
+								 ->where('tahun', $tahun);
+       		$subQueryJenis_comp = $subQueryJenis->get_compiled_select();
+
+			array_push($compailed_jenis, $subQueryJenis_comp);
+
+		}
+
+		$this->db->select('b.*');
+
+		// select penimbangan sub query
+		$qNo = 0;
+		foreach (ARRAY_BULAN as $key => $value) { 
+			$this->db->select('('.$compailed_jenis[$qNo].') AS "r'.$key.'_jenis"');
+			$qNo++;
+		}
+
+		
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
+		$this->db->from($this->t_wuspus.' b');
+		$this->db->where('b.deleted', 0);
+		$this->db->where('MONTH(b.created_on)', $bulan);
+		$this->db->where('YEAR(b.created_on)', $tahun);
+		$this->db->order_by('b.id', 'ASC');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
     public function get_kunjugan_wuspus($wuspus_id, $tahun = null)
 	{
         $this->db->select('*');

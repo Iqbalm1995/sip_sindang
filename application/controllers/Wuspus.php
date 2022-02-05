@@ -60,6 +60,80 @@ class Wuspus extends CI_Controller {
         $this->load->view('template/footer');
 	}
 
+	public function export($tahun = null, $bulan = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_wuspus->get_laporan_wuspus($tahun, $bulan);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['kms']          			= $r->kms;
+                $row['nama']          			= $r->nama;
+                $row['umur']        			= $r->umur;
+                $row['suami_pus']        		= $r->suami_pus;
+                $row['taha_kan_ks']          	= $r->taha_kan_ks;
+                $row['kel_dawis']      			= $r->kel_dawis;
+                $row['jml_anak_hidup']       	= $r->jml_anak_hidup;
+                $row['jml_anak_meninggal']      = $r->jml_anak_meninggal;
+                $row['umur_anak_meninggal']     = $r->umur_anak_meninggal;
+                $row['lila']      				= $r->lila;
+                $row['pyd_kapsul_yodium']      	= $r->pyd_kapsul_yodium;
+                $row['pyd_imsi1']      			= $r->pyd_imsi1;
+                $row['pyd_imsi2']      			= $r->pyd_imsi2;
+                $row['pyd_imsi_lengkap']      	= $r->pyd_imsi_lengkap;
+
+                $row['r01_jenis']      			= $r->r01_jenis;
+                $row['r02_jenis']      			= $r->r02_jenis;
+                $row['r03_jenis']      			= $r->r03_jenis;
+                $row['r04_jenis']      			= $r->r04_jenis;
+                $row['r05_jenis']      			= $r->r05_jenis;
+                $row['r06_jenis']      			= $r->r06_jenis;
+                $row['r07_jenis']      			= $r->r07_jenis;
+                $row['r08_jenis']      			= $r->r08_jenis;
+                $row['r09_jenis']      			= $r->r09_jenis;
+                $row['r10_jenis']      			= $r->r10_jenis;
+                $row['r11_jenis']      			= $r->r11_jenis;
+                $row['r12_jenis']      			= $r->r12_jenis;
+				
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterBulan'] = ARRAY_BULAN[$bulan];
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
+
+        $this->load->view('wuspus/wuspus_export', $data);
+
+	}
+
     public function datatable_list_wuspus()
 	{
 		$list = $this->Model_wuspus->get_datatables();

@@ -44,6 +44,61 @@ class Laporan extends CI_Controller {
         $this->load->view('template/footer');
 	}
 
+	public function export_laporan6($tahun = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_laporan6->get_laporan6($tahun);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['bulan']          			= $r->bulan;
+                $row['blt_L_0_12bln']          	= $r->blt_L_0_12bln;
+                $row['blt_P_0_12bln']        	= $r->blt_P_0_12bln;
+                $row['blt_L_1_5thn']        	= $r->blt_L_1_5thn;
+                $row['blt_P_1_5thn']   			= $r->blt_P_1_5thn;
+                $row['wus']          			= $r->wus;
+                $row['pus']      				= $r->pus;
+                $row['ibu_hamil']       		= $r->ibu_hamil;
+                $row['ibu_menyusui']      		= $r->ibu_menyusui;
+                $row['bayi_lahir_L']      		= $r->bayi_lahir_L;
+                $row['bayi_lahir_P']      		= $r->bayi_lahir_P;
+                $row['bayi_meninggal_L']      	= $r->bayi_meninggal_L;
+                $row['bayi_meninggal_P']      	= $r->bayi_meninggal_P;
+                
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
+
+        $this->load->view('laporan/laporan_pos_1_export', $data);
+
+	}
+
 
 	public function format7()
 	{

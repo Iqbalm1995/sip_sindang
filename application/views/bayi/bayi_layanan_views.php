@@ -108,17 +108,17 @@
                 <div class="section-title mt-0">Export Data</div>
                 <div class="row">
                     <div class="col-md-2 pt-0 pr-0 inputFilterLeft">
-                        <select name="filterMonth" id="filterMonth" class="form-control select2">
+                        <select name="ExfilterMonth" id="ExfilterMonth" class="form-control select2">
                             <?php  foreach (ARRAY_BULAN as $key => $value) {
                                     echo '<option value="'.$key.'" '.( $key == date('m') ? "selected" : "" ).' >'.$value.'</option>';
                             } ?>
                         </select>
                     </div>
                     <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
-                        <input type="text" name="filterYear" id="filterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
+                        <input type="text" name="ExfilterYear" id="ExfilterYear" class="form-control custom-select" value="<?= date('Y'); ?>">
                     </div>
                     <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
-                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn"><i class="fas fa-file-export"></i> Export Data Bayi </button>
+                        <button class="btn btn-primary tombolfull" style="width:100%; height:42px;" id="filterBtn" href="javascript:void(0)" title="Export" onclick="exportData()"><i class="fas fa-file-export"></i> Export Data Bayi </button>
                     </div>
                 </div>
             </div>
@@ -158,6 +158,13 @@
     function layanan_pos(id) {
         filterYear = $("#filterYear").val();
         document.location = "<?php echo base_url('bayi/update_layanan/')?>" + id + "/" + filterYear;
+    }
+
+    function exportData() {
+        var ExfilterMonth = $("#ExfilterMonth").val();
+        var ExfilterYear = $("#ExfilterYear").val();
+
+        document.location = "<?php echo base_url('bayi/export/')?>" + ExfilterYear + "/" + ExfilterMonth;
     }
 
     function datatables_bayi(search, jk) {
