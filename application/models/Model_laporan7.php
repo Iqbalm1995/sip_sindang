@@ -27,16 +27,19 @@ class Model_laporan7 extends CI_Model {
 		$this->load->database();
 	}
 
-    public function get_laporan7($pos_id = null, $tahun = null)
+    public function get_laporan7($tahun = null)
 	{
 		if ($tahun == null) {
 			$tahun = date('Y');
 		}
-        $pos_id = '935940e4-64a6-11ec-b4f3-6ab5b06fe68d';
+
+        if (!empty($this->session->userdata('pos_id'))) {
+                $pos_id = $this->session->userdata('pos_id');
+        }else{
+                $pos_id = null;
+        }
 
        
-        // START QUERY LAPORAN 7
-
         //Ibu_hamil
         $subQuery_1 = $this->db->select('COUNT(id)')
                                 ->from($this->t_bumlin)
