@@ -60,6 +60,99 @@ class Bumlin extends CI_Controller {
         $this->load->view('template/footer');
 	}
 
+	public function export($tahun = null, $bulan = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_bumlin->get_laporan_bumlin($tahun, $bulan);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['kms']          			= $r->kms;
+                $row['nama_bumil']          	= $r->nama_bumil;
+                $row['umur']        			= $r->umur;
+                $row['kel_dawis']        		= $r->kel_dawis;
+                $row['tgl_pendaftaran']         = $r->tgl_pendaftaran;
+                $row['umur_kehamilan']      	= $r->umur_kehamilan;
+                $row['hamil_ke']       			= $r->hamil_ke;
+                $row['pyd_ptdh_fe1']      		= $r->pyd_ptdh_fe1;
+                $row['pyd_ptdh_fe2']      		= $r->pyd_ptdh_fe2;
+                $row['pyd_ptdh_fe3']      		= $r->pyd_ptdh_fe3;
+                $row['pyd_imsi1']      			= $r->pyd_imsi1;
+                $row['pyd_imsi2']      			= $r->pyd_imsi2;
+                $row['pyd_kapsul_yodium']      	= $r->pyd_kapsul_yodium;
+                $row['pyd_resiko']      		= $r->pyd_resiko;
+                $row['lahir_tanggal']      		= $r->lahir_tanggal;
+                $row['bayi_jk']      			= $r->bayi_jk;
+                $row['lahir_pic']      			= $r->lahir_pic;
+                $row['bayi_berat']      		= $r->bayi_berat;
+                $row['bayi_meninggal']      	= $r->bayi_meninggal;
+                $row['ibu_meninggal']      		= $r->ibu_meninggal;
+                $row['ibu_menyusui']      		= $r->ibu_menyusui;
+
+                $row['r01_darah']      			= $r->r01_darah;
+                $row['r01_berat']      			= $r->r01_berat;
+                $row['r02_darah']      			= $r->r02_darah;
+                $row['r02_berat']      			= $r->r02_berat;
+                $row['r03_darah']      			= $r->r03_darah;
+                $row['r03_berat']      			= $r->r03_berat;
+                $row['r04_darah']      			= $r->r04_darah;
+                $row['r04_berat']      			= $r->r04_berat;
+                $row['r05_darah']      			= $r->r05_darah;
+                $row['r05_berat']      			= $r->r05_berat;
+                $row['r06_darah']      			= $r->r06_darah;
+                $row['r06_berat']      			= $r->r06_berat;
+                $row['r07_darah']      			= $r->r07_darah;
+                $row['r07_berat']      			= $r->r07_berat;
+                $row['r08_darah']      			= $r->r08_darah;
+                $row['r08_berat']      			= $r->r08_berat;
+                $row['r09_darah']      			= $r->r09_darah;
+                $row['r09_berat']      			= $r->r09_berat;
+                $row['r10_darah']      			= $r->r10_darah;
+                $row['r10_berat']      			= $r->r10_berat;
+                $row['r11_darah']      			= $r->r11_darah;
+                $row['r11_berat']      			= $r->r11_berat;
+                $row['r12_darah']      			= $r->r12_darah;
+                $row['r12_berat']      			= $r->r12_berat;
+				
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterBulan'] = ARRAY_BULAN[$bulan];
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($list);
+		// echo "</pre>";
+
+        $this->load->view('bumlin/bumlin_export', $data);
+
+	}
+
     public function datatable_list_bumlin()
 	{
 		$list = $this->Model_bumlin->get_datatables();

@@ -60,6 +60,93 @@ class Balita extends CI_Controller {
         $this->load->view('template/footer');
 	}
 
+	public function export($tahun = null, $bulan = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_balita->get_laporan_balita($tahun, $bulan);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['kms']          			= $r->kms;
+                $row['nama_anak']          		= $r->nama_anak;
+                $row['tgl_lahir_anak']        	= $r->tgl_lahir_anak;
+                $row['jk_anak']        			= $r->jk_anak;
+                $row['nama_bapak']          	= $r->nama_bapak;
+                $row['nama_ibu']      			= $r->nama_ibu;
+                $row['kel_dawis']       		= $r->kel_dawis;
+                $row['pyd_syrp_besi_fe1']      	= $r->pyd_syrp_besi_fe1;
+                $row['pyd_syrp_besi_fe2']      	= $r->pyd_syrp_besi_fe2;
+                $row['pyd_vit_a_bln1']      	= $r->pyd_vit_a_bln1;
+                $row['pyd_vit_a_bln2']      	= $r->pyd_vit_a_bln2;
+                $row['pyd_pmt_pemulihan']      	= $r->pyd_pmt_pemulihan;
+                $row['pyd_oralit']      		= $r->pyd_oralit;
+
+                $row['r01_tinggi']      		= $r->r01_tinggi;
+                $row['r01_berat']      			= $r->r01_berat;
+                $row['r02_tinggi']      		= $r->r02_tinggi;
+                $row['r02_berat']      			= $r->r02_berat;
+                $row['r03_tinggi']      		= $r->r03_tinggi;
+                $row['r03_berat']      			= $r->r03_berat;
+                $row['r04_tinggi']      		= $r->r04_tinggi;
+                $row['r04_berat']      			= $r->r04_berat;
+                $row['r05_tinggi']      		= $r->r05_tinggi;
+                $row['r05_berat']      			= $r->r05_berat;
+                $row['r06_tinggi']      		= $r->r06_tinggi;
+                $row['r06_berat']      			= $r->r06_berat;
+                $row['r07_tinggi']      		= $r->r07_tinggi;
+                $row['r07_berat']      			= $r->r07_berat;
+                $row['r08_tinggi']      		= $r->r08_tinggi;
+                $row['r08_berat']      			= $r->r08_berat;
+                $row['r09_tinggi']      		= $r->r09_tinggi;
+                $row['r09_berat']      			= $r->r09_berat;
+                $row['r10_tinggi']      		= $r->r10_tinggi;
+                $row['r10_berat']      			= $r->r10_berat;
+                $row['r11_tinggi']      		= $r->r11_tinggi;
+                $row['r11_berat']      			= $r->r11_berat;
+                $row['r12_tinggi']      		= $r->r12_tinggi;
+                $row['r12_berat']      			= $r->r12_berat;
+				
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterBulan'] = ARRAY_BULAN[$bulan];
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
+
+		
+
+        $this->load->view('balita/balita_export', $data);
+
+	}
+
 	public function update_layanan($id, $year = null)
 	{
 		if (empty($id)) {

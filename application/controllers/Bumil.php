@@ -74,7 +74,7 @@ class Bumil extends CI_Controller {
 		$pos_name 	= $this->session->userdata('pos_name');
 		$desa_name 	= $this->session->userdata('desa');
 
-		$list = $this->Model_bumil->get_data_bumil();
+		$list = $this->Model_bumil->get_data_bumil($tahun, $bulan);
 
         // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
 		

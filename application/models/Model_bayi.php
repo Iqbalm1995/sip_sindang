@@ -19,6 +19,65 @@ class Model_bayi extends CI_Model {
 		$this->load->database();
 	}
 
+	public function get_laporan_bayi($tahun = null, $bulan = null)
+	{
+
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$compailed_query_tinggi 	= [];
+		$compailed_query_berat 		= [];
+
+		foreach (ARRAY_BULAN as $key => $value) { 
+
+			$subQueryTinggi = $this->db->select('tinggi_sekarang')
+								 ->from($this->t_penimbangan_bayi)
+								 ->where('bayi_id = b.id')
+								 ->where('bulan', $key)
+								 ->where('tahun', $tahun);
+       		$subQueryTinggi_comp = $subQueryTinggi->get_compiled_select();
+
+			$subQueryBerat = $this->db->select('berat_sekarang')
+								->from($this->t_penimbangan_bayi)
+								->where('bayi_id = b.id')
+								->where('bulan', $key)
+								->where('tahun', $tahun);
+			$subQueryBerat_comp = $subQueryBerat->get_compiled_select();
+
+			array_push($compailed_query_tinggi, $subQueryTinggi_comp);
+			array_push($compailed_query_berat, $subQueryBerat_comp);
+
+		}
+
+		$this->db->select('b.*');
+
+		// select penimbangan sub query
+		$qNo = 0;
+		foreach (ARRAY_BULAN as $key => $value) { 
+			$this->db->select('('.$compailed_query_tinggi[$qNo].') AS "r'.$key.'_tinggi"');
+			$this->db->select('('.$compailed_query_berat[$qNo].') AS "r'.$key.'_berat"');
+			$qNo++;
+		}
+
+		
+		if (!empty($this->session->userdata('pos_id'))) {
+			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+		}
+		$this->db->from($this->t_bayi.' b');
+		$this->db->where('b.deleted', 0);
+		$this->db->where('MONTH(b.created_on)', $bulan);
+		$this->db->where('YEAR(b.created_on)', $tahun);
+		$this->db->order_by('b.id', 'ASC');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
 	public function get_kunjugan_bayi($bayi_id, $tahun = null)
 	{
         $this->db->select('*');

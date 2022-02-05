@@ -31,7 +31,7 @@ $bodyTabColumn2 = 5;
 $bodyTabColumn2Lock = 6;
 
 // Pembuka
-$sheet->setCellValue('A' . $headerCop1Column1, 'PROGRAM POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' BULAN '.strtoupper($filterBulan).' TAHUN '.$filterTahun);
+$sheet->setCellValue('A' . $headerCop1Column1, 'SISTEM INFORMASI POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' BULAN '.strtoupper($filterBulan).' TAHUN '.$filterTahun);
 $sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 1 - CATATAN IBU HAMIL, KELAHIRAN, KEMATIAN BAYI, DAN KEMATIAN IBU HAMIL, MELAHIRKAN / NIFAS');
 
 // Isi
@@ -45,6 +45,7 @@ $sheet->setCellValue('G' . $headerTabColumn1, 'TGL LAHIR BAYI');
 $sheet->setCellValue('H' . $headerTabColumn1, 'TGL MENINGGAL BAYI');
 $sheet->setCellValue('I' . $headerTabColumn1, 'TGL MENINGGAL IBU');
 $sheet->setCellValue('J' . $headerTabColumn1, 'BERESIKO(?)');
+$sheet->setCellValue('K' . $headerTabColumn1, 'KET');
 
 // Mengubah ukuran kolom
 $sheet->getColumnDimension('A')->setWidth(8);
@@ -57,6 +58,7 @@ $sheet->getColumnDimension('G')->setAutoSize(true);
 $sheet->getColumnDimension('H')->setAutoSize(true);
 $sheet->getColumnDimension('I')->setAutoSize(true);
 $sheet->getColumnDimension('J')->setAutoSize(true);
+$sheet->getColumnDimension('K')->setWidth(35);
 
 $sheet->setCellValue('A' . $headerTabColumn2, '1');
 $sheet->setCellValue('B' . $headerTabColumn2, '2');
@@ -68,6 +70,7 @@ $sheet->setCellValue('G' . $headerTabColumn2, '7');
 $sheet->setCellValue('H' . $headerTabColumn2, '8');
 $sheet->setCellValue('I' . $headerTabColumn2, '9');
 $sheet->setCellValue('J' . $headerTabColumn2, '10');
+$sheet->setCellValue('K' . $headerTabColumn2, '11');
 
 
 foreach ($report as $r => $row) {
@@ -83,6 +86,7 @@ foreach ($report as $r => $row) {
   $sheet->setCellValue('H' . $bodyTabColumn2, (empty($row['tgl_meninggal_bayi']) ? "-" : $row['tgl_meninggal_bayi']));
   $sheet->setCellValue('I' . $bodyTabColumn2, (empty($row['tgl_meninggal_ibu']) ? "-" : $row['tgl_meninggal_ibu']));
   $sheet->setCellValue('J' . $bodyTabColumn2, (empty($row['is_risk']) ? "TIDAK BERESIKO" : "BERESIKO"));
+  $sheet->setCellValue('K' . $bodyTabColumn2, '');
 
 
 }
@@ -94,8 +98,8 @@ $footerTabColumn1 = $bodyTabColumn2 + 1;
 // $sheet->setCellValue('M' . $footerTabColumn1, '=SUM(M10:M' . $bodyTabColumn2 . ')');
 
 //Merge Cell
-$sheet->mergeCells('A'.$headerCop1Column1.':J' .$headerCop1Column1);
-$sheet->mergeCells('A'.$headerCop2Column1.':J' .$headerCop2Column1);
+$sheet->mergeCells('A'.$headerCop1Column1.':K' .$headerCop1Column1);
+$sheet->mergeCells('A'.$headerCop2Column1.':K' .$headerCop2Column1);
 
 // Mengubah style header file
 
@@ -125,7 +129,7 @@ $sheet->getStyle('A' . $headerCop2Column1)->applyFromArray(
 );
 
 // header tabel style
-$sheet->getStyle('A'.$headerTabColumn1.':J'.$headerTabColumn1)->applyFromArray(
+$sheet->getStyle('A'.$headerTabColumn1.':K'.$headerTabColumn1)->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -146,7 +150,7 @@ $sheet->getStyle('A'.$headerTabColumn1.':J'.$headerTabColumn1)->applyFromArray(
   ]
 );
 
-$sheet->getStyle('A'.$headerTabColumn2.':J'.$headerTabColumn2)->applyFromArray(
+$sheet->getStyle('A'.$headerTabColumn2.':K'.$headerTabColumn2)->applyFromArray(
   [
     'alignment' => [
       'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -311,6 +315,24 @@ $sheet->getStyle('I'.$bodyTabColumn2Lock.':I' . $bodyTabColumn2)->applyFromArray
   ]
 );
 $sheet->getStyle('J'.$bodyTabColumn2Lock.':J' . $bodyTabColumn2)->applyFromArray(
+  [
+
+    'alignment' => [
+      'horizontal' => Alignment::HORIZONTAL_CENTER,
+      'vertical' => Alignment::VERTICAL_CENTER,
+      'wrapText' => true,
+    ],
+    'borders' => [
+      'outline' => [
+        'borderStyle' => Border::BORDER_THIN,
+        'color' => [
+          'argb' => 'FF000000'
+        ],
+      ],
+    ],
+  ]
+);
+$sheet->getStyle('K'.$bodyTabColumn2Lock.':K' . $bodyTabColumn2)->applyFromArray(
   [
 
     'alignment' => [

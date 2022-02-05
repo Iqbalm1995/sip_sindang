@@ -36,6 +36,7 @@ class Bayi extends CI_Controller {
         $data['pages_caption']  = 'Data Bayi';
 
 		$data['data_pos']  	    = $this->Model_posyandu->get_posyandu();
+		
         
 		$this->load->view('template/header', $head);
         $this->load->view('bayi/bayi_views', $data);
@@ -58,6 +59,106 @@ class Bayi extends CI_Controller {
 		$this->load->view('template/header', $head);
         $this->load->view('bayi/bayi_layanan_views', $data);
         $this->load->view('template/footer');
+	}
+	
+	public function export($tahun = null, $bulan = null)
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+		if ($bulan == null) {
+			$bulan = date('m');
+		}
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= $this->session->userdata('desa');
+
+		$list = $this->Model_bayi->get_laporan_bayi($tahun, $bulan);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $this->session->userdata('desa');
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['kms']          			= $r->kms;
+                $row['nama_bayi']          		= $r->nama_bayi;
+                $row['tgl_lahir_bayi']        	= $r->tgl_lahir_bayi;
+                $row['jk_bayi']        			= $r->jk_bayi;
+                $row['bbl']   					= $r->bbl;
+                $row['nama_bapak']          	= $r->nama_bapak;
+                $row['nama_ibu']      			= $r->nama_ibu;
+                $row['kel_dawis']       		= $r->kel_dawis;
+                $row['pyd_syrp_besi_fe1']      	= $r->pyd_syrp_besi_fe1;
+                $row['pyd_syrp_besi_fe2']      	= $r->pyd_syrp_besi_fe2;
+                $row['pyd_vit_a_bln1']      	= $r->pyd_vit_a_bln1;
+                $row['pyd_vit_a_bln2']      	= $r->pyd_vit_a_bln2;
+                $row['pyd_oralit']      		= $r->pyd_oralit;
+                $row['pyd_bcg']      			= $r->pyd_bcg;
+                $row['pyd_dpt1']      			= $r->pyd_dpt1;
+                $row['pyd_dpt2']      			= $r->pyd_dpt2;
+                $row['pyd_dpt3']      			= $r->pyd_dpt3;
+                $row['pyd_polio1']      		= $r->pyd_polio1;
+                $row['pyd_polio2']      		= $r->pyd_polio2;
+                $row['pyd_polio3']      		= $r->pyd_polio3;
+                $row['pyd_polio4']      		= $r->pyd_polio4;
+                $row['pyd_campak']      		= $r->pyd_campak;
+                $row['pyd_hepatitis1']      	= $r->pyd_hepatitis1;
+                $row['pyd_hepatitis2']      	= $r->pyd_hepatitis2;
+                $row['pyd_hepatitis3']      	= $r->pyd_hepatitis3;
+                $row['tgl_meninggal_bayi']      = $r->tgl_meninggal_bayi;
+
+                $row['r01_tinggi']      		= $r->r01_tinggi;
+                $row['r01_berat']      			= $r->r01_berat;
+                $row['r02_tinggi']      		= $r->r02_tinggi;
+                $row['r02_berat']      			= $r->r02_berat;
+                $row['r03_tinggi']      		= $r->r03_tinggi;
+                $row['r03_berat']      			= $r->r03_berat;
+                $row['r04_tinggi']      		= $r->r04_tinggi;
+                $row['r04_berat']      			= $r->r04_berat;
+                $row['r05_tinggi']      		= $r->r05_tinggi;
+                $row['r05_berat']      			= $r->r05_berat;
+                $row['r06_tinggi']      		= $r->r06_tinggi;
+                $row['r06_berat']      			= $r->r06_berat;
+                $row['r07_tinggi']      		= $r->r07_tinggi;
+                $row['r07_berat']      			= $r->r07_berat;
+                $row['r08_tinggi']      		= $r->r08_tinggi;
+                $row['r08_berat']      			= $r->r08_berat;
+                $row['r09_tinggi']      		= $r->r09_tinggi;
+                $row['r09_berat']      			= $r->r09_berat;
+                $row['r10_tinggi']      		= $r->r10_tinggi;
+                $row['r10_berat']      			= $r->r10_berat;
+                $row['r11_tinggi']      		= $r->r11_tinggi;
+                $row['r11_berat']      			= $r->r11_berat;
+                $row['r12_tinggi']      		= $r->r12_tinggi;
+                $row['r12_berat']      			= $r->r12_berat;
+				
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterBulan'] = ARRAY_BULAN[$bulan];
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
+
+		
+
+        $this->load->view('bayi/bayi_export', $data);
+
 	}
 
 	public function update_layanan($id, $year = null)
