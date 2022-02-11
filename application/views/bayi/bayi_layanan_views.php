@@ -82,6 +82,7 @@
                                 <th style="width:15%;">No. KMS</th>
                                 <th>Nama Bayi</th>
                                 <th style="width:6%;">L/P</th>
+                                <th>Beresiko(?)</th>
                                 <th style="width:20%;"></th>
                             </tr>
                         </thead>
@@ -94,6 +95,7 @@
                                 <th>No. KMS</th>
                                 <th>Nama Bayi</th>
                                 <th>L/P</th>
+                                <th>Beresiko(?)</th>
                                 <th></th>
                             </tr>
                         </tfoot>

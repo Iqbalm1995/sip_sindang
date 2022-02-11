@@ -199,6 +199,7 @@ class Balita extends CI_Controller {
 		    'pyd_pmt_pemulihan' 	=> set_value('pyd_pmt_pemulihan', $r_bayi->pyd_pmt_pemulihan),
 		    'pyd_oralit' 	        => set_value('pyd_oralit', $r_bayi->pyd_oralit),
 		    'keterangan' 	        => set_value('keterangan', $r_bayi->keterangan),
+			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk)
 		);
         
 		$this->load->view('template/header', $head);
@@ -262,6 +263,7 @@ class Balita extends CI_Controller {
 			$row[] = $r_balita->kms;
 			$row[] = $r_balita->nama_anak;
 			$row[] = '<div class="text-center">'.$r_balita->jk_anak.'</div>';
+			$row[] = '<div class="text-center">'.( $r_balita->is_risk == 1 ? '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Beresiko<span>' : '-' ).'</div>';
 
 			//add html for action
             $row[] = '<div class="text-center">
@@ -494,6 +496,7 @@ class Balita extends CI_Controller {
 		$pyd_vit_a_bln2 		= ($this->input->post('status_pyd_vit_a_bln2') ? $this->input->post('pyd_vit_a_bln2') : null );
 		$pyd_pmt_pemulihan 		= ($this->input->post('status_pyd_pmt_pemulihan') ? $this->input->post('pyd_pmt_pemulihan') : null );
 		$pyd_oralit 			= ($this->input->post('status_pyd_oralit') ? $this->input->post('pyd_oralit') : null );
+		$is_risk 				= ($this->input->post('is_risk') ? 1 : 0 );
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -512,6 +515,7 @@ class Balita extends CI_Controller {
 		    'pyd_vit_a_bln2' 	    => $pyd_vit_a_bln2,
 		    'pyd_pmt_pemulihan' 	=> $pyd_pmt_pemulihan,
 		    'pyd_oralit' 	        => $pyd_oralit,
+			'is_risk' 				=> $is_risk,
 		);
 
         if (count($timbangan_balita_bln) > 0) {
