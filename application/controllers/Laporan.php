@@ -70,10 +70,18 @@ class Laporan extends CI_Controller {
                 $row    = array();
                 $row['no']  					= $no;
                 $row['bulan']          			= $r->bulan;
-                $row['blt_L_0_12bln']          	= $r->blt_L_0_12bln;
-                $row['blt_P_0_12bln']        	= $r->blt_P_0_12bln;
-                $row['blt_L_1_5thn']        	= $r->blt_L_1_5thn;
-                $row['blt_P_1_5thn']   			= $r->blt_P_1_5thn;
+
+                $row['byi_L_0_12bln_new']          	= $r->byi_L_0_12bln_new;
+                $row['byi_P_0_12bln_new']        	= $r->byi_P_0_12bln_new;
+                $row['byi_L_0_12bln_old']        	= $r->byi_L_0_12bln_old;
+                $row['byi_P_0_12bln_old']   		= $r->byi_P_0_12bln_old;
+
+                $row['blt_L_1_5thn_new']          	= $r->blt_L_1_5thn_new;
+                $row['blt_P_1_5thn_new']        	= $r->blt_P_1_5thn_new;
+                $row['blt_L_1_5thn_old']        	= $r->blt_L_1_5thn_old;
+                $row['blt_P_1_5thn_old']   			= $r->blt_P_1_5thn_old;
+
+
                 $row['wus']          			= $r->wus;
                 $row['pus']      				= $r->pus;
                 $row['ibu_hamil']       		= $r->ibu_hamil;
@@ -249,11 +257,15 @@ class Laporan extends CI_Controller {
 
 			$row[] = '<div class="text-center">'.$no.'</div>';
 			$row[] = $r->bulan;
-			$row[] = '<div class="text-center">'.$r->blt_L_0_12bln.'</div>';
-			$row[] = '<div class="text-center">'.$r->blt_P_0_12bln.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_L_0_12bln_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_P_0_12bln_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_L_0_12bln_old.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_P_0_12bln_old.'</div>';
 
-			$row[] = '<div class="text-center">'.$r->blt_L_1_5thn.'</div>';
-			$row[] = '<div class="text-center">'.$r->blt_P_1_5thn.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_L_1_5thn_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_P_1_5thn_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_L_1_5thn_old.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_P_1_5thn_old.'</div>';
 
 			$row[] = '<div class="text-center">'.$r->wus.'</div>';
 			$row[] = '<div class="text-center">'.$r->pus.'</div>';

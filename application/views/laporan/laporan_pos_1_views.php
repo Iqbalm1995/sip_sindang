@@ -11,6 +11,7 @@
     <div class="section-body">
         <div class="card">
             <div class="card-body">
+
                 <div class="row">
                     <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
                         Tahun :
@@ -30,26 +31,36 @@
                     <table id="datatable_laporan" class="table table-sm table-bordered table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th rowspan="4" style="width:2%;" class="text-center">No</th>
-                                <th rowspan="4">Bulan</th>
-                                <th colspan="8" class="text-center">Jumlah Pengunjung Posyandu</th>
+                                <th rowspan="5" style="width:2%;" class="text-center">No</th>
+                                <th rowspan="5">Bulan</th>
+                                <th colspan="12" class="text-center">Jumlah Pengunjung Posyandu</th>
                                 <th colspan="4" class="text-center">Jumlah Bayi</th>
                             </tr>
                             <tr>
-                                <th colspan="4" class="text-center">Balita</th>
-                                <th rowspan="3" class="text-center">Wus</th>
+                                <th colspan="8" class="text-center">Balita</th>
+                                <th rowspan="4" class="text-center">Wus</th>
                                 <th colspan="3" class="text-center">Ibu</th>
-                                <th rowspan="2" colspan="2" class="text-center">Yang Lahir</th>
-                                <th rowspan="2" colspan="2" class="text-center">Meninggal</th>
+                                <th rowspan="3" colspan="2" class="text-center">Yang Lahir</th>
+                                <th rowspan="3" colspan="2" class="text-center">Meninggal</th>
                             </tr>
                             <tr>
-                                <th colspan="2" class="text-center">0-12 Bulan</th>
-                                <th colspan="2" class="text-center">1-5 Tahun</th>
-                                <th rowspan="2" class="text-center">Pus</th>
-                                <th rowspan="2" class="text-center">Hamil</th>
-                                <th rowspan="2" class="text-center">Meunyusui</th>
+                                <th colspan="4" class="text-center">0-12 Bulan</th>
+                                <th colspan="4" class="text-center">1-5 Tahun</th>
+                                <th rowspan="3" class="text-center">Pus</th>
+                                <th rowspan="3" class="text-center">Hamil</th>
+                                <th rowspan="3" class="text-center">Meunyusui</th>
                             </tr>
                             <tr>
+                                <th colspan="2" class="text-center">Baru</th>
+                                <th colspan="2" class="text-center">Lama</th>
+                                <th colspan="2" class="text-center">Baru</th>
+                                <th colspan="2" class="text-center">Lama</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">L</th>
+                                <th class="text-center">P</th>
+                                <th class="text-center">L</th>
+                                <th class="text-center">P</th>
                                 <th class="text-center">L</th>
                                 <th class="text-center">P</th>
                                 <th class="text-center">L</th>
@@ -65,6 +76,10 @@
 
                         <tfoot>
                             <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -178,11 +193,15 @@
                     i : 0;
                 };
 
-                var blt_L_0_12bln = 0;
-                var blt_P_0_12bln = 0;
+                var byi_L_0_12bln_new = 0;
+                var byi_P_0_12bln_new = 0;
+                var byi_L_0_12bln_old = 0;
+                var byi_P_0_12bln_old = 0;
 
-                var blt_L_1_5thn = 0;
-                var blt_P_1_5thn = 0;
+                var blt_L_1_5thn_new = 0;
+                var blt_P_1_5thn_new = 0;
+                var blt_L_1_5thn_old = 0;
+                var blt_P_1_5thn_old = 0;
 
                 var wus = 0;
                 var pus = 0;
@@ -196,41 +215,49 @@
                 var bayi_meninggal_P = 0;
 
                 for (var i = 0; i < data.length; i++) {
-                    blt_L_0_12bln += parseInt(data[i][2].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    blt_P_0_12bln += parseInt(data[i][3].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    byi_L_0_12bln_new += parseInt(data[i][2].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    byi_P_0_12bln_new += parseInt(data[i][3].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    byi_L_0_12bln_old += parseInt(data[i][4].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    byi_P_0_12bln_old += parseInt(data[i][5].toString().replace(/,.*|[^0-9]/g, ''), 10);
 
-                    blt_L_1_5thn += parseInt(data[i][4].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    blt_P_1_5thn += parseInt(data[i][5].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    blt_L_1_5thn_new += parseInt(data[i][6].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    blt_P_1_5thn_new += parseInt(data[i][7].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    blt_L_1_5thn_old += parseInt(data[i][8].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    blt_P_1_5thn_old += parseInt(data[i][9].toString().replace(/,.*|[^0-9]/g, ''), 10);
 
-                    wus += parseInt(data[i][6].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    pus += parseInt(data[i][7].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    ibu_hamil += parseInt(data[i][8].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    ibu_menyusui += parseInt(data[i][9].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    wus += parseInt(data[i][10].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    pus += parseInt(data[i][11].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    ibu_hamil += parseInt(data[i][12].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    ibu_menyusui += parseInt(data[i][13].toString().replace(/,.*|[^0-9]/g, ''), 10);
 
-                    bayi_lahir_L += parseInt(data[i][10].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    bayi_lahir_P += parseInt(data[i][11].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    bayi_lahir_L += parseInt(data[i][14].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    bayi_lahir_P += parseInt(data[i][15].toString().replace(/,.*|[^0-9]/g, ''), 10);
 
-                    bayi_meninggal_L += parseInt(data[i][12].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    bayi_meninggal_P += parseInt(data[i][13].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    bayi_meninggal_L += parseInt(data[i][16].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    bayi_meninggal_P += parseInt(data[i][17].toString().replace(/,.*|[^0-9]/g, ''), 10);
                 }
 
                 $(api.column(1).footer()).html('Total');
-                $(api.column(2).footer()).html('<div class="text-center">' + blt_L_0_12bln + '</div>');
-                $(api.column(3).footer()).html('<div class="text-center">' + blt_P_0_12bln + '</div>');
+                $(api.column(2).footer()).html('<div class="text-center">' + byi_L_0_12bln_new + '</div>');
+                $(api.column(3).footer()).html('<div class="text-center">' + byi_P_0_12bln_new + '</div>');
+                $(api.column(4).footer()).html('<div class="text-center">' + byi_L_0_12bln_old + '</div>');
+                $(api.column(5).footer()).html('<div class="text-center">' + byi_P_0_12bln_old + '</div>');
 
-                $(api.column(4).footer()).html('<div class="text-center">' + blt_L_1_5thn + '</div>');
-                $(api.column(5).footer()).html('<div class="text-center">' + blt_P_1_5thn + '</div>');
+                $(api.column(6).footer()).html('<div class="text-center">' + blt_L_1_5thn_new + '</div>');
+                $(api.column(7).footer()).html('<div class="text-center">' + blt_P_1_5thn_new + '</div>');
+                $(api.column(8).footer()).html('<div class="text-center">' + blt_L_1_5thn_old + '</div>');
+                $(api.column(9).footer()).html('<div class="text-center">' + blt_P_1_5thn_old + '</div>');
 
-                $(api.column(6).footer()).html('<div class="text-center">' + wus + '</div>');
-                $(api.column(7).footer()).html('<div class="text-center">' + pus + '</div>');
-                $(api.column(8).footer()).html('<div class="text-center">' + ibu_hamil + '</div>');
-                $(api.column(9).footer()).html('<div class="text-center">' + ibu_menyusui + '</div>');
+                $(api.column(10).footer()).html('<div class="text-center">' + wus + '</div>');
+                $(api.column(11).footer()).html('<div class="text-center">' + pus + '</div>');
+                $(api.column(12).footer()).html('<div class="text-center">' + ibu_hamil + '</div>');
+                $(api.column(13).footer()).html('<div class="text-center">' + ibu_menyusui + '</div>');
 
-                $(api.column(10).footer()).html('<div class="text-center">' + bayi_lahir_L + '</div>');
-                $(api.column(11).footer()).html('<div class="text-center">' + bayi_lahir_P + '</div>');
+                $(api.column(14).footer()).html('<div class="text-center">' + bayi_lahir_L + '</div>');
+                $(api.column(15).footer()).html('<div class="text-center">' + bayi_lahir_P + '</div>');
 
-                $(api.column(12).footer()).html('<div class="text-center">' + bayi_meninggal_L + '</div>');
-                $(api.column(13).footer()).html('<div class="text-center">' + bayi_meninggal_P + '</div>');
+                $(api.column(16).footer()).html('<div class="text-center">' + bayi_meninggal_L + '</div>');
+                $(api.column(17).footer()).html('<div class="text-center">' + bayi_meninggal_P + '</div>');
                 
             }
         });

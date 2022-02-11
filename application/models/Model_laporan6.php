@@ -37,53 +37,91 @@ class Model_laporan6 extends CI_Model {
 
                 // START QUERY LAPORAN 6
 
-                //blt_L_0-12bln
-                $subQuery_1 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_L_0_12bln_new
+                $subQuery_1_New_L = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'L')
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) >=', 0)
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) <=', 12);
+                                        ->where('YEAR(created_on) =', $tahun)
+                                        ->where('jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_1_comp = $subQuery_1->get_compiled_select();
+                $subQuery_1_New_L_comp = $subQuery_1_New_L->get_compiled_select();
 
-                //blt_P_0-12bln
-                $subQuery_2 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_P_0_12bln_new
+                $subQuery_1_New_P = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'P')
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) >=', 0)
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) <=', 12);
+                                        ->where('YEAR(created_on) =', $tahun)
+                                        ->where('jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_2_comp = $subQuery_2->get_compiled_select();
+                $subQuery_1_New_P_comp = $subQuery_1_New_P->get_compiled_select();
 
-                //blt_L_1-5thn
-                $subQuery_3 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                
+                //byi_L_0_12bln_old
+                $subQuery_2_Old_L = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'L')
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) >=', 1)
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) <=', 5);
+                                        ->where('YEAR(created_on) <', $tahun)
+                                        ->where('jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_3_comp = $subQuery_3->get_compiled_select();
+                $subQuery_2_Old_L_comp = $subQuery_2_Old_L->get_compiled_select();
 
-                //blt_P_1-5thn
-                $subQuery_4 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_P_0_12bln_old
+                $subQuery_2_Old_P = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'P')
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) >=', 1)
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) <=', 5);
+                                        ->where('YEAR(created_on) <', $tahun)
+                                        ->where('jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_4_comp = $subQuery_4->get_compiled_select();
+                $subQuery_2_Old_P_comp = $subQuery_2_Old_P->get_compiled_select();
+
+
+                //blt_L_1_5thn_new
+                $subQuery_3_Old_L = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) =', $tahun)
+                                ->where('jk_anak', 'L');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_3_Old_L_comp = $subQuery_3_Old_L->get_compiled_select();
+
+                //blt_P_1_5thn_new
+                $subQuery_3_Old_P = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) =', $tahun)
+                                ->where('jk_anak', 'P');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_3_Old_P_comp = $subQuery_3_Old_P->get_compiled_select();
+
+
+                //blt_L_1_5thn_old
+                $subQuery_4_Old_L = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) <', $tahun)
+                                ->where('jk_anak', 'L');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_4_Old_L_comp = $subQuery_4_Old_L->get_compiled_select();
+
+                //blt_P_1_5thn_old
+                $subQuery_4_Old_P = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) <', $tahun)
+                                ->where('jk_anak', 'P');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_4_Old_P_comp = $subQuery_4_Old_P->get_compiled_select();
+
+
+
 
                 //wus
                 $subQuery_5 = $this->db->select('COUNT(id)')
@@ -167,10 +205,18 @@ class Model_laporan6 extends CI_Model {
 
 
                 $this->db->select('cm.label_id AS "no", cm.name AS "bulan"');
-                $this->db->select('('.$subQuery_1_comp.') AS "blt_L_0_12bln"');
-                $this->db->select('('.$subQuery_2_comp.') AS "blt_P_0_12bln"');
-                $this->db->select('('.$subQuery_3_comp.') AS "blt_L_1_5thn"');
-                $this->db->select('('.$subQuery_4_comp.') AS "blt_P_1_5thn"');
+                $this->db->select('('.$subQuery_1_New_L_comp.') AS "byi_L_0_12bln_new"');
+                $this->db->select('('.$subQuery_1_New_P_comp.') AS "byi_P_0_12bln_new"');
+                $this->db->select('('.$subQuery_2_Old_L_comp.') AS "byi_L_0_12bln_old"');
+                $this->db->select('('.$subQuery_2_Old_P_comp.') AS "byi_P_0_12bln_old"');
+
+                $this->db->select('('.$subQuery_3_Old_L_comp.') AS "blt_L_1_5thn_new"');
+                $this->db->select('('.$subQuery_3_Old_P_comp.') AS "blt_P_1_5thn_new"');
+
+                $this->db->select('('.$subQuery_4_Old_L_comp.') AS "blt_L_1_5thn_old"');
+                $this->db->select('('.$subQuery_4_Old_P_comp.') AS "blt_P_1_5thn_old"');
+
+
                 $this->db->select('('.$subQuery_5_comp.') AS "wus"');
                 $this->db->select('('.$subQuery_6_comp.') AS "pus"');
                 $this->db->select('('.$subQuery_7_comp.') AS "ibu_hamil"');
@@ -206,53 +252,91 @@ class Model_laporan6 extends CI_Model {
 
                 // START QUERY LAPORAN 6
 
-                //blt_L_0-12bln
-                $subQuery_1 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_L_0_12bln_new
+                $subQuery_1_New_L = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'L')
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) >=', 0)
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) <=', 12);
+                                        ->where('YEAR(created_on) =', $tahun)
+                                        ->where('jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_1_comp = $subQuery_1->get_compiled_select();
+                $subQuery_1_New_L_comp = $subQuery_1_New_L->get_compiled_select();
 
-                //blt_P_0-12bln
-                $subQuery_2 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_P_0_12bln_new
+                $subQuery_1_New_P = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'P')
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) >=', 0)
-                                        ->where('TIMESTAMPDIFF(MONTH, tgl_lahir_anak, DATE(created_on)) <=', 12);
+                                        ->where('YEAR(created_on) =', $tahun)
+                                        ->where('jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_2_comp = $subQuery_2->get_compiled_select();
+                $subQuery_1_New_P_comp = $subQuery_1_New_P->get_compiled_select();
 
-                //blt_L_1-5thn
-                $subQuery_3 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                
+                //byi_L_0_12bln_old
+                $subQuery_2_Old_L = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'L')
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) >=', 1)
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) <=', 5);
+                                        ->where('YEAR(created_on) <', $tahun)
+                                        ->where('jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_3_comp = $subQuery_3->get_compiled_select();
+                $subQuery_2_Old_L_comp = $subQuery_2_Old_L->get_compiled_select();
 
-                //blt_P_1-5thn
-                $subQuery_4 = $this->db->select('COUNT(id)')
-                                        ->from($this->t_balita)
+                //byi_P_0_12bln_old
+                $subQuery_2_Old_P = $this->db->select('COUNT(id)')
+                                        ->from($this->t_bayi)
                                         ->where('deleted', 0)
                                         ->where('MONTH(created_on) = cm.label_id')
-                                        ->where('YEAR(created_on)', $tahun)
-                                        ->where('jk_anak', 'P')
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) >=', 1)
-                                        ->where('TIMESTAMPDIFF(YEAR, tgl_lahir_anak, DATE(created_on)) <=', 5);
+                                        ->where('YEAR(created_on) <', $tahun)
+                                        ->where('jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
-                $subQuery_4_comp = $subQuery_4->get_compiled_select();
+                $subQuery_2_Old_P_comp = $subQuery_2_Old_P->get_compiled_select();
+
+
+                //blt_L_1_5thn_new
+                $subQuery_3_Old_L = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) =', $tahun)
+                                ->where('jk_anak', 'L');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_3_Old_L_comp = $subQuery_3_Old_L->get_compiled_select();
+
+                //blt_P_1_5thn_new
+                $subQuery_3_Old_P = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) =', $tahun)
+                                ->where('jk_anak', 'P');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_3_Old_P_comp = $subQuery_3_Old_P->get_compiled_select();
+
+
+                //blt_L_1_5thn_old
+                $subQuery_4_Old_L = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) <', $tahun)
+                                ->where('jk_anak', 'L');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_4_Old_L_comp = $subQuery_4_Old_L->get_compiled_select();
+
+                //blt_P_1_5thn_old
+                $subQuery_4_Old_P = $this->db->select('COUNT(id)')
+                                ->from($this->t_balita)
+                                ->where('deleted', 0)
+                                ->where('MONTH(created_on) = cm.label_id')
+                                ->where('YEAR(created_on) <', $tahun)
+                                ->where('jk_anak', 'P');
+                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                $subQuery_4_Old_P_comp = $subQuery_4_Old_P->get_compiled_select();
+
+
+
 
                 //wus
                 $subQuery_5 = $this->db->select('COUNT(id)')
@@ -336,10 +420,17 @@ class Model_laporan6 extends CI_Model {
 
 
                 $this->db->select('cm.label_id AS "no", cm.name AS "bulan"');
-                $this->db->select('('.$subQuery_1_comp.') AS "blt_L_0_12bln"');
-                $this->db->select('('.$subQuery_2_comp.') AS "blt_P_0_12bln"');
-                $this->db->select('('.$subQuery_3_comp.') AS "blt_L_1_5thn"');
-                $this->db->select('('.$subQuery_4_comp.') AS "blt_P_1_5thn"');
+                $this->db->select('('.$subQuery_1_New_L_comp.') AS "byi_L_0_12bln_new"');
+                $this->db->select('('.$subQuery_1_New_P_comp.') AS "byi_P_0_12bln_new"');
+                $this->db->select('('.$subQuery_2_Old_L_comp.') AS "byi_L_0_12bln_old"');
+                $this->db->select('('.$subQuery_2_Old_P_comp.') AS "byi_P_0_12bln_old"');
+
+                $this->db->select('('.$subQuery_3_Old_L_comp.') AS "blt_L_1_5thn_new"');
+                $this->db->select('('.$subQuery_3_Old_P_comp.') AS "blt_P_1_5thn_new"');
+                $this->db->select('('.$subQuery_4_Old_L_comp.') AS "blt_L_1_5thn_old"');
+                $this->db->select('('.$subQuery_4_Old_P_comp.') AS "blt_P_1_5thn_old"');
+
+
                 $this->db->select('('.$subQuery_5_comp.') AS "wus"');
                 $this->db->select('('.$subQuery_6_comp.') AS "pus"');
                 $this->db->select('('.$subQuery_7_comp.') AS "ibu_hamil"');
