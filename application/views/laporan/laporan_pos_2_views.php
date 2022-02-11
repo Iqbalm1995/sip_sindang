@@ -1,10 +1,10 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Laporan Posyandu Format 7</h1>
+    <h1>Data Laporan Posyandu Data Kegiatan</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Laporan</a></div>
-        <div class="breadcrumb-item">Format 7</div>
+        <div class="breadcrumb-item">Data Kegiatan</div>
     </div>
     </div>
 

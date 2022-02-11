@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/vnd.ms-excel');
-header("Content-Disposition: attachment; filename=Laporan Data Format 6 Posyandu Tahun ".$filterTahun.".xls");
+header("Content-Disposition: attachment; filename=Laporan Data Format 6 - Kunjungan Posyandu Posyandu Tahun ".$filterTahun.".xls");
 header('Cache-Control: max-age=0');
 ob_end_clean();
 

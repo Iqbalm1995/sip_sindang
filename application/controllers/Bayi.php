@@ -226,6 +226,7 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis3' 	    => set_value('pyd_hepatitis3', $r_bayi->pyd_hepatitis3),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bayi->tgl_meninggal_bayi),
 		    'keterangan' 	        => set_value('keterangan', $r_bayi->keterangan),
+			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk)
 		);
         
 		$this->load->view('template/header', $head);
@@ -292,6 +293,7 @@ class Bayi extends CI_Controller {
 			$row[] = $r_bayi->kms;
 			$row[] = $r_bayi->nama_bayi;
 			$row[] = '<div class="text-center">'.$r_bayi->jk_bayi.'</div>';
+			$row[] = '<div class="text-center">'.( $r_bayi->is_risk == 1 ? '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Beresiko<span>' : '-' ).'</div>';
 
 			//add html for action
             $row[] = '<div class="text-center">
@@ -667,6 +669,7 @@ class Bayi extends CI_Controller {
 		$pyd_hepatitis2 		= ($this->input->post('status_pyd_hepatitis2') ? $this->input->post('pyd_hepatitis2') : null );
 		$pyd_hepatitis3 		= ($this->input->post('status_pyd_hepatitis3') ? $this->input->post('pyd_hepatitis3') : null );
 		$tgl_meninggal_bayi 	= ($this->input->post('status_meninggal_bayi') ? $this->input->post('tgl_meninggal_bayi') : null );
+		$is_risk 				= ($this->input->post('is_risk') ? 1 : 0 );
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -697,6 +700,7 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis2' 	    => $pyd_hepatitis2,
 		    'pyd_hepatitis3' 	    => $pyd_hepatitis3,
 		    'tgl_meninggal_bayi' 	=> $tgl_meninggal_bayi,
+			'is_risk' 					=> $is_risk,
 		);
 
         if (count($timbangan_bayi_bln) > 0) {

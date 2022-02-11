@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/vnd.ms-excel');
-header("Content-Disposition: attachment; filename=Laporan Data Format 7 Posyandu Tahun ".$filterTahun.".xls");
+header("Content-Disposition: attachment; filename=Laporan Data Format 7 - Data Kegiatan Posyandu Tahun ".$filterTahun.".xls");
 header('Cache-Control: max-age=0');
 ob_end_clean();
 
@@ -37,7 +37,7 @@ $bodyTabColumn2Lock = 9;
 
 // Pembuka
 $sheet->setCellValue('A' . $headerCop1Column1, 'SISTEM INFORMASI POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ) . ( !empty($pos_name) ? " POSYANDU ".strtoupper($pos_name) : "SEMUA POSYANDU" ).' TAHUN '.$filterTahun);
-$sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 6 - DATA KEGIATAN POSYANDU');
+$sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 7 - DATA KEGIATAN POSYANDU');
 
 // Isi
 $sheet->setCellValue('A' . $headerTabColumnA, 'NO'); $sheet->mergeCells('A'.$headerTabColumnA.':A'.$headerTabColumnD);
