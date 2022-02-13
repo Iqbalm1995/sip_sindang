@@ -32,14 +32,16 @@ class Model_bumil extends CI_Model {
 		}
 		
 		if (!empty($this->session->userdata('pos_id'))) {
-			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+			$this->db->where('b.pos_id', $this->session->userdata('pos_id'));
 		}
 
-		$this->db->select('*');
-		$this->db->from($this->t_bumil);
-		$this->db->where('deleted', 0);
-		$this->db->where('MONTH(created_on)', $bulan);
-		$this->db->where('YEAR(created_on)', $tahun);
+		$this->db->select('b.*');
+		$this->db->from($this->t_bumil.' b');
+		$this->db->join($this->t_kunjungan_bumil.' bk', 'b.id = bk.bumil_id');
+		$this->db->where('b.deleted', 0);
+		$this->db->where('bk.bulan', $bulan);
+		$this->db->where('bk.tahun', $tahun);
+		$this->db->where('bk.is_kunjungan', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}

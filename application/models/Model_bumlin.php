@@ -66,12 +66,14 @@ class Model_bumlin extends CI_Model {
 
 		
 		if (!empty($this->session->userdata('pos_id'))) {
-			$this->db->where('pos_id', $this->session->userdata('pos_id'));
+			$this->db->where('b.pos_id', $this->session->userdata('pos_id'));
 		}
 		$this->db->from($this->t_bumlin.' b');
+		$this->db->join($this->t_kunjungan_bumlin.' bk', 'b.id = bk.bumlin_id');
 		$this->db->where('b.deleted', 0);
-		$this->db->where('MONTH(b.created_on)', $bulan);
-		$this->db->where('YEAR(b.created_on)', $tahun);
+		$this->db->where('bk.bulan', $bulan);
+		$this->db->where('bk.tahun', $tahun);
+		$this->db->where('bk.is_kunjungan', 1);
 		$this->db->order_by('b.id', 'ASC');
 		$query = $this->db->get();
 		return $query->result();
