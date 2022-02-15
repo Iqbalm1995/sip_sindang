@@ -84,6 +84,19 @@
                                             <div class="invalid-feedback" id="taha_kan_ks_inv"></div>
                                         </div>
                                         <div class="form-group">
+                                            <label>WUS / PUS <span class="text-danger">*</span></label>
+                                            <div class="pl-3 pt-2 pb-2 row">
+                                                <div class="custom-control custom-radio col-md-3 col-sm-12">
+                                                    <input type="radio" id="tipeWUS" name="tipe" class="custom-control-input" value="0" <?= ( $tipe == "0" ? "checked" : "" ) ?> disabled>
+                                                    <label class="custom-control-label" for="tipeWUS">WUS</label>
+                                                </div>
+                                                <div class="custom-control custom-radio col-md-3 col-sm-12">
+                                                    <input type="radio" id="tipePus" name="tipe" class="custom-control-input" value="1" <?= ( $tipe == "1" ? "checked" : "" ) ?> disabled>
+                                                    <label class="custom-control-label" for="tipePus">PUS</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Kel Dawis</label>
                                             <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " placeholder="-" maxlength='3' value="<?= $kel_dawis; ?>" disabled>
                                             <div class="invalid-feedback" id="kel_dawis_inv"></div>

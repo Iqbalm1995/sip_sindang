@@ -1,7 +1,7 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Laporan Posyandu Kunjungan Posyandu</h1>
+    <h1>Data Laporan Kunjungan Posyandu</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Laporan</a></div>
         <div class="breadcrumb-item">Kunjungan Posyandu</div>
@@ -48,7 +48,7 @@
                                 <th colspan="4" class="text-center">1-5 Tahun</th>
                                 <th rowspan="3" class="text-center">Pus</th>
                                 <th rowspan="3" class="text-center">Hamil</th>
-                                <th rowspan="3" class="text-center">Meunyusui</th>
+                                <th rowspan="3" class="text-center">Menyusui</th>
                             </tr>
                             <tr>
                                 <th colspan="2" class="text-center">Baru</th>
