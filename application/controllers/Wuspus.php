@@ -151,6 +151,7 @@ class Wuspus extends CI_Controller {
 			$row[] = '<div class="text-center">'.$r_wps->kel_dawis.'</div>';
 			$row[] = '<div class="text-center">'.$r_wps->jml_anak_hidup.'</div>';
 			$row[] = '<div class="text-center">'.$r_wps->jml_anak_meninggal.'</div>';
+			$row[] = '<div class="text-center">'.($r_wps->tipe == 0 ? "WUS" : "PUS").'</div>';
 
             $row[] = '<div class="text-center">
                         <div class="btn-group mb-2">
@@ -189,6 +190,7 @@ class Wuspus extends CI_Controller {
 			$row[] = $r_wps->kms;
 			$row[] = $r_wps->nama;
 			$row[] = '<div class="text-center">'.$r_wps->umur.'</div>';
+			$row[] = '<div class="text-center">'.($r_wps->tipe == 0 ? "WUS" : "PUS").'</div>';
 
             
             $row[] = '<div class="text-center">
@@ -272,6 +274,7 @@ class Wuspus extends CI_Controller {
 		    'nama' 			        => set_value('nama'),
 		    'umur' 				    => set_value('umur'),
 		    'suami_pus' 			=> set_value('suami_pus'),
+		    'tipe' 				    => set_value('tipe', 0),
 		    'taha_kan_ks' 		    => set_value('taha_kan_ks'),
 		    'kel_dawis' 		    => set_value('kel_dawis'),
 		    'jml_anak_hidup' 	    => set_value('jml_anak_hidup', 0),
@@ -311,6 +314,7 @@ class Wuspus extends CI_Controller {
 		    'nama' 			        => set_value('nama', $r_wps->nama),
 		    'umur' 				    => set_value('umur', $r_wps->umur),
 		    'suami_pus' 			=> set_value('suami_pus', $r_wps->suami_pus),
+		    'tipe' 					=> set_value('tipe', $r_wps->tipe),
 		    'taha_kan_ks' 		    => set_value('taha_kan_ks', $r_wps->taha_kan_ks),
 		    'kel_dawis' 		    => set_value('kel_dawis', $r_wps->kel_dawis),
 		    'jml_anak_hidup' 	    => set_value('jml_anak_hidup', $r_wps->jml_anak_hidup),
@@ -365,6 +369,7 @@ class Wuspus extends CI_Controller {
 		    'umur' 				    => set_value('umur', $r_wps->umur),
 		    'suami_pus' 			=> set_value('suami_pus', $r_wps->suami_pus),
 		    'taha_kan_ks' 		    => set_value('taha_kan_ks', $r_wps->taha_kan_ks),
+		    'tipe' 		    		=> set_value('tipe', $r_wps->tipe),
 		    'kel_dawis' 		    => set_value('kel_dawis', $r_wps->kel_dawis),
 		    'jml_anak_hidup' 	    => set_value('jml_anak_hidup', $r_wps->jml_anak_hidup),
 		    'jml_anak_meninggal' 	=> set_value('jml_anak_meninggal', $r_wps->jml_anak_meninggal),
@@ -399,6 +404,7 @@ class Wuspus extends CI_Controller {
 		$kel_dawis 				= $this->input->post('kel_dawis');
 		$jml_anak_hidup 		= $this->input->post('jml_anak_hidup');
 		$jml_anak_meninggal 	= $this->input->post('jml_anak_meninggal');
+		$tipe 					= $this->input->post('tipe');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -417,6 +423,7 @@ class Wuspus extends CI_Controller {
 			'kel_dawis' 				=> $kel_dawis,
 			'jml_anak_hidup' 			=> $jml_anak_hidup,
 			'jml_anak_meninggal' 		=> $jml_anak_meninggal,
+			'tipe' 						=> $tipe,
 			'nama_pic' 					=> $nama_pic,
 		);
 
