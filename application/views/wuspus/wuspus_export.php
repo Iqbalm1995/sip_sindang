@@ -44,7 +44,7 @@ $sheet->setCellValue('B' . $headerTabColumnA, 'NO KMS'); $sheet->mergeCells('B'.
 $sheet->setCellValue('C' . $headerTabColumnA, 'NAMA WUS/PUS'); $sheet->mergeCells('C'.$headerTabColumnA.':C'.$headerTabColumnC);
 $sheet->setCellValue('D' . $headerTabColumnA, 'UMUR'); $sheet->mergeCells('D'.$headerTabColumnA.':D'.$headerTabColumnC);
 $sheet->setCellValue('E' . $headerTabColumnA, 'SUAMI PUS'); $sheet->mergeCells('E'.$headerTabColumnA.':E'.$headerTabColumnC);
-$sheet->setCellValue('F' . $headerTabColumnA, 'TAHA PAN KS'); $sheet->mergeCells('F'.$headerTabColumnA.':F'.$headerTabColumnC);
+$sheet->setCellValue('F' . $headerTabColumnA, 'TAHAPAN KS'); $sheet->mergeCells('F'.$headerTabColumnA.':F'.$headerTabColumnC);
 $sheet->setCellValue('G' . $headerTabColumnA, 'KEL. DAWIS'); $sheet->mergeCells('G'.$headerTabColumnA.':G'.$headerTabColumnC);
 
 $sheet->setCellValue('H' . $headerTabColumnA, 'JUMLAH ANAK'); $sheet->mergeCells('H4:I4');

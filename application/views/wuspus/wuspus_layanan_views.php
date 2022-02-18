@@ -71,7 +71,6 @@
                                 <th style="width:15%;">No. KMS</th>
                                 <th>Nama</th>
                                 <th style="width:10%;">Umur</th>
-                                <th style="width:10%;">WUS/PUS</th>
                                 <th style="width:20%;"></th>
                             </tr>
                         </thead>
@@ -84,7 +83,6 @@
                                 <th>No. KMS</th>
                                 <th>Nama</th>
                                 <th>Umur</th>
-                                <th>WUS/PUS</th>
                                 <th></th>
                             </tr>
                         </tfoot>

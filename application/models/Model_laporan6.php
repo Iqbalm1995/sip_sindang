@@ -153,7 +153,7 @@ class Model_laporan6 extends CI_Model {
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.tipe', 0);
+                                        ->where('bk.wus_pus', 'WUS');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_5_comp = $subQuery_5->get_compiled_select();
 
@@ -165,7 +165,7 @@ class Model_laporan6 extends CI_Model {
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.tipe', 1);
+                                        ->where('bk.wus_pus', 'PUS');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_6_comp = $subQuery_6->get_compiled_select();
 
@@ -385,6 +385,7 @@ class Model_laporan6 extends CI_Model {
 
 
 
+                
                 //wus
                 $subQuery_5 = $this->db->select('COUNT(DISTINCT b.id)')
                                         ->from($this->t_wuspus.' b')
@@ -393,7 +394,7 @@ class Model_laporan6 extends CI_Model {
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.tipe', 0);
+                                        ->where('bk.wus_pus', 'WUS');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_5_comp = $subQuery_5->get_compiled_select();
 
@@ -405,7 +406,7 @@ class Model_laporan6 extends CI_Model {
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.tipe', 1);
+                                        ->where('bk.wus_pus', 'PUS');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_6_comp = $subQuery_6->get_compiled_select();
 

@@ -79,22 +79,9 @@
                                             <div class="invalid-feedback" id="suami_pus_inv"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Taha HK KS</label>
+                                            <label>Tahapan KS</label>
                                             <input type="text" name="taha_kan_ks" id="taha_kan_ks" class="form-control " placeholder="-" value="<?= $taha_kan_ks; ?>" disabled>
                                             <div class="invalid-feedback" id="taha_kan_ks_inv"></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>WUS / PUS <span class="text-danger">*</span></label>
-                                            <div class="pl-3 pt-2 pb-2 row">
-                                                <div class="custom-control custom-radio col-md-3 col-sm-12">
-                                                    <input type="radio" id="tipeWUS" name="tipe" class="custom-control-input" value="0" <?= ( $tipe == "0" ? "checked" : "" ) ?> disabled>
-                                                    <label class="custom-control-label" for="tipeWUS">WUS</label>
-                                                </div>
-                                                <div class="custom-control custom-radio col-md-3 col-sm-12">
-                                                    <input type="radio" id="tipePus" name="tipe" class="custom-control-input" value="1" <?= ( $tipe == "1" ? "checked" : "" ) ?> disabled>
-                                                    <label class="custom-control-label" for="tipePus">PUS</label>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Kel Dawis</label>
@@ -304,6 +291,7 @@
                                                             <tr>
                                                                 <th scope="col"><strong>Bulan</strong></th>
                                                                 <th scope="col"><strong>Kunjungan</strong></th>
+                                                                <th scope="col"><strong>WUS/PUS</strong></th>
                                                                 <th scope="col"><strong>Keterangan</strong></th>
                                                             </tr>
                                                         </thead>
@@ -325,6 +313,13 @@
                                                                             <span class="custom-switch-description mt-3"> Belum / Sudah</span> 
                                                                             <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="<?= $value->is_kunjungan; ?>">  
                                                                         </td>
+                                                                        <td>
+                                                                            <select name="sts_wus_pus[]" id="sts_wus_pus<?= $arrayNum; ?>" class="form-control">
+                                                                                <option value="">-Pilih-</option>
+                                                                                <option value="WUS" <?= ($value->wus_pus == 'WUS' ? 'selected' : '' ); ?>>WUS</option>
+                                                                                <option value="PUS" <?= ($value->wus_pus == 'PUS' ? 'selected' : '' ); ?>>PUS</option>
+                                                                            </select>
+                                                                        </td>
                                                                         <td><input type="text" class="form-control" name="keterangan[]" value="<?= $value->keterangan; ?>"></td>
                                                                     </tr>
                                                                 <?php } ?>
@@ -345,6 +340,13 @@
                                                                             <span class="custom-switch-indicator mt-3"></span>
                                                                             <span class="custom-switch-description mt-3"> Belum / Sudah</span>   
                                                                             <input type="hidden" name="kunjungan_val[]" id="kunjungan_val<?= $arrayNum++; ?>" value="0">   
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="sts_wus_pus[]" id="sts_wus_pus<?= $arrayNum; ?>" class="form-control">
+                                                                                <option value="">-Pilih-</option>
+                                                                                <option value="WUS">WUS</option>
+                                                                                <option value="PUS">PUS</option>
+                                                                            </select>
                                                                         </td>
                                                                         <td><input type="text" class="form-control" name="keterangan[]" value=""></td>
                                                                     </tr>
