@@ -38,7 +38,6 @@
                                 <th>Kel Dawis</th>
                                 <th>Anak Hidup</th>
                                 <th>Anak Meninggal</th>
-                                <th>WUS/PUS</th>
                                 <th style="width:15%;"></th>
                             </tr>
                         </thead>
@@ -55,7 +54,6 @@
                                 <th>Kel Dawis</th>
                                 <th>Anak Hidup</th>
                                 <th>Anak Meninggal</th>
-                                <th>WUS/PUS</th>
                                 <th></th>
                             </tr>
                         </tfoot>
