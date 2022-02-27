@@ -14,6 +14,7 @@ class Laporan extends CI_Controller {
 		$this->load->model('Model_global','Model_global');
 		$this->load->model('Model_laporan6','Model_laporan6');
 		$this->load->model('Model_laporan7','Model_laporan7');
+		$this->load->model('Model_laporan8','Model_laporan8');
 
         /* Restrict user */
         if($this->session->userdata('login_status') != "login_active"){
@@ -236,6 +237,98 @@ class Laporan extends CI_Controller {
 
 	}
 
+	public function format8()
+	{
+        // head data
+        $head['title_page']     = 'Data Laporan Format 8';
+        $head['menu_active']    = 'laporan_pos_3';
+        $head['subMenu_active'] = '';
+        $head['pos_session'] = $this->Model_posyandu->get_posyandu();
+
+        // body data
+        $data['pages_caption']  = 'Data Bumil Dan Bulin';
+
+		$data['data_pos']  	    = $this->Model_posyandu->get_posyandu();
+		$data['data_desa']  	= $this->Model_desa->get_desa();
+        
+		$this->load->view('template/header', $head);
+        $this->load->view('laporan/laporan_pos_3_views', $data);
+        $this->load->view('template/footer');
+	}
+
+	public function export_laporan8($tahun = null, $bulan = null, $desa = 'all')
+	{
+		if ($tahun == null) {
+			$tahun = date('Y');
+		}
+
+        if ($bulan == null) {
+			$bulan = date('m');
+        }
+
+		$pos_name 	= $this->session->userdata('pos_name');
+		$desa_name 	= ( $desa == 'all' ? 'SEMUA DESA' : $this->Model_desa->get_by_id($desa)->nama );
+
+		$list = $this->Model_laporan8->get_laporan8($tahun,$bulan,$desa);
+
+        // $data['title'] 			= "Laporan Data Bumil Posyandu ".$pos_name." di desa ".$desa_name ;
+		
+		$data['pos_name'] 		= $this->session->userdata('pos_name');
+		$data['desa_name'] 		= $desa_name;
+
+        $data_report 		= array();
+        $no    	 			= 0;
+
+		if(!empty($list))
+		{
+			foreach ($list as $r) {
+                $no++;
+                $row    = array();
+                $row['no']  					= $no;
+                $row['pos']          			= $r->pos;
+
+                $row['byi_L_0_12bln_new']          	= $r->byi_L_0_12bln_new;
+                $row['byi_P_0_12bln_new']        	= $r->byi_P_0_12bln_new;
+                $row['byi_L_0_12bln_old']        	= $r->byi_L_0_12bln_old;
+                $row['byi_P_0_12bln_old']   		= $r->byi_P_0_12bln_old;
+
+                $row['blt_L_1_5thn_new']          	= $r->blt_L_1_5thn_new;
+                $row['blt_P_1_5thn_new']        	= $r->blt_P_1_5thn_new;
+                $row['blt_L_1_5thn_old']        	= $r->blt_L_1_5thn_old;
+                $row['blt_P_1_5thn_old']   			= $r->blt_P_1_5thn_old;
+
+
+                $row['wus']          			= $r->wus;
+                $row['pus']      				= $r->pus;
+                $row['ibu_hamil']       		= $r->ibu_hamil;
+                $row['ibu_menyusui']      		= $r->ibu_menyusui;
+                $row['bayi_lahir_L']      		= $r->bayi_lahir_L;
+                $row['bayi_lahir_P']      		= $r->bayi_lahir_P;
+                $row['bayi_meninggal_L']      	= $r->bayi_meninggal_L;
+                $row['bayi_meninggal_P']      	= $r->bayi_meninggal_P;
+                
+                $data_report[]              	= $row;
+            }
+		}
+
+		
+        $data['filterMonth'] = $bulan;
+        $data['filterTahun'] = $tahun;
+        $data['report'] = $data_report;
+
+		// echo "<pre>";
+		// print_r($data_report);
+		// echo "</pre>";
+
+        $this->load->view('laporan/laporan_pos_3_export', $data);
+
+	}
+
+    public function get_data_laporan8(){
+		$data = $this->Model_laporan8->get_laporan8();
+		return $data;
+	}
+
     public function get_data_laporan7(){
 		$data = $this->Model_laporan7->get_laporan7();
 		return $data;
@@ -382,6 +475,51 @@ class Laporan extends CI_Controller {
 						"draw" => $_POST['draw'],
 						"recordsTotal" => $this->Model_laporan7->count_all(),
 						"recordsFiltered" => $this->Model_laporan7->count_filtered(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
+    public function datatable_list_laporan8()
+	{
+		$list = $this->Model_laporan8->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $r) {
+			$no++;
+			$row = array();
+
+			$row[] = '<div class="text-center">'.$no.'</div>';
+			$row[] = $r->pos;
+			$row[] = '<div class="text-center">'.$r->byi_L_0_12bln_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_P_0_12bln_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_L_0_12bln_old.'</div>';
+			$row[] = '<div class="text-center">'.$r->byi_P_0_12bln_old.'</div>';
+
+			$row[] = '<div class="text-center">'.$r->blt_L_1_5thn_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_P_1_5thn_new.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_L_1_5thn_old.'</div>';
+			$row[] = '<div class="text-center">'.$r->blt_P_1_5thn_old.'</div>';
+
+			$row[] = '<div class="text-center">'.$r->wus.'</div>';
+			$row[] = '<div class="text-center">'.$r->pus.'</div>';
+			$row[] = '<div class="text-center">'.$r->ibu_hamil.'</div>';
+			$row[] = '<div class="text-center">'.$r->ibu_menyusui.'</div>';
+
+			$row[] = '<div class="text-center">'.$r->bayi_lahir_L.'</div>';
+			$row[] = '<div class="text-center">'.$r->bayi_lahir_P.'</div>';
+
+			$row[] = '<div class="text-center">'.$r->bayi_meninggal_L.'</div>';
+			$row[] = '<div class="text-center">'.$r->bayi_meninggal_P.'</div>';
+		
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->Model_laporan8->count_all(),
+						"recordsFiltered" => $this->Model_laporan8->count_filtered(),
 						"data" => $data,
 				);
 		//output to json format
