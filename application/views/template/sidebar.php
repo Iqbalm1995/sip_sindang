@@ -59,7 +59,7 @@
                 <li class="menu-header">Data Laporan</li>
                 <li <?=( $menu_active == 'laporan_pos_1' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format6'); ?>"><i class="fas fa-book-medical"></i> <span>Kunjungan Posyandu</span></a></li>
                 <li <?=( $menu_active == 'laporan_pos_2' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format7'); ?>"><i class="fas fa-book-medical"></i> <span>Data Kegiatan</span></a></li>
-                <li <?=( $menu_active == 'laporan_pos_3' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format8'); ?>"><i class="fas fa-book-medical"></i> <span>Format 8</span></a></li>
+                <li <?=( $menu_active == 'laporan_pos_3' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format8'); ?>"><i class="fas fa-book-medical"></i> <span>Rekap Kunjungan</span></a></li>
             <?php } ?>
             
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>
