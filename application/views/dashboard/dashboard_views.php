@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
                             <select name="filterMonth" id="filterMonth" class="form-control select2">
-                                <option value="all">(Semua data)</option>
+                                <option value="all">(Pilih Bulan)</option>
                                 <?php  foreach (ARRAY_BULAN as $key => $value) {
                                         echo '<option value="'.$key.'" >'.$value.'</option>';
                                 } ?>
