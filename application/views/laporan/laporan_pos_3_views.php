@@ -49,7 +49,7 @@
                         <thead>
                             <tr>
                                 <th rowspan="5" style="width:2%;" class="text-center">No</th>
-                                <th rowspan="5">POsyandu</th>
+                                <th rowspan="5">Posyandu</th>
                                 <th colspan="12" class="text-center">Jumlah Pengunjung Posyandu</th>
                                 <th colspan="4" class="text-center">Jumlah Bayi</th>
                             </tr>
