@@ -262,6 +262,7 @@ class Model_laporan8 extends CI_Model {
                 $this->db->select('('.$subQuery_12_comp.') AS "bayi_meninggal_P"');
 
                 $this->db->from($this->t_posyandu.' cm');
+                $this->db->where('cm.deleted', 0);
 
                 if ($desa != 'all') {
                     $this->db->where('cm.desa_id', $desa);
@@ -512,6 +513,7 @@ class Model_laporan8 extends CI_Model {
                 $this->db->select('('.$subQuery_12_comp.') AS "bayi_meninggal_P"');
 
                 $this->db->from($this->t_posyandu.' cm');
+                $this->db->where('cm.deleted', 0);
 
                 if($this->input->post('filterDesa') != 'all') { 
                     $this->db->where('cm.desa_id', $this->input->post('filterDesa'));
