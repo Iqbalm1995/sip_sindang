@@ -59,7 +59,13 @@
                 <li class="menu-header">Data Laporan</li>
                 <li <?=( $menu_active == 'laporan_pos_1' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format6'); ?>"><i class="fas fa-book-medical"></i> <span>Kunjungan Posyandu</span></a></li>
                 <li <?=( $menu_active == 'laporan_pos_2' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format7'); ?>"><i class="fas fa-book-medical"></i> <span>Data Kegiatan</span></a></li>
-                <li <?=( $menu_active == 'laporan_pos_3' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format8'); ?>"><i class="fas fa-book-medical"></i> <span>Rekap Kunjungan</span></a></li>
+                <li class="dropdown <?=( $menu_active == 'rekap_laporan_group' ? 'active' : '' );?>">
+                    <a class="nav-link has-dropdown" href="#"><i class="fas fa-book-medical"></i> <span>Rekap Kunjungan</span></a>
+                    <ul class="dropdown-menu">
+                        <li <?=( $subMenu_active == 'laporan_pos_3' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format8'); ?>">Data Per Posyandu</a></li>
+                        <li <?=( $subMenu_active == 'laporan_pos_4' ? 'class="active"' : '' );?>><a class="nav-link" href="<?= base_url('laporan/format9'); ?>">Data Per Desa</a></li>
+                    </ul>
+                </li>
             <?php } ?>
             
             <?php if (in_array($this->session->userdata('role_name'), ROLE_ADMIN_CONTROL_NAME_LV2)) { ?>

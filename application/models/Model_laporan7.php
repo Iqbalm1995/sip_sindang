@@ -583,25 +583,29 @@ class Model_laporan7 extends CI_Model {
         $subQuery_46_comp = $subQuery_46->get_compiled_select();
 
         //jml_punya_kms_L
-        $subQuery_47 = $this->db->select('COUNT(id)')
-                                ->from($this->t_balita)
-                                ->where('deleted', 0)
-                                ->where('MONTH(created_on) = cm.label_id')
-                                ->where('YEAR(created_on)', $tahun)
-                                ->where('jk_anak', 'L')
+        $subQuery_47 = $this->db->select('COUNT(b.id)')
+                                ->from($this->t_balita.' b')
+                                ->join($this->t_kunjungan_balita.' pb', 'b.id = pb.balita_id')
+                                ->where('b.deleted', 0)
+                                ->where('pb.is_kunjungan', 1)
+                                ->where('pb.bulan = cm.label_id')
+                                ->where('pb.tahun', $tahun)
+                                ->where('b.jk_anak', 'L')
                                 ->where('kms !=', null);
-                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                                if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
         $subQuery_47_comp = $subQuery_47->get_compiled_select();
 
         //jml_punya_kms_P
-        $subQuery_48 = $this->db->select('COUNT(id)')
-                                ->from($this->t_balita)
-                                ->where('deleted', 0)
-                                ->where('MONTH(created_on) = cm.label_id')
-                                ->where('YEAR(created_on)', $tahun)
-                                ->where('jk_anak', 'P')
+        $subQuery_48 = $this->db->select('COUNT(b.id)')
+                                ->from($this->t_balita.' b')
+                                ->join($this->t_kunjungan_balita.' pb', 'b.id = pb.balita_id')
+                                ->where('b.deleted', 0)
+                                ->where('pb.is_kunjungan', 1)
+                                ->where('pb.bulan = cm.label_id')
+                                ->where('pb.tahun', $tahun)
+                                ->where('b.jk_anak', 'P')
                                 ->where('kms !=', null);
-                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                                if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
         $subQuery_48_comp = $subQuery_48->get_compiled_select();
 
         //jml_FE_besi
@@ -1249,25 +1253,29 @@ class Model_laporan7 extends CI_Model {
         $subQuery_46_comp = $subQuery_46->get_compiled_select();
 
         //jml_punya_kms_L
-        $subQuery_47 = $this->db->select('COUNT(id)')
-                                ->from($this->t_balita)
-                                ->where('deleted', 0)
-                                ->where('MONTH(created_on) = cm.label_id')
-                                ->where('YEAR(created_on)', $tahun)
-                                ->where('jk_anak', 'L')
+        $subQuery_47 = $this->db->select('COUNT(b.id)')
+                                ->from($this->t_balita.' b')
+                                ->join($this->t_kunjungan_balita.' pb', 'b.id = pb.balita_id')
+                                ->where('b.deleted', 0)
+                                ->where('pb.is_kunjungan', 1)
+                                ->where('pb.bulan = cm.label_id')
+                                ->where('pb.tahun', $tahun)
+                                ->where('b.jk_anak', 'L')
                                 ->where('kms !=', null);
-                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                                if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
         $subQuery_47_comp = $subQuery_47->get_compiled_select();
 
         //jml_punya_kms_P
-        $subQuery_48 = $this->db->select('COUNT(id)')
-                                ->from($this->t_balita)
-                                ->where('deleted', 0)
-                                ->where('MONTH(created_on) = cm.label_id')
-                                ->where('YEAR(created_on)', $tahun)
-                                ->where('jk_anak', 'P')
+        $subQuery_48 = $this->db->select('COUNT(b.id)')
+                                ->from($this->t_balita.' b')
+                                ->join($this->t_kunjungan_balita.' pb', 'b.id = pb.balita_id')
+                                ->where('b.deleted', 0)
+                                ->where('pb.is_kunjungan', 1)
+                                ->where('pb.bulan = cm.label_id')
+                                ->where('pb.tahun', $tahun)
+                                ->where('b.jk_anak', 'P')
                                 ->where('kms !=', null);
-                                if($pos_id != null) { $this->db->where('pos_id', $pos_id); };
+                                if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
         $subQuery_48_comp = $subQuery_48->get_compiled_select();
 
         //jml_FE_besi

@@ -1,10 +1,10 @@
 <div class="main-content">
 <section class="section">
     <div class="section-header">
-    <h1>Data Laporan Kunjungan Per Posyandu</h1>
+    <h1>Data Laporan Kunjungan Per Desa</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Data Laporan</a></div>
-        <div class="breadcrumb-item">Kunjungan Per Posyandu</div>
+        <div class="breadcrumb-item">Kunjungan Per Desa</div>
     </div>
     </div>
     <div class="section-body">
@@ -14,14 +14,6 @@
                 <div class="row">
                     <div class="col-md-1 pt-2 pr-0 text-center inputFilterLeft">
                         Filter :
-                    </div>
-                    <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
-                        <select name="filterDesa" id="filterDesa" class="form-control select2">
-                            <option value="all">(Pilih Desa)</option>
-                            <?php  foreach ($data_desa as $key => $value) {
-                                    echo '<option value="'.$value->id.'" >'.$value->nama.'</option>';
-                            } ?>
-                        </select>
                     </div>
                     <div class="col-md-2 pr-0 pl-1 inputFilterCenter">
                         <select name="filterMonth" id="filterMonth" class="form-control select2">
@@ -49,7 +41,7 @@
                         <thead>
                             <tr>
                                 <th rowspan="5" style="width:2%;" class="text-center">No</th>
-                                <th rowspan="5">Posyandu</th>
+                                <th rowspan="5">Desa</th>
                                 <th colspan="12" class="text-center">Jumlah Pengunjung Posyandu</th>
                                 <th colspan="4" class="text-center">Jumlah Bayi</th>
                             </tr>
@@ -156,7 +148,7 @@
         filterMonth = $("#filterMonth").val();
         filterDesa = $("#filterDesa").val();
 
-        table = datatable_laporan(filterYear, filterMonth, filterDesa);
+        table = datatable_laporan(filterYear, filterMonth);
 
         $('.select2').select2()
 
@@ -177,15 +169,15 @@
         filterDesa = $("#filterDesa").val();
         table.destroy();
         table.ajax.reload();
-        table = datatable_laporan(filterYear, filterMonth, filterDesa);
+        table = datatable_laporan(filterYear, filterMonth);
     });
 
     function exportData() {
-        document.location = "<?php echo base_url('laporan/export_laporan8/')?>" + filterYear + "/" + filterMonth + "/" + filterDesa;
+        document.location = "<?php echo base_url('laporan/export_laporan9/')?>" + filterYear + "/" + filterMonth;
     }
 
     
-    function datatable_laporan(filterYear, filterMonth, filterDesa) 
+    function datatable_laporan(filterYear, filterMonth) 
     {
         return $('#datatable_laporan').DataTable({ 
             "responsive": {
@@ -202,12 +194,11 @@
             "info":     false,
 
             "ajax": {
-                "url": "<?php echo base_url('laporan/datatable_list_laporan8')?>",
+                "url": "<?php echo base_url('laporan/datatable_list_laporan9')?>",
                 "type": "POST",
                 "data": {
                     "filterTahun": filterYear,
                     "filterMonth": filterMonth,
-                    "filterDesa": filterDesa,
                 }
             },
             "footerCallback": function (row, data, start, end, display) {  
@@ -299,7 +290,7 @@
         $("#filterDesa").val('all').trigger('change');
         table.destroy();
         table.ajax.reload();
-        table = datatable_laporan(strYear, strMonth, 'all');
+        table = datatable_laporan(strYear, strMonth);
     }
 
 

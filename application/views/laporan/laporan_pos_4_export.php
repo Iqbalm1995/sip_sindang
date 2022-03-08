@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/vnd.ms-excel');
-header("Content-Disposition: attachment; filename=Laporan Data Format 8 - Kunjungan Posyandu Per Posyandu Tahun ".$filterTahun.".xls");
+header("Content-Disposition: attachment; filename=Laporan Data Format 9 - Kunjungan Posyandu Per Desa Tahun ".$filterTahun.".xls");
 header('Cache-Control: max-age=0');
 ob_end_clean();
 
@@ -38,11 +38,11 @@ $bodyTabColumn2Lock = 10;
 
 // Pembuka
 $sheet->setCellValue('A' . $headerCop1Column1, 'SISTEM INFORMASI POSYANDU SINDANG '.( !empty($desa_name) ? "DESA ".strtoupper($desa_name) : "" ).', BULAN '.strtoupper(ARRAY_BULAN[$filterMonth]) .', TAHUN '.$filterTahun);
-$sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 8 - JUMLAH PENGUNJUNG/JUMLAH PETUGAS POSYANDU/JUMLAH BAYI LAHIR/MENINGGAL PER POSYANDU');
+$sheet->setCellValue('A' . $headerCop2Column1, 'LAPORAN FORMAT 9 - JUMLAH PENGUNJUNG/JUMLAH PETUGAS POSYANDU/JUMLAH BAYI LAHIR/MENINGGAL PER DESA');
 
 // Isi
 $sheet->setCellValue('A' . $headerTabColumnA, 'NO'); $sheet->mergeCells('A'.$headerTabColumnA.':A'.$headerTabColumnE);
-$sheet->setCellValue('B' . $headerTabColumnA, 'POSYANDU'); $sheet->mergeCells('B'.$headerTabColumnA.':B'.$headerTabColumnE);
+$sheet->setCellValue('B' . $headerTabColumnA, 'DESA'); $sheet->mergeCells('B'.$headerTabColumnA.':B'.$headerTabColumnE);
 
 $sheet->setCellValue('C' . $headerTabColumnA, 'JUMLAH PENGUNJUNG'); $sheet->mergeCells('C'.$headerTabColumnA.':N'.$headerTabColumnA); //
 $sheet->setCellValue('C' . $headerTabColumnB, 'BALITA'); $sheet->mergeCells('C'.$headerTabColumnB.':J'.$headerTabColumnB);
@@ -119,7 +119,7 @@ foreach ($report as $r => $row) {
   $bodyTabColumn2++;
 
   $sheet->setCellValue('A' . $bodyTabColumn2, (string)$row['no']);
-  $sheet->setCellValue('B' . $bodyTabColumn2, $row['pos']);
+  $sheet->setCellValue('B' . $bodyTabColumn2, $row['desa']);
   $sheet->setCellValue('C' . $bodyTabColumn2, $row['byi_L_0_12bln_new']);
   $sheet->setCellValue('D' . $bodyTabColumn2, $row['byi_P_0_12bln_new']);
   $sheet->setCellValue('E' . $bodyTabColumn2, $row['byi_L_0_12bln_old']);
