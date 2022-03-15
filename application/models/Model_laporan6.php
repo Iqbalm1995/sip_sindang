@@ -171,13 +171,13 @@ class Model_laporan6 extends CI_Model {
 
                 //ibu_hamil
                 $subQuery_7 = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from($this->t_bumlin.' b')
-                                        ->join($this->t_kunjungan_bumlin.' bk', 'b.id = bk.bumlin_id')
+                                        ->from($this->t_bumil.' b')
+                                        ->join($this->t_kunjungan_bumil.' bk', 'b.id = bk.bumil_id')
                                         ->where('b.deleted', 0)
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.lahir_tanggal', null);
+                                        ->where('b.tgl_lahir_bayi', null);
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_7_comp = $subQuery_7->get_compiled_select();
 
@@ -412,13 +412,13 @@ class Model_laporan6 extends CI_Model {
 
                 //ibu_hamil
                 $subQuery_7 = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from($this->t_bumlin.' b')
-                                        ->join($this->t_kunjungan_bumlin.' bk', 'b.id = bk.bumlin_id')
+                                        ->from($this->t_bumil.' b')
+                                        ->join($this->t_kunjungan_bumil.' bk', 'b.id = bk.bumil_id')
                                         ->where('b.deleted', 0)
                                         ->where('bk.bulan = cm.label_id')
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.lahir_tanggal', null);
+                                        ->where('b.tgl_lahir_bayi', null);
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_7_comp = $subQuery_7->get_compiled_select();
 

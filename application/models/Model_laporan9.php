@@ -173,14 +173,14 @@ class Model_laporan9 extends CI_Model {
 
                 //ibu_hamil
                 $subQuery_7 = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from($this->t_bumlin.' b')
-                                        ->join($this->t_kunjungan_bumlin.' bk', 'b.id = bk.bumlin_id')
+                                        ->from($this->t_bumil.' b')
+                                        ->join($this->t_kunjungan_bumil.' bk', 'b.id = bk.bumil_id')
                                         ->where('b.deleted', 0)
                                         ->where('b.desa_id = cm.id')
                                         ->where('bk.bulan', $bulan)
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.lahir_tanggal', null);
+                                        ->where('b.tgl_lahir_bayi', null);
                                         
                 $subQuery_7_comp = $subQuery_7->get_compiled_select();
 
@@ -420,14 +420,14 @@ class Model_laporan9 extends CI_Model {
 
                 //ibu_hamil
                 $subQuery_7 = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from($this->t_bumlin.' b')
-                                        ->join($this->t_kunjungan_bumlin.' bk', 'b.id = bk.bumlin_id')
+                                        ->from($this->t_bumil.' b')
+                                        ->join($this->t_kunjungan_bumil.' bk', 'b.id = bk.bumil_id')
                                         ->where('b.deleted', 0)
                                         ->where('b.desa_id = cm.id')
                                         ->where('bk.bulan', $bulan)
                                         ->where('bk.tahun', $tahun)
                                         ->where('bk.is_kunjungan', 1)
-                                        ->where('b.lahir_tanggal', null);
+                                        ->where('b.tgl_lahir_bayi', null);
                                         
                 $subQuery_7_comp = $subQuery_7->get_compiled_select();
 
