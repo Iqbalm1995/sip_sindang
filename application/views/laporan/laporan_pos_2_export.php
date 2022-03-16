@@ -240,14 +240,65 @@ foreach ($report as $r => $row) {
 }
 $footerTabColumn1 = $bodyTabColumn2 + 1;
 
-
-// $sheet->setCellValue('B'.$footerTabColumn1,'TOTAL');
-// $sheet->setCellValue('C'.$footerTabColumn1, '=SUM(C9:C13)');
 //footer
-//for ($colsAlpha = 'C'; $colsAlpha !== 'BE'; $colsAlpha++){
+$sheet->setCellValue('B' . $footerTabColumn1, 'TOTAL');
+$sheet->setCellValue('C' . $footerTabColumn1, '=SUM(C'.$bodyTabColumn2Lock.':C' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('D' . $footerTabColumn1, '=SUM(D'.$bodyTabColumn2Lock.':D' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('E' . $footerTabColumn1, '=SUM(E'.$bodyTabColumn2Lock.':E' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('F' . $footerTabColumn1, '=SUM(F'.$bodyTabColumn2Lock.':F' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('G' . $footerTabColumn1, '=SUM(G'.$bodyTabColumn2Lock.':G' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('H' . $footerTabColumn1, '=SUM(H'.$bodyTabColumn2Lock.':H' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('I' . $footerTabColumn1, '=SUM(I'.$bodyTabColumn2Lock.':I' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('J' . $footerTabColumn1, '=SUM(J'.$bodyTabColumn2Lock.':J' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('K' . $footerTabColumn1, '=SUM(K'.$bodyTabColumn2Lock.':K' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('L' . $footerTabColumn1, '=SUM(L'.$bodyTabColumn2Lock.':L' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('M' . $footerTabColumn1, '=SUM(M'.$bodyTabColumn2Lock.':M' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('N' . $footerTabColumn1, '=SUM(N'.$bodyTabColumn2Lock.':N' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('O' . $footerTabColumn1, '=SUM(O'.$bodyTabColumn2Lock.':O' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('P' . $footerTabColumn1, '=SUM(P'.$bodyTabColumn2Lock.':P' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('Q' . $footerTabColumn1, '=SUM(Q'.$bodyTabColumn2Lock.':Q' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('R' . $footerTabColumn1, '=SUM(R'.$bodyTabColumn2Lock.':R' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('S' . $footerTabColumn1, '=SUM(S'.$bodyTabColumn2Lock.':S' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('T' . $footerTabColumn1, '=SUM(T'.$bodyTabColumn2Lock.':T' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('U' . $footerTabColumn1, '=SUM(U'.$bodyTabColumn2Lock.':U' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('V' . $footerTabColumn1, '=SUM(V'.$bodyTabColumn2Lock.':V' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('W' . $footerTabColumn1, '=SUM(W'.$bodyTabColumn2Lock.':W' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('X' . $footerTabColumn1, '=SUM(X'.$bodyTabColumn2Lock.':X' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('Y' . $footerTabColumn1, '=SUM(Y'.$bodyTabColumn2Lock.':Y' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('Z' . $footerTabColumn1, '=SUM(Z'.$bodyTabColumn2Lock.':Z' . $bodyTabColumn2 . ')');
 
-    // $sheet->setCellValue($colsAlpha . $footerTabColumn1 , '=SUM('. $colsAlpha . $bodyTabColumn2Lock .':'. $colsAlpha . $bodyTabColumn2 . ')');
-//}
+$sheet->setCellValue('AA' . $footerTabColumn1, '=SUM(AA'.$bodyTabColumn2Lock.':AA' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AB' . $footerTabColumn1, '=SUM(AB'.$bodyTabColumn2Lock.':AB' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AC' . $footerTabColumn1, '=SUM(AC'.$bodyTabColumn2Lock.':AC' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AD' . $footerTabColumn1, '=SUM(AD'.$bodyTabColumn2Lock.':AD' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AE' . $footerTabColumn1, '=SUM(AE'.$bodyTabColumn2Lock.':AE' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AF' . $footerTabColumn1, '=SUM(AF'.$bodyTabColumn2Lock.':AF' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AG' . $footerTabColumn1, '=SUM(AG'.$bodyTabColumn2Lock.':AG' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AH' . $footerTabColumn1, '=SUM(AH'.$bodyTabColumn2Lock.':AH' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AI' . $footerTabColumn1, '=SUM(AI'.$bodyTabColumn2Lock.':AI' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AJ' . $footerTabColumn1, '=SUM(AJ'.$bodyTabColumn2Lock.':AJ' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AK' . $footerTabColumn1, '=SUM(AK'.$bodyTabColumn2Lock.':AK' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AL' . $footerTabColumn1, '=SUM(AL'.$bodyTabColumn2Lock.':AL' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AM' . $footerTabColumn1, '=SUM(AM'.$bodyTabColumn2Lock.':AM' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AN' . $footerTabColumn1, '=SUM(AN'.$bodyTabColumn2Lock.':AN' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AO' . $footerTabColumn1, '=SUM(AO'.$bodyTabColumn2Lock.':AO' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AP' . $footerTabColumn1, '=SUM(AP'.$bodyTabColumn2Lock.':AP' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AQ' . $footerTabColumn1, '=SUM(AQ'.$bodyTabColumn2Lock.':AQ' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AR' . $footerTabColumn1, '=SUM(AR'.$bodyTabColumn2Lock.':AR' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AS' . $footerTabColumn1, '=SUM(AS'.$bodyTabColumn2Lock.':AS' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AT' . $footerTabColumn1, '=SUM(AT'.$bodyTabColumn2Lock.':AT' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AU' . $footerTabColumn1, '=SUM(AU'.$bodyTabColumn2Lock.':AU' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AV' . $footerTabColumn1, '=SUM(AV'.$bodyTabColumn2Lock.':AV' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AW' . $footerTabColumn1, '=SUM(AW'.$bodyTabColumn2Lock.':AW' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AX' . $footerTabColumn1, '=SUM(AX'.$bodyTabColumn2Lock.':AX' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AY' . $footerTabColumn1, '=SUM(AY'.$bodyTabColumn2Lock.':AY' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('AZ' . $footerTabColumn1, '=SUM(AZ'.$bodyTabColumn2Lock.':AZ' . $bodyTabColumn2 . ')');
+
+$sheet->setCellValue('BA' . $footerTabColumn1, '=SUM(BA'.$bodyTabColumn2Lock.':BA' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('BB' . $footerTabColumn1, '=SUM(BB'.$bodyTabColumn2Lock.':BB' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('BC' . $footerTabColumn1, '=SUM(BC'.$bodyTabColumn2Lock.':BC' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('BD' . $footerTabColumn1, '=SUM(BD'.$bodyTabColumn2Lock.':BD' . $bodyTabColumn2 . ')');
+
 
 //Merge Cell
 $sheet->mergeCells('A'.$headerCop1Column1.':BE' .$headerCop1Column1);
@@ -342,6 +393,30 @@ for ($colsAlpha = 'A'; $colsAlpha !== 'BF'; $colsAlpha++){
             ],
         ]
     );
+}
+//Border Footer
+for ($colsAlpha = 'A'; $colsAlpha !== 'BF'; $colsAlpha++){
+
+  $sheet->getStyle($colsAlpha.$footerTabColumn1.':'. $colsAlpha . $footerTabColumn1)->applyFromArray(
+      [
+          'alignment' => [
+          'horizontal' => Alignment::HORIZONTAL_CENTER,
+          'vertical' => Alignment::VERTICAL_CENTER,
+          'wrapText' => true,
+          ],
+          'font' => [
+          'bold' => true,
+          ],
+          'borders' => [
+          'outline' => [
+              'borderStyle' => Border::BORDER_THIN,
+              'color' => [
+              'argb' => 'FF000000'
+              ],
+          ],
+          ],
+      ]
+  );
 }
 
 ob_end_clean();

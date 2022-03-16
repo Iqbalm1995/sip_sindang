@@ -149,6 +149,25 @@ foreach ($report as $r => $row) {
 }
 $footerTabColumn1 = $bodyTabColumn2 + 1;
 
+//footer
+$sheet->setCellValue('B' . $footerTabColumn1, 'TOTAL');
+$sheet->setCellValue('C' . $footerTabColumn1, '=SUM(C'.$bodyTabColumn2Lock.':C' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('D' . $footerTabColumn1, '=SUM(D'.$bodyTabColumn2Lock.':D' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('E' . $footerTabColumn1, '=SUM(E'.$bodyTabColumn2Lock.':E' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('F' . $footerTabColumn1, '=SUM(F'.$bodyTabColumn2Lock.':F' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('G' . $footerTabColumn1, '=SUM(G'.$bodyTabColumn2Lock.':G' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('H' . $footerTabColumn1, '=SUM(H'.$bodyTabColumn2Lock.':H' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('I' . $footerTabColumn1, '=SUM(I'.$bodyTabColumn2Lock.':I' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('J' . $footerTabColumn1, '=SUM(J'.$bodyTabColumn2Lock.':J' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('K' . $footerTabColumn1, '=SUM(K'.$bodyTabColumn2Lock.':K' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('L' . $footerTabColumn1, '=SUM(L'.$bodyTabColumn2Lock.':L' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('M' . $footerTabColumn1, '=SUM(M'.$bodyTabColumn2Lock.':M' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('N' . $footerTabColumn1, '=SUM(N'.$bodyTabColumn2Lock.':N' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('U' . $footerTabColumn1, '=SUM(U'.$bodyTabColumn2Lock.':U' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('V' . $footerTabColumn1, '=SUM(V'.$bodyTabColumn2Lock.':V' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('W' . $footerTabColumn1, '=SUM(W'.$bodyTabColumn2Lock.':W' . $bodyTabColumn2 . ')');
+$sheet->setCellValue('X' . $footerTabColumn1, '=SUM(X'.$bodyTabColumn2Lock.':X' . $bodyTabColumn2 . ')');
+
 
 //Merge Cell
 $sheet->mergeCells('A'.$headerCop1Column1.':Y' .$headerCop1Column1);
@@ -244,6 +263,30 @@ for ($colsAlpha = 'A'; $colsAlpha !== 'Z'; $colsAlpha++){
             ],
         ]
     );
+}
+//Border Footer
+for ($colsAlpha = 'A'; $colsAlpha !== 'Z'; $colsAlpha++){
+
+  $sheet->getStyle($colsAlpha.$footerTabColumn1.':'. $colsAlpha . $footerTabColumn1)->applyFromArray(
+      [
+          'alignment' => [
+          'horizontal' => Alignment::HORIZONTAL_CENTER,
+          'vertical' => Alignment::VERTICAL_CENTER,
+          'wrapText' => true,
+          ],
+          'font' => [
+          'bold' => true,
+          ],
+          'borders' => [
+          'outline' => [
+              'borderStyle' => Border::BORDER_THIN,
+              'color' => [
+              'argb' => 'FF000000'
+              ],
+          ],
+          ],
+      ]
+  );
 }
 
 ob_end_clean();
