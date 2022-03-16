@@ -372,7 +372,7 @@
                 var jml_dpt_2_L = 0;
                 var jml_dpt_2_P = 0;
                 var jml_dpt_3_L = 0;
-                var jml_dpt_3_L = 0;
+                var jml_dpt_3_P = 0;
 
                 var jml_polio_1_L = 0;
                 var jml_polio_1_P = 0;
@@ -442,7 +442,7 @@
                     jml_dpt_2_L += parseInt(data[i][32].toString().replace(/,.*|[^0-9]/g, ''), 10);
                     jml_dpt_2_P += parseInt(data[i][33].toString().replace(/,.*|[^0-9]/g, ''), 10);
                     jml_dpt_3_L += parseInt(data[i][34].toString().replace(/,.*|[^0-9]/g, ''), 10);
-                    jml_dpt_3_L += parseInt(data[i][35].toString().replace(/,.*|[^0-9]/g, ''), 10);
+                    jml_dpt_3_P += parseInt(data[i][35].toString().replace(/,.*|[^0-9]/g, ''), 10);
 
                     jml_polio_1_L += parseInt(data[i][36].toString().replace(/,.*|[^0-9]/g, ''), 10);
                     jml_polio_1_P += parseInt(data[i][37].toString().replace(/,.*|[^0-9]/g, ''), 10);
