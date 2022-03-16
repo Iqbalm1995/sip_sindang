@@ -371,7 +371,7 @@
                                 },
                                 ticks: {
                                 beginAtZero: true,
-                                stepSize: 2,
+                                stepSize: 50,
                                 callback: function(value, index, values) {
                                     return value;
                                 }
@@ -494,7 +494,7 @@
                                 },
                                 ticks: {
                                 beginAtZero: true,
-                                stepSize: 2,
+                                stepSize: 50,
                                 callback: function(value, index, values) {
                                     return value;
                                 }
