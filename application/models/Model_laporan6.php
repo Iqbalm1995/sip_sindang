@@ -44,100 +44,100 @@ class Model_laporan6 extends CI_Model {
                 // START QUERY LAPORAN 6
 
                 //byi_L_0_12bln_new
-                $subQuery_1_New_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_1_New_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_1_New_L_comp = $subQuery_1_New_L->get_compiled_select();
 
                 //byi_P_0_12bln_new
-                $subQuery_1_New_P = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_1_New_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_1_New_P_comp = $subQuery_1_New_P->get_compiled_select();
 
                 
                 //byi_L_0_12bln_old
-                $subQuery_2_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_2_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_2_Old_L_comp = $subQuery_2_Old_L->get_compiled_select();
 
                 //byi_P_0_12bln_old
-                $subQuery_2_Old_P = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_2_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_2_Old_P_comp = $subQuery_2_Old_P->get_compiled_select();
 
 
                 //blt_L_1_5thn_new
-                $subQuery_3_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_3_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_anak', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_3_Old_L_comp = $subQuery_3_Old_L->get_compiled_select();
 
                 //blt_P_1_5thn_new
-                $subQuery_3_Old_P = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_3_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_anak', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_3_Old_P_comp = $subQuery_3_Old_P->get_compiled_select();
 
 
                 //blt_L_1_5thn_old
-                $subQuery_4_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_4_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_anak', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_4_Old_L_comp = $subQuery_4_Old_L->get_compiled_select();
 
                 //blt_P_1_5thn_old
-                $subQuery_4_Old_P = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_4_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_anak', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_4_Old_P_comp = $subQuery_4_Old_P->get_compiled_select();
@@ -145,6 +145,7 @@ class Model_laporan6 extends CI_Model {
 
 
 
+                
                 //wus
                 $subQuery_5 = $this->db->select('COUNT(DISTINCT b.id)')
                                         ->from($this->t_wuspus.' b')
@@ -243,7 +244,6 @@ class Model_laporan6 extends CI_Model {
 
                 $this->db->select('('.$subQuery_3_Old_L_comp.') AS "blt_L_1_5thn_new"');
                 $this->db->select('('.$subQuery_3_Old_P_comp.') AS "blt_P_1_5thn_new"');
-
                 $this->db->select('('.$subQuery_4_Old_L_comp.') AS "blt_L_1_5thn_old"');
                 $this->db->select('('.$subQuery_4_Old_P_comp.') AS "blt_P_1_5thn_old"');
 
@@ -284,100 +284,100 @@ class Model_laporan6 extends CI_Model {
                 // START QUERY LAPORAN 6
 
                 //byi_L_0_12bln_new
-                $subQuery_1_New_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_1_New_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_1_New_L_comp = $subQuery_1_New_L->get_compiled_select();
 
                 //byi_P_0_12bln_new
-                $subQuery_1_New_P = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_1_New_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_1_New_P_comp = $subQuery_1_New_P->get_compiled_select();
 
                 
                 //byi_L_0_12bln_old
-                $subQuery_2_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_2_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_bayi', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_2_Old_L_comp = $subQuery_2_Old_L->get_compiled_select();
 
                 //byi_P_0_12bln_old
-                $subQuery_2_Old_P = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_bayi.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id')
+                $subQuery_2_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_bayi.' b')
+                                        ->join($this->t_kunjungan_bayi.' bk', 'b.id = bk.bayi_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_bayi', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_2_Old_P_comp = $subQuery_2_Old_P->get_compiled_select();
 
 
                 //blt_L_1_5thn_new
-                $subQuery_3_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_3_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_anak', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_3_Old_L_comp = $subQuery_3_Old_L->get_compiled_select();
 
                 //blt_P_1_5thn_new
-                $subQuery_3_Old_P = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) = '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_3_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NULL')
                                         ->where('b.jk_anak', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_3_Old_P_comp = $subQuery_3_Old_P->get_compiled_select();
 
 
                 //blt_L_1_5thn_old
-                $subQuery_4_Old_L = $this->db->select('COUNT(b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_4_Old_L = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_anak', 'L');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_4_Old_L_comp = $subQuery_4_Old_L->get_compiled_select();
 
                 //blt_P_1_5thn_old
-                $subQuery_4_Old_P = $this->db->select('COUNT(DISTINCT b.id)')
-                                        ->from('( SELECT * FROM '.$this->t_balita.' WHERE YEAR(created_on) < '.$tahun.' ) b')
-                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id')
+                $subQuery_4_Old_P = $this->db->select('COUNT(DISTINCT (b.id))')
+                                        ->from($this->t_balita.' b')
+                                        ->join($this->t_kunjungan_balita.' bk', 'b.id = bk.balita_id', 'left')
                                         ->where('b.deleted', 0)
-                                        ->where('bk.bulan = cm.label_id')
-                                        ->where('bk.tahun', $tahun)
-                                        ->where('bk.is_kunjungan', 1)
+                                        ->where('MONTH(b.created_on) = cm.label_id')
+                                        ->where('YEAR(b.created_on) = '.$tahun)
+                                        ->where('bk.id IS NOT NULL')
                                         ->where('b.jk_anak', 'P');
                                         if($pos_id != null) { $this->db->where('b.pos_id', $pos_id); };
                 $subQuery_4_Old_P_comp = $subQuery_4_Old_P->get_compiled_select();
