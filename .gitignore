@@ -29,3 +29,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+
+assets/excel/phpoffice/phpspreadsheet/docs/assets/ClassDiagrams/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttributes.cs
+
+assets/excel/phpoffice/phpspreadsheet/docs/assets/ClassDiagrams/obj/Debug/ClassDiagrams.csproj.AssemblyReference.cache
