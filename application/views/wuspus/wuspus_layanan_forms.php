@@ -88,7 +88,11 @@
                                             <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " placeholder="-" maxlength='3' value="<?= $kel_dawis; ?>" disabled>
                                             <div class="invalid-feedback" id="kel_dawis_inv"></div>
                                         </div>
-                                        
+                                        <div class="form-group">
+                                            <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                            <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                                            <div class="invalid-feedback" id="tgl_daftar_inv"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -639,6 +643,12 @@
             $("#pos_id_inv").text('Posyandu masih belum dipilih');
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         return status
     }
 
@@ -648,6 +658,13 @@
             $("#pyd_kapsul_yodium_inv").text('');
         }
     });
+
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    }); 
 
     $("#pyd_imsi1").keyup(function(){
         if ($("#pyd_imsi1").val() != "") {

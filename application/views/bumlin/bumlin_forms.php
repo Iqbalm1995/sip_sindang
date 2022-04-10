@@ -51,11 +51,6 @@
                             <div class="valid-feedback" id="kms_valid"></div>
                         </div>
                         <div class="form-group">
-                            <label>Tanggal Pendaftaran <span class="text-danger">*</span></label>
-                            <input type="text" name="tgl_pendaftaran" id="tgl_pendaftaran" class="form-control datepicker" value="<?= $tgl_pendaftaran; ?>" required>
-                            <div class="invalid-feedback" id="tgl_pendaftaran_inv"></div>
-                        </div>
-                        <div class="form-group">
                             <label>Nama Ibu Hamil <span class="text-danger">*</span></label>
                             <input type="text" name="nama_bumil" id="nama_bumil" class="form-control " placeholder="Isi Nama Ibu Hamil..." value="<?= $nama_bumil; ?>" required>
                             <div class="invalid-feedback" id="nama_bumil_inv"></div>
@@ -69,6 +64,11 @@
                             <label>Kel Dawis</label>
                             <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " maxlength='3' placeholder="Isi Kel dawis..." value="<?= $kel_dawis; ?>">
                             <div class="invalid-feedback" id="kel_dawis_inv"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                            <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                            <div class="invalid-feedback" id="tgl_daftar_inv"></div>
                         </div>
                     </div>
                 </div>
@@ -216,10 +216,10 @@
             $("#umur_inv").text('Umur masih kosong');
         }
 
-        if ($("#tgl_pendaftaran").val() == "") {
+        if ($("#tgl_daftar").val() == "") {
             status = false;
-            $("#tgl_pendaftaran").addClass('is-invalid');
-            $("#tgl_pendaftaran_inv").text('Tanggal Pendaftaran masih kosong');
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
         }
 
         if ($("#pos_id").val() == "") {
@@ -245,17 +245,17 @@
         }
     });
 
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    }); 
+
     $("#umur").keyup(function(){
         if ($("#umur").val() != "") {
             $("#umur").removeClass('is-invalid');
             $("#umur_inv").text('');
-        }
-    });
-
-    $("#tgl_pendaftaran").keyup(function(){
-        if ($("#tgl_pendaftaran").val() != "") {
-            $("#tgl_pendaftaran").removeClass('is-invalid');
-            $("#tgl_pendaftaran_inv").text('');
         }
     });
 

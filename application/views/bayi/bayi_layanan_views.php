@@ -323,7 +323,7 @@
                         },
                         ticks: {
                         beginAtZero: true,
-                        stepSize: 50
+                        stepSize: 200
                         }
                     }],
                     xAxes: [{

@@ -85,6 +85,11 @@
                             <input type="number" name="jml_anak_meninggal" id="jml_anak_meninggal" class="form-control " maxlength='2' placeholder="0" value="<?= $jml_anak_meninggal; ?>" required>
                             <div class="invalid-feedback" id="jml_anak_meninggal_inv"></div>
                         </div>
+                        <div class="form-group">
+                            <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                            <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                            <div class="invalid-feedback" id="tgl_daftar_inv"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,6 +236,12 @@
             $("#jml_anak_hidup_inv").text('Jumlah Anak Hidup masih kosong');
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         if ($("#jml_anak_meninggal").val() == "") {
             status = false;
             $("#jml_anak_meninggal").addClass('is-invalid');
@@ -266,6 +277,13 @@
             $("#umur_inv").text('');
         }
     });
+
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    }); 
 
     $("#jml_anak_hidup").keyup(function(){
         if ($("#jml_anak_hidup").val() != "") {

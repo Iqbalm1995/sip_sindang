@@ -264,6 +264,7 @@ class Bumil extends CI_Controller {
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi'),
 		    'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu'),
 		    'keterangan' 			=> set_value('keterangan'),
+		    'tgl_daftar' 			=> set_value('tgl_daftar'),
 		    // 'nama_pic' 				=> set_value('nama_pic'),
 		);
 
@@ -302,7 +303,8 @@ class Bumil extends CI_Controller {
 		    'tgl_lahir_bayi' 		=> set_value('tgl_lahir_bayi', $r_bml->tgl_lahir_bayi),
 		    'jk_bayi' 				=> set_value('jk_bayi', $r_bml->jk_bayi),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bml->tgl_meninggal_bayi),
-		    'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu)
+		    'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu),
+		    'tgl_daftar' 			=> set_value('tgl_daftar', $r_bml->tgl_daftar),
 		);
 
 		$this->load->view('template/header', $head);
@@ -354,7 +356,8 @@ class Bumil extends CI_Controller {
 			'jk_bayi' 				=> set_value('jk_bayi', (!empty($r_bml->jk_bayi) ? $r_bml->jk_bayi : "L" )),
 			'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bml->tgl_meninggal_bayi),
 			'tgl_meninggal_ibu' 	=> set_value('tgl_meninggal_ibu', $r_bml->tgl_meninggal_ibu),
-			'is_risk' 				=> set_value('is_risk', $r_bml->is_risk)
+			'is_risk' 				=> set_value('is_risk', $r_bml->is_risk),
+			'tgl_daftar' 			=> set_value('tgl_daftar', $r_bml->tgl_daftar),
 		);
         
 		$this->load->view('template/header', $head);
@@ -397,6 +400,7 @@ class Bumil extends CI_Controller {
 		$nik 					= $this->input->post('nik');
 		$nama_bapak 			= $this->input->post('nama_bapak');
 		$nama_ibu 				= $this->input->post('nama_ibu');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		// $nama_bayi 				= $this->input->post('nama_bayi');
 		// $tgl_lahir_bayi 		= $this->input->post('tgl_lahir_bayi');
 		// $jk_bayi 				= $this->input->post('jk_bayi');
@@ -424,6 +428,7 @@ class Bumil extends CI_Controller {
 			// 'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
 			// 'keterangan' 				=> $keterangan,
 			'nama_pic' 					=> $nama_pic,
+			'tgl_daftar' 				=> $tgl_daftar,
 		);
 
 		$save = FALSE;
@@ -466,6 +471,8 @@ class Bumil extends CI_Controller {
 		$year_assign 			= $this->input->post('year_assign');
 
 		$status_melahirkan 		= $this->input->post('status_melahirkan');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
+
 		$is_risk 				= ($this->input->post('is_risk') ? 1 : 0 );
 		if ($status_melahirkan) {
 			$nama_bayi 				= $this->input->post('nama_bayi');
@@ -496,6 +503,7 @@ class Bumil extends CI_Controller {
 			'tgl_meninggal_bayi' 		=> $tgl_meninggal_bayi,
 			'tgl_meninggal_ibu' 		=> $tgl_meninggal_ibu,
 			'is_risk' 					=> $is_risk,
+			'tgl_daftar' 				=> $tgl_daftar,
 		);
 
 		if (count($kunjungan_bumil_bln) > 0) {

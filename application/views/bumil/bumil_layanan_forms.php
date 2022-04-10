@@ -80,6 +80,11 @@
                                             <input type="text" name="nama_bapak" id="nama_bapak" class="form-control " placeholder="Isi nama bapak..." value="<?= $nama_bapak; ?>" disabled>
                                             <div class="invalid-feedback" id="nama_bapak_inv"></div>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                            <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                                            <div class="invalid-feedback" id="tgl_daftar_inv"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -517,6 +522,12 @@
 
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         if ($("#pos_id").val() == "") {
             status = false;
             $("#pos_id").addClass('is-invalid');
@@ -551,6 +562,13 @@
         if ($("#jk_bayi").val() != "") {
             $("#jk_bayi").removeClass('is-invalid');
             $("#jk_bayi_inv").text('');
+        }
+    });
+
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
         }
     });
 

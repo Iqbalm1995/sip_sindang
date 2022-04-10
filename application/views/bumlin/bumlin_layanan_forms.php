@@ -73,11 +73,6 @@
                                             <div class="valid-feedback" id="kms_valid"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Tanggal Pendaftaran <span class="text-danger">*</span></label>
-                                            <input type="text" name="tgl_pendaftaran" id="tgl_pendaftaran" class="form-control datepicker" value="<?= $tgl_pendaftaran; ?>" disabled>
-                                            <div class="invalid-feedback" id="tgl_pendaftaran_inv"></div>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Nama Ibu Hamil <span class="text-danger">*</span></label>
                                             <input type="text" name="nama_bumil" id="nama_bumil" class="form-control " placeholder="Isi Nama Ibu Hamil..." value="<?= $nama_bumil; ?>" disabled>
                                             <div class="invalid-feedback" id="nama_bumil_inv"></div>
@@ -92,7 +87,11 @@
                                             <input type="number" name="kel_dawis" id="kel_dawis" class="form-control " maxlength='3' placeholder="Isi Kel dawis..." value="<?= $kel_dawis; ?>" disabled>
                                             <div class="invalid-feedback" id="kel_dawis_inv"></div>
                                         </div>
-                                        
+                                        <div class="form-group">
+                                            <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                            <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                                            <div class="invalid-feedback" id="tgl_daftar_inv"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -854,6 +853,12 @@
             $("#pos_id_inv").text('Posyandu masih belum dipilih');
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         return status
     }
 
@@ -919,6 +924,13 @@
             $("#inpt_ibu_meninggal_inv").text('');
         }
     });
+
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    }); 
 
     $("#pos_id").change(function(){
         if ($("#pos_id").val() != "") {

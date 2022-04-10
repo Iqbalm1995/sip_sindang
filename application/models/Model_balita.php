@@ -171,7 +171,13 @@ class Model_balita extends CI_Model {
 			$this->db->where('bt1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM blt_penimbangan_balita b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_penimbangan_balita.' b2 
+							JOIN '.$this->t_balita.' b ON b2.balita_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_penimbangan_balita.' b1');
 		$this->db->join($this->t_balita.' bt1', 'bt1.id = b1.balita_id');
 		$this->db->where('b1.tahun', $tahun);
@@ -190,7 +196,14 @@ class Model_balita extends CI_Model {
 			$this->db->where('bt1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_balita.' b2 JOIN blt_balita by0 ON by0.id = b2.balita_id WHERE b2.is_kunjungan = 1 AND b2.bulan = b1.bulan AND b2.tahun = "'.$tahun.'" AND by0.deleted = "0") AS total');
+		
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_kunjungan_balita.' b2 
+							JOIN '.$this->t_balita.' b ON b2.balita_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_kunjungan_balita.' b1');
 		$this->db->join($this->t_balita.' by1', 'by1.id = b1.balita_id');
 		$this->db->where('b1.tahun', $tahun);

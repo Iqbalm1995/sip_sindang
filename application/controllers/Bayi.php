@@ -226,7 +226,8 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis3' 	    => set_value('pyd_hepatitis3', $r_bayi->pyd_hepatitis3),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bayi->tgl_meninggal_bayi),
 		    'keterangan' 	        => set_value('keterangan', $r_bayi->keterangan),
-			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk)
+			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk),
+			'tgl_daftar' 			=> set_value('tgl_daftar', $r_bayi->tgl_daftar),
 		);
         
 		$this->load->view('template/header', $head);
@@ -410,6 +411,7 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis3' 	    => set_value('pyd_hepatitis3'),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi'),
 		    'keterangan' 	        => set_value('keterangan'),
+		    'tgl_daftar' 	        => set_value('tgl_daftar'),
 		);
 
 		$this->load->view('template/header', $head);
@@ -470,6 +472,7 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis3' 	    => set_value('pyd_hepatitis3', $r_bayi->pyd_hepatitis3),
 		    'tgl_meninggal_bayi' 	=> set_value('tgl_meninggal_bayi', $r_bayi->tgl_meninggal_bayi),
 		    'keterangan' 	        => set_value('keterangan', $r_bayi->keterangan),
+		    'tgl_daftar' 	        => set_value('tgl_daftar', $r_bayi->tgl_daftar),
 		);
 
 		$this->load->view('template/header', $head);
@@ -520,6 +523,7 @@ class Bayi extends CI_Controller {
 		$jk_bayi 				= $this->input->post('jk_bayi');
 		$bbl 				    = $this->input->post('bbl');
 		$kel_dawis 				= $this->input->post('kel_dawis');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		// $pyd_syrp_besi_fe1 		= ($this->input->post('status_pyd_syrp_besi_fe1') ? $this->input->post('pyd_syrp_besi_fe1') : null );
 		// $pyd_syrp_besi_fe2 		= ($this->input->post('status_pyd_syrp_besi_fe2') ? $this->input->post('pyd_syrp_besi_fe2') : null );
 		// $pyd_vit_a_bln1 		= ($this->input->post('status_pyd_vit_a_bln1') ? $this->input->post('pyd_vit_a_bln1') : null );
@@ -563,6 +567,7 @@ class Bayi extends CI_Controller {
 		    'jk_bayi' 				=> $jk_bayi,
 		    'bbl' 			        => $bbl,
 		    'kel_dawis' 		    => $kel_dawis,
+		    'tgl_daftar' 		    => $tgl_daftar,
 		    // 'pyd_syrp_besi_fe1' 	=> $pyd_syrp_besi_fe1,
 		    // 'pyd_syrp_besi_fe2' 	=> $pyd_syrp_besi_fe2,
 		    // 'pyd_vit_a_bln1' 	    => $pyd_vit_a_bln1,
@@ -651,6 +656,7 @@ class Bayi extends CI_Controller {
 		$id 					= $this->input->post('id');
 		
 		$year_assign 			= $this->input->post('year_assign');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		$pyd_syrp_besi_fe1 		= ($this->input->post('status_pyd_syrp_besi_fe1') ? $this->input->post('pyd_syrp_besi_fe1') : null );
 		$pyd_syrp_besi_fe2 		= ($this->input->post('status_pyd_syrp_besi_fe2') ? $this->input->post('pyd_syrp_besi_fe2') : null );
 		$pyd_vit_a_bln1 		= ($this->input->post('status_pyd_vit_a_bln1') ? $this->input->post('pyd_vit_a_bln1') : null );
@@ -700,7 +706,8 @@ class Bayi extends CI_Controller {
 		    'pyd_hepatitis2' 	    => $pyd_hepatitis2,
 		    'pyd_hepatitis3' 	    => $pyd_hepatitis3,
 		    'tgl_meninggal_bayi' 	=> $tgl_meninggal_bayi,
-			'is_risk' 					=> $is_risk,
+			'is_risk' 				=> $is_risk,
+			'tgl_daftar' 			=> $tgl_daftar,
 		);
 
         if (count($timbangan_bayi_bln) > 0) {

@@ -17,6 +17,7 @@
     <div class="card">
         <form id="form" autocomplete="off" action="<?= $acton_form; ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $id; ?>">
+            <input type="hidden" name="keterangan" value="<?= $keterangan; ?>">
             <input type="hidden" name="save_method" value="<?= $aksi; ?>">
             <div class="card-body">
                 <div class="row">
@@ -99,9 +100,9 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label>Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" class="form-control" style="height: 100px;" placeholder="Isi Keterangan (Opsional)..."><?= ( !empty($keterangan) ? $keterangan : '' ); ?></textarea>
-                                    <div class="invalid-feedback" id="keterangan_inv"></div>
+                                    <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                    <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                                    <div class="invalid-feedback" id="tgl_daftar_inv"></div>
                                 </div>
 
                             </div>
@@ -263,6 +264,12 @@
             $("#nama_anak_inv").text('Nama balita masih kosong');
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         if ($("#tgl_lahir_anak").val() == "") {
             status = false;
             $("#tgl_lahir_anak").addClass('is-invalid');
@@ -306,6 +313,13 @@
         }
     });
 
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    }); 
+    
     $("#tgl_lahir_anak").keyup(function(){
         if ($("#tgl_lahir_anak").val() != "") {
             $("#tgl_lahir_anak").removeClass('is-invalid');
