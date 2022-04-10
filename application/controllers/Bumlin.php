@@ -293,7 +293,7 @@ class Bumlin extends CI_Controller {
 		    'umur' 				    => set_value('umur'),
 		    'tgl_pendaftaran' 	    => set_value('tgl_pendaftaran'),
 		    'kel_dawis' 		    => set_value('kel_dawis'),
-		    // 'nama_pic' 				=> set_value('nama_pic'),
+		    'tgl_daftar' 			=> set_value('tgl_daftar'),
 		);
 
 		$this->load->view('template/header', $head);
@@ -328,7 +328,8 @@ class Bumlin extends CI_Controller {
 		    'nama_bumil' 			=> set_value('nama_bumil', $r_bmn->nama_bumil),
 		    'umur' 				    => set_value('umur', $r_bmn->umur),
 		    'tgl_pendaftaran' 		=> set_value('tgl_pendaftaran', $r_bmn->tgl_pendaftaran),
-		    'kel_dawis' 		    => set_value('kel_dawis', $r_bmn->kel_dawis)
+		    'kel_dawis' 		    => set_value('kel_dawis', $r_bmn->kel_dawis),
+		    'tgl_daftar' 		    => set_value('tgl_daftar', $r_bmn->tgl_daftar),
 		);
 
 		$this->load->view('template/header', $head);
@@ -396,6 +397,7 @@ class Bumlin extends CI_Controller {
 		    'ibu_meninggal' 	    => set_value('ibu_meninggal', $r_bmn->ibu_meninggal),
 		    'ibu_menyusui' 	        => set_value('ibu_menyusui', $r_bmn->ibu_menyusui),
 		    'nama_pic' 	            => set_value('nama_pic', $r_bmn->nama_pic),
+		    'tgl_daftar' 	        => set_value('tgl_daftar', $r_bmn->tgl_daftar),
 		);
         
 		$this->load->view('template/header', $head);
@@ -416,8 +418,9 @@ class Bumlin extends CI_Controller {
 		$kms 					= $this->input->post('kms');
 		$nama_bumil 			= $this->input->post('nama_bumil');
 		$umur 				    = $this->input->post('umur');
-		$tgl_pendaftaran 		= $this->input->post('tgl_pendaftaran');
+		$tgl_pendaftaran 		= $this->input->post('tgl_daftar');
 		$kel_dawis 				= $this->input->post('kel_dawis');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -432,9 +435,10 @@ class Bumlin extends CI_Controller {
 			'kms' 						=> $kms,
 			'nama_bumil' 				=> ucwords($nama_bumil),
 			'umur' 						=> $umur,
-			'tgl_pendaftaran' 			=> $tgl_pendaftaran,
+			'tgl_pendaftaran' 			=> $tgl_daftar,
 			'kel_dawis' 				=> $kel_dawis,
 			'nama_pic' 					=> $nama_pic,
+			'tgl_daftar' 				=> $tgl_daftar,
 		);
 
 		$save = FALSE;
@@ -476,6 +480,8 @@ class Bumlin extends CI_Controller {
 
 		$id 					= $this->input->post('id');
 		$year_assign 			= $this->input->post('year_assign');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
+		$tgl_pendaftaran 		= $this->input->post('tgl_daftar');
 
         $umur_kehamilan 		= $this->input->post('umur_kehamilan');
         $hamil_ke 				= $this->input->post('hamil_ke');
@@ -518,6 +524,8 @@ class Bumlin extends CI_Controller {
 			'pyd_resiko' 			=> $pyd_resiko,
 			'pyd_resiko' 			=> $pyd_resiko,
 			'bayi_jk' 				=> $bayi_jk,
+			'tgl_daftar' 			=> $tgl_daftar,
+			'tgl_pendaftaran' 		=> $tgl_daftar,
 		);
 
 		// kunjungan ---------------------

@@ -155,7 +155,13 @@ class Model_bumil extends CI_Model {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_bumil.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_kunjungan_bumil.' b2 
+							JOIN '.$this->t_bumil.' b ON b2.bumil_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_kunjungan_bumil.' b1');
 		$this->db->join($this->t_bumil.' by1', 'by1.id = b1.bumil_id');
 		$this->db->where('b1.tahun', $tahun);

@@ -147,7 +147,13 @@ class Model_wuspus extends CI_Model {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_wuspus.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_kunjungan_wuspus.' b2 
+							JOIN '.$this->t_wuspus.' b ON b2.wuspus_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_kunjungan_wuspus.' b1');
 		$this->db->join($this->t_wuspus.' by1', 'by1.id = b1.wuspus_id');
 		$this->db->where('b1.tahun', $tahun);

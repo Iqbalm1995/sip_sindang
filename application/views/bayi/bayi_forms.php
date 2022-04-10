@@ -50,6 +50,7 @@
                                 <input type="hidden" name="desa_id" id="desa_id" value="<?= $desa_id; ?>">
                                 <input type="hidden" name="desa_name" id="desa_name" value="<?= $desa_name; ?>">
                                 <input type="hidden" name="year_assign" id="year_assign" value="<?= $year_assign; ?>">
+                                <input type="hidden" name="keterangan" id="keterangan" value="<?= $keterangan; ?>">
                                 <div class="form-group">
                                     <label>Nomor KMS <span class="text-danger">*</span></label>
                                     <input type="text" name="kms" id="kms" class="form-control " maxlength="20" placeholder="Isi nomor kms..." value="<?= $kms; ?>" <?= ( $aksi == 'Ubah' ? 'readonly' : '' ); ?> onkeypress='numberOnly(event)'>
@@ -124,11 +125,10 @@
                                     <input type="text" name="tgl_meninggal_bayi" id="tgl_meninggal_bayi" class="form-control datepicker" value="<?= $tgl_meninggal_bayi; ?>">
                                     <div class="invalid-feedback" id="tgl_meninggal_bayi_inv"></div>
                                 </div>
-                                
                                 <div class="form-group">
-                                    <label>Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" class="form-control" style="height: 100px;" placeholder="Isi Keterangan (Opsional)..."><?= ( !empty($keterangan) ? $keterangan : '' ); ?></textarea>
-                                    <div class="invalid-feedback" id="keterangan_inv"></div>
+                                    <label>Tanggal Daftar (Tahun-Bulan-Tanggal) <span class="text-danger">*</span></label>
+                                    <input type="text" name="tgl_daftar" id="tgl_daftar" class="form-control datepicker" value="<?= $tgl_daftar; ?>" required>
+                                    <div class="invalid-feedback" id="tgl_daftar_inv"></div>
                                 </div>
 
                             </div>
@@ -306,6 +306,12 @@
             $("#nama_bapak_inv").text('Nama bapak masih kosong');
         }
 
+        if ($("#tgl_daftar").val() == "") {
+            status = false;
+            $("#tgl_daftar").addClass('is-invalid');
+            $("#tgl_daftar_inv").text('Tanggal Daftar masih kosong');
+        }
+
         if ($("#nama_bayi").val() == "") {
             status = false;
             $("#nama_bayi").addClass('is-invalid');
@@ -366,6 +372,13 @@
         }
     });
 
+    $("#tgl_daftar").keyup(function(){
+        if ($("#tgl_daftar").val() != "") {
+            $("#tgl_daftar").removeClass('is-invalid');
+            $("#tgl_daftar_inv").text('');
+        }
+    });
+    
     $("#tgl_lahir_bayi").keyup(function(){
         if ($("#tgl_lahir_bayi").val() != "") {
             $("#tgl_lahir_bayi").removeClass('is-invalid');

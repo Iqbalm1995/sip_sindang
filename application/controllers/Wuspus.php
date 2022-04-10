@@ -276,7 +276,7 @@ class Wuspus extends CI_Controller {
 		    'kel_dawis' 		    => set_value('kel_dawis'),
 		    'jml_anak_hidup' 	    => set_value('jml_anak_hidup', 0),
 		    'jml_anak_meninggal' 	=> set_value('jml_anak_meninggal', 0),
-		    // 'nama_pic' 				=> set_value('nama_pic'),
+		    'tgl_daftar' 			=> set_value('tgl_daftar'),
 		);
 
 		$this->load->view('template/header', $head);
@@ -315,6 +315,7 @@ class Wuspus extends CI_Controller {
 		    'kel_dawis' 		    => set_value('kel_dawis', $r_wps->kel_dawis),
 		    'jml_anak_hidup' 	    => set_value('jml_anak_hidup', $r_wps->jml_anak_hidup),
 		    'jml_anak_meninggal' 	=> set_value('jml_anak_meninggal', $r_wps->jml_anak_meninggal),
+		    'tgl_daftar' 			=> set_value('tgl_daftar', $r_wps->tgl_daftar),
 		);
 
 		$this->load->view('template/header', $head);
@@ -374,6 +375,7 @@ class Wuspus extends CI_Controller {
 		    'pyd_imsi1' 	        => set_value('pyd_imsi1', $r_wps->pyd_imsi1),
 		    'pyd_imsi2' 	        => set_value('pyd_imsi2', $r_wps->pyd_imsi2),
 		    'pyd_imsi_lengkap'     	=> set_value('pyd_imsi_lengkap', $r_wps->pyd_imsi_lengkap),
+		    'tgl_daftar'     		=> set_value('tgl_daftar', $r_wps->tgl_daftar),
 		);
         
 		$this->load->view('template/header', $head);
@@ -399,6 +401,7 @@ class Wuspus extends CI_Controller {
 		$kel_dawis 				= $this->input->post('kel_dawis');
 		$jml_anak_hidup 		= $this->input->post('jml_anak_hidup');
 		$jml_anak_meninggal 	= $this->input->post('jml_anak_meninggal');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -418,6 +421,7 @@ class Wuspus extends CI_Controller {
 			'jml_anak_hidup' 			=> $jml_anak_hidup,
 			'jml_anak_meninggal' 		=> $jml_anak_meninggal,
 			'nama_pic' 					=> $nama_pic,
+			'tgl_daftar' 				=> $tgl_daftar,
 		);
 
 		$save = FALSE;
@@ -463,6 +467,7 @@ class Wuspus extends CI_Controller {
         $jml_anak_meninggal 	= $this->input->post('jml_anak_meninggal');
         $umur_anak_meninggal 	= $this->input->post('umur_anak_meninggal');
         $lila 				    = $this->input->post('lila');
+        $tgl_daftar 			= $this->input->post('tgl_daftar');
         
         $pyd_kapsul_yodium 	    = ($this->input->post('status_pyd_kapsul_yodium') ? $this->input->post('pyd_kapsul_yodium') : null );
         $pyd_imsi1 	            = ($this->input->post('status_pyd_imsi1') ? $this->input->post('pyd_imsi1') : null );
@@ -484,6 +489,7 @@ class Wuspus extends CI_Controller {
 			'pyd_imsi1' 		        => $pyd_imsi1,
 			'pyd_imsi2' 		        => $pyd_imsi2,
 			'pyd_imsi_lengkap' 		    => $pyd_imsi_lengkap,
+			'tgl_daftar' 		    	=> $tgl_daftar,
 		);
 
 		// kunjungan ---------------------

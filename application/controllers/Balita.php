@@ -199,7 +199,8 @@ class Balita extends CI_Controller {
 		    'pyd_pmt_pemulihan' 	=> set_value('pyd_pmt_pemulihan', $r_bayi->pyd_pmt_pemulihan),
 		    'pyd_oralit' 	        => set_value('pyd_oralit', $r_bayi->pyd_oralit),
 		    'keterangan' 	        => set_value('keterangan', $r_bayi->keterangan),
-			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk)
+			'is_risk' 				=> set_value('is_risk', $r_bayi->is_risk),
+			'tgl_daftar' 			=> set_value('tgl_daftar', $r_bayi->tgl_daftar),
 		);
         
 		$this->load->view('template/header', $head);
@@ -364,6 +365,7 @@ class Balita extends CI_Controller {
 		    'pyd_pmt_pemulihan' 	=> set_value('pyd_pmt_pemulihan'),
 		    'pyd_oralit' 	        => set_value('pyd_oralit'),
 		    'keterangan' 	        => set_value('keterangan'),
+		    'tgl_daftar' 	        => set_value('tgl_daftar'),
 		);
 
 		$this->load->view('template/header', $head);
@@ -405,6 +407,7 @@ class Balita extends CI_Controller {
 		    'jk_anak' 				=> set_value('jk_anak', $r_balita->jk_anak),
 		    'kel_dawis' 		    => set_value('kel_dawis', $r_balita->kel_dawis),
 		    'keterangan' 	        => set_value('keterangan', $r_balita->keterangan),
+		    'tgl_daftar' 	        => set_value('tgl_daftar', $r_balita->tgl_daftar),
 		);
 
 		$this->load->view('template/header', $head);
@@ -432,6 +435,7 @@ class Balita extends CI_Controller {
 		$jk_anak 				= $this->input->post('jk_anak');
 		$kel_dawis 				= $this->input->post('kel_dawis');
 		$keterangan 			= $this->input->post('keterangan');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
 		$nama_pic 				= $this->session->userdata('nama');
 		$created_by 			= $this->session->userdata('id');
 		$created_on 			= date('Y-m-d H:i:s');
@@ -451,6 +455,7 @@ class Balita extends CI_Controller {
 		    'jk_anak' 				=> $jk_anak,
 		    'kel_dawis' 		    => $kel_dawis,
 		    'keterangan' 	        => $keterangan,
+		    'tgl_daftar' 	        => $tgl_daftar,
 		);
 
 		$save = FALSE;
@@ -490,6 +495,8 @@ class Balita extends CI_Controller {
 		$id 					= $this->input->post('id');
 		
 		$year_assign 			= $this->input->post('year_assign');
+		$tgl_daftar 			= $this->input->post('tgl_daftar');
+
 		$pyd_syrp_besi_fe1 		= ($this->input->post('status_pyd_syrp_besi_fe1') ? $this->input->post('pyd_syrp_besi_fe1') : null );
 		$pyd_syrp_besi_fe2 		= ($this->input->post('status_pyd_syrp_besi_fe2') ? $this->input->post('pyd_syrp_besi_fe2') : null );
 		$pyd_vit_a_bln1 		= ($this->input->post('status_pyd_vit_a_bln1') ? $this->input->post('pyd_vit_a_bln1') : null );
@@ -516,6 +523,7 @@ class Balita extends CI_Controller {
 		    'pyd_pmt_pemulihan' 	=> $pyd_pmt_pemulihan,
 		    'pyd_oralit' 	        => $pyd_oralit,
 			'is_risk' 				=> $is_risk,
+			'tgl_daftar' 			=> $tgl_daftar,
 		);
 
         if (count($timbangan_balita_bln) > 0) {

@@ -201,7 +201,13 @@ class Model_bayi extends CI_Model {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.tinggi_sekarang) FROM byi_penimbangan_bayi b2 WHERE b2.tinggi_sekarang > 0 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_kunjungan_bayi.' b2 
+							JOIN '.$this->t_bayi.' b ON b2.bayi_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_penimbangan_bayi.' b1');
 		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
 		$this->db->where('b1.tahun', $tahun);
@@ -220,7 +226,13 @@ class Model_bayi extends CI_Model {
 			$this->db->where('by1.pos_id', $this->session->userdata('pos_id'));
 		}
         $this->db->select('b1.bulan, b1.tahun');
-		$this->db->select('(SELECT COUNT(b2.id) FROM '.$this->t_kunjungan_bayi.' b2 WHERE b2.is_kunjungan = 1 AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) AND b1.tahun = "'.$tahun.'" ) AS total');
+		$this->db->select('(SELECT COUNT(b2.id) 
+							FROM '.$this->t_kunjungan_bayi.' b2 
+							JOIN '.$this->t_bayi.' b ON b2.bayi_id =  b.id 
+							WHERE b2.is_kunjungan = 1 
+							AND b.deleted = 0
+							AND ( b2.bulan = b1.bulan AND b2.tahun = b1.tahun ) 
+							AND b1.tahun = "'.$tahun.'" ) AS total');
 		$this->db->from($this->t_kunjungan_bayi.' b1');
 		$this->db->join($this->t_bayi.' by1', 'by1.id = b1.bayi_id');
 		$this->db->where('b1.tahun', $tahun);
