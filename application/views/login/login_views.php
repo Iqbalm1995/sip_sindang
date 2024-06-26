@@ -44,8 +44,12 @@
               <div class="card-header"><h4>Login</h4></div>
 
               <div class="card-body">
+                
+                <?= $text_pass = 'P@ssw0rd'; ?>
+                <p><?= password_hash($text_pass, PASSWORD_BCRYPT); ?></p>
+                <p><?= password_verify($text_pass, password_hash($text_pass, PASSWORD_BCRYPT)) ? "OK" : "OAKWOAKWOKAOWKAOW" ; ?></p>
                 <?=(($this->session->flashdata('pesan1')) ? $this->session->flashdata('pesan1') : '') ?>
-                <form method="POST" action="<?= base_url('login/do_login'); ?>" class="needs-validation" novalidate="">
+                <form method="POST" action="<?= base_url(); ?>/login/do_login" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="uname">Username</label>
                     <input id="uname" type="uname" class="form-control" name="uname" tabindex="1" required autofocus>

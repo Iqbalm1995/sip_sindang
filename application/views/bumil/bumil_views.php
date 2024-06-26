@@ -63,7 +63,7 @@
 
     var save_method; //for save method string
     var table;
-    var base_url = '<?php echo base_url();?>';
+    var base_url = '<?=base_url();?>';
 
     var filterSearch = $("#filterSearch").val();
 

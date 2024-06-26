@@ -522,7 +522,6 @@ class Bumlin extends CI_Controller {
 			'ibu_meninggal' 		=> $ibu_meninggal,
 			'ibu_menyusui' 			=> $ibu_menyusui,
 			'pyd_resiko' 			=> $pyd_resiko,
-			'pyd_resiko' 			=> $pyd_resiko,
 			'bayi_jk' 				=> $bayi_jk,
 			'tgl_daftar' 			=> $tgl_daftar,
 			'tgl_pendaftaran' 		=> $tgl_daftar,

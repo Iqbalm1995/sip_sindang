@@ -81,7 +81,7 @@
 </div>
 <script type="text/javascript">
 
-    var base_url = '<?= base_url(); ?>';
+    var base_url = '<?=base_url();?>';
     var save_method = '<?= $aksi; ?>';
 
     // Select2

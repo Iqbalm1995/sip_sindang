@@ -151,7 +151,7 @@
     var mychartTimbanganBalita;
     var myChartPelayananBayi;
     var myChartPelayananBalita;
-    var base_url = '<?php echo base_url();?>';
+    var base_url = '<?=base_url();?>';
     const bulanStr = [];
 
     bulanStr["01"] = "Januari";

@@ -39,7 +39,7 @@
             </div>
             <div class="page-search">
               <div class="mt-3">
-                <a href="<?= base_url(); ?>">Kembali</a>
+                <a href="<?=base_url();?>">Kembali</a>
               </div>
             </div>
           </div>
