@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2024 at 05:26 PM
+-- Generation Time: Jul 08, 2024 at 10:25 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -163,6 +163,28 @@ CREATE TABLE `blt_kunjungan_balita` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blt_penimbangan_balita`
+--
+
+CREATE TABLE `blt_penimbangan_balita` (
+  `id` varchar(80) NOT NULL,
+  `balita_id` varchar(80) NOT NULL,
+  `bulan` varchar(10) NOT NULL,
+  `tahun` varchar(10) NOT NULL,
+  `tinggi_sebelum` double(10,2) NOT NULL DEFAULT 0.00,
+  `berat_sebelum` double(10,2) NOT NULL DEFAULT 0.00,
+  `tinggi_sekarang` double(10,2) NOT NULL DEFAULT 0.00,
+  `berat_sekarang` double(10,2) NOT NULL DEFAULT 0.00,
+  `created_by` varchar(80) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `updated_by` varchar(80) DEFAULT NULL,
+  `updated_on` datetime DEFAULT NULL,
+  `deleted` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `bml_bumil`
 --
 
@@ -191,6 +213,13 @@ CREATE TABLE `bml_bumil` (
   `deleted` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bml_bumil`
+--
+
+INSERT INTO `bml_bumil` (`id`, `pos_id`, `pos_name`, `desa_id`, `desa_name`, `nik`, `nama_bapak`, `nama_ibu`, `nama_bayi`, `tgl_lahir_bayi`, `jk_bayi`, `tgl_meninggal_bayi`, `tgl_meninggal_ibu`, `keterangan`, `is_risk`, `tgl_daftar`, `nama_pic`, `created_by`, `created_on`, `updated_by`, `updated_on`, `deleted`) VALUES
+('810326c0-3483-11ef-9bc9-74563c9f4db6', '8c34feb0-32fa-11ef-a6e6-74563c9f4db6', 'Posyandu Konoha Pusat', '6658d090-32fa-11ef-a6e6-74563c9f4db6', 'Desa Konoha', '123455', 'Dady', 'Momy', 'Son', '2024-06-27', 'L', NULL, NULL, NULL, '0', '2024-06-27', 'Sindang Admin', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:48:07', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -210,6 +239,24 @@ CREATE TABLE `bml_kunjungan_bumil` (
   `updated_on` datetime DEFAULT NULL,
   `deleted` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bml_kunjungan_bumil`
+--
+
+INSERT INTO `bml_kunjungan_bumil` (`id`, `bumil_id`, `bulan`, `tahun`, `is_kunjungan`, `keterangan`, `created_by`, `created_on`, `updated_by`, `updated_on`, `deleted`) VALUES
+('ca5eb92f-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '01', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed138-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '02', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed2d2-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '03', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed3ef-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '04', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed4f8-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '05', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed5f8-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '06', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed6f8-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '07', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed7f8-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '08', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed8f9-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '09', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5ed9fd-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '10', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5edafb-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '11', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0),
+('ca5edbf7-3483-11ef-9bc9-74563c9f4db6', '810326c0-3483-11ef-9bc9-74563c9f4db6', '12', '2024', 1, 'ok', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '0000-00-00 00:00:00', '07fa5ba2-32fa-11ef-a6e6-74563c9f4db6', '2024-06-27 19:50:11', 0);
 
 -- --------------------------------------------------------
 
@@ -309,6 +356,7 @@ CREATE TABLE `byi_penimbangan_bayi` (
 --
 
 CREATE TABLE `const_month` (
+  `id` varchar(80) NOT NULL,
   `label_id` int(5) NOT NULL,
   `name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -317,19 +365,19 @@ CREATE TABLE `const_month` (
 -- Dumping data for table `const_month`
 --
 
-INSERT INTO `const_month` (`label_id`, `name`) VALUES
-(1, 'JANUARI'),
-(2, 'FEBRUARI'),
-(3, 'MARET'),
-(4, 'APRIL'),
-(5, 'MEI'),
-(6, 'JUNI'),
-(7, 'JULI'),
-(8, 'AGUSTUS'),
-(9, 'SEPTEMBER'),
-(10, 'OKTOBER'),
-(11, 'NOVEMBER'),
-(12, 'DESEMBER');
+INSERT INTO `const_month` (`id`, `label_id`, `name`) VALUES
+('20e6a9af-3483-11ef-9bc9-74563c9f4db6', 1, 'JANUARI'),
+('210ec91d-3483-11ef-9bc9-74563c9f4db6', 2, 'FEBRUARI'),
+('211a93de-3483-11ef-9bc9-74563c9f4db6', 3, 'MARET'),
+('2126e1ae-3483-11ef-9bc9-74563c9f4db6', 4, 'APRIL'),
+('21310955-3483-11ef-9bc9-74563c9f4db6', 5, 'MEI'),
+('2137643a-3483-11ef-9bc9-74563c9f4db6', 6, 'JUNI'),
+('213c9d7d-3483-11ef-9bc9-74563c9f4db6', 7, 'JULI'),
+('2159e5d7-3483-11ef-9bc9-74563c9f4db6', 8, 'AGUSTUS'),
+('215ed506-3483-11ef-9bc9-74563c9f4db6', 9, 'SEPTEMBER'),
+('2163ea96-3483-11ef-9bc9-74563c9f4db6', 10, 'OKTOBER'),
+('216900f5-3483-11ef-9bc9-74563c9f4db6', 11, 'NOVEMBER'),
+('216e129e-3483-11ef-9bc9-74563c9f4db6', 12, 'DESEMBER');
 
 -- --------------------------------------------------------
 
@@ -507,6 +555,27 @@ CREATE TABLE `wsp_akseptor_wuspus` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `wsp_kunjungan_wuspus`
+--
+
+CREATE TABLE `wsp_kunjungan_wuspus` (
+  `id` varchar(80) NOT NULL,
+  `wuspus_id` varchar(80) NOT NULL,
+  `bulan` varchar(10) NOT NULL,
+  `tahun` varchar(10) NOT NULL,
+  `is_kunjungan` int(10) NOT NULL DEFAULT 0,
+  `keterangan` text DEFAULT NULL,
+  `wus_pus` varchar(80) DEFAULT NULL,
+  `created_by` varchar(80) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `updated_by` varchar(80) DEFAULT NULL,
+  `updated_on` datetime DEFAULT NULL,
+  `deleted` int(2) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wsp_wuspus`
 --
 
@@ -573,6 +642,12 @@ ALTER TABLE `blt_kunjungan_balita`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `blt_penimbangan_balita`
+--
+ALTER TABLE `blt_penimbangan_balita`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `bml_bumil`
 --
 ALTER TABLE `bml_bumil`
@@ -600,6 +675,12 @@ ALTER TABLE `byi_kunjungan_bayi`
 -- Indexes for table `byi_penimbangan_bayi`
 --
 ALTER TABLE `byi_penimbangan_bayi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `const_month`
+--
+ALTER TABLE `const_month`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -643,6 +724,12 @@ ALTER TABLE `usr_users`
 -- Indexes for table `wsp_akseptor_wuspus`
 --
 ALTER TABLE `wsp_akseptor_wuspus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wsp_kunjungan_wuspus`
+--
+ALTER TABLE `wsp_kunjungan_wuspus`
   ADD PRIMARY KEY (`id`);
 
 --
